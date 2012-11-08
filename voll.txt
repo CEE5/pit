@@ -1,0 +1,20 @@
+// Diese Schaltnetzdatei enthält
+// einen Volladdierer
+
+ARCHITECTURE schaltnetz1 OF Informationstechnik IS
+
+ENTITY
+INPUT s001,s004,s008;
+OUTPUT s003,s007;
+SIGNALS s002,s005,s006,s009,s010;
+CLOCK clk, 1500 MHz;
+
+BEGIN
+g001:xor2(s001,s004,s002);
+g002:xor2(s002,s008,s003);
+g003:and2(s008,s004,s005);
+g004:or2(s005,s009,s006);
+g005:and2(s008,s001,s009);
+g006:or2(s006,s010,s007);
+g007:and2(s004,s001,s010);
+END
