@@ -8,17 +8,34 @@ eine einfache case-Struktur abfragt.
 Für die Umsetzung unter Visual Studio können die folgenden Befehle hilfreich sein:
 system("pause"); pausiert das Programm bis eine beliebige Taste gedrückt wird.
 system("cls"); löscht den Inhalt der Konsole.
+
+Erwünschte Ausgabe:
+******************************************
+*     IT-Projektpraktikum WS2011/2012    *
+*                                        *
+* Laufzeitanalyse synchroner Schaltwerke *
+******************************************
+
+(1) aeussere Faktoren
+Spannung [Volt]: 1.2
+Temperatur [Grad Celsius]: 55
+Prozess (1=slow, 2=typical, 3=fast): 1
+
+(2) Bibliothek
+Pfad zur Bibliotheksdatei: c:\bib.txt
+
+(3) Schaltwerk
+Pfad zur Schaltwerksdatei: c:\csd.txt
+
+(4) Analyse starten
+
+(5) Programm beenden
+
+Waehle einen Menuepunkt und bestaetige mit Enter:
 */
 
 
 #include "Menue.h"
-
-/*Faktoren meineFaktoren = new Faktoren();
-Bibliothek meineBibliothek = new Bibliothek;
-SignalListeErzeuger meinSignalListeErzeuger = new SignalListeErzeuger;
-GraphErzeuger meinGraphErzeuger = new GraphErzeuger;
-LaufzeitAnalysator meinLaufzeitAnalysator = new LaufzeitAnalysator;
-Signal* signale = new Signal;*/
 
 Menue::Menue()
 {
@@ -26,6 +43,13 @@ Menue::Menue()
 ist der Konstruktor der Klasse. Erzeugt die Objekte meineFaktoren, meineBibliothek,
 meinSignalListeErzeuger, meinGraphErzeuger und meinLaufzeitAnalysator.
 */
+
+/*Faktoren meineFaktoren = new Faktoren();
+Bibliothek meineBibliothek = new Bibliothek;
+SignalListeErzeuger meinSignalListeErzeuger = new SignalListeErzeuger;
+GraphErzeuger meinGraphErzeuger = new GraphErzeuger;
+LaufzeitAnalysator meinLaufzeitAnalysator = new LaufzeitAnalysator;
+Signal* signale = new Signal;*/
 }
 
 Menue::~Menue()
