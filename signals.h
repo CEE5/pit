@@ -7,7 +7,7 @@ created by Benibr**/
 #include <string>
 #include <iostream>
 
-enum signalTypen {in, intern, out, unknown};
+enum signalTypen {eingang, intern, ausgang, unbekannt};
 
 using namespace std;
 
@@ -25,7 +25,7 @@ class Signal
         void setQuelle(string gatterName);
         void setQuellentyp(string gatterTyp);
         void setAnzahlZiele(int nZiele);
-
+        void zielHinzufuegen(string gattername, int pos);
     protected:
     private:
         string quelle;
