@@ -2,6 +2,9 @@
 #define BIBLIOTHEK_H
 
 
+#include "GatterTyp.h"
+#include <iostream>
+
 #include <string>
 #include <vector>
 
@@ -15,7 +18,7 @@ public:
     virtual ~Bibliothek();
 
     string getPfad(void);
-//    GatterTyp getBibElement(string);
+    GatterTyp getBibElement(string);
     void dateiAusgabe(void);
     void dateiAuswerten(void);
     bool pfadEinlesen(string pfad);
@@ -23,7 +26,7 @@ public:
 protected:
 private:
     string datei;
-//  vector<GatterTyp*> bibElemente;
+    vector<GatterTyp> bibElemente;
 
     void openError(void);
     void readError(void);
