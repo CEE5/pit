@@ -4,10 +4,12 @@
 
 #include <string>
 #include <vector>
+
+#include <fstream>
+
 using namespace std;
 
-class Bibliothek
-{
+class Bibliothek{
 public:
     Bibliothek();
     virtual ~Bibliothek();
@@ -16,7 +18,7 @@ public:
 //    GatterTyp getBibElement(string);
     void dateiAusgabe(void);
     void dateiAuswerten(void);
-    void pfadEinlesen(void);
+    bool pfadEinlesen(string pfad);
 
 protected:
 private:
