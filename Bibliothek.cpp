@@ -58,10 +58,11 @@ bool Bibliothek::pfadEinlesen(string pfad)
     ifstream f(pfad.c_str());
     if(f.is_open()){
         datei = pfad;
-
+        return true;
     }
     else{
         openError();
+        return false;
     }
 
 
