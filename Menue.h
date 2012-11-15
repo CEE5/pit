@@ -2,6 +2,11 @@
 #define MENUE_H
 
 #include <iostream>
+#include <string>
+#include "Faktoren.h"
+#include "Bibliothek.h"
+#include "cross-compatibility.h"
+
 using namespace std;
 
 class Menue
@@ -18,9 +23,9 @@ class Menue
 
     private:
 
-        /*Faktoren meineFaktoren;
+        Faktoren meineFaktoren;
         Bibliothek meineBibliothek;
-        SignalListeErzeuger meinSignalListeErzeuger;
+        /*SignalListeErzeuger meinSignalListeErzeuger;
         GraphErzeuger meinGraphErzeuger;
         LaufzeitAnalysator meinLaufzeitAnalysator;
         Signal* signale;*/
@@ -35,6 +40,7 @@ class Menue
 
         void menueKopf();
 
+        string input;
 
 };
 

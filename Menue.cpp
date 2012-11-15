@@ -36,6 +36,7 @@ Waehle einen Menuepunkt und bestaetige mit Enter:
 
 
 #include "Menue.h"
+using namespace std;
 
 Menue::Menue()
 {
@@ -44,9 +45,7 @@ ist der Konstruktor der Klasse. Erzeugt die Objekte meineFaktoren, meineBiblioth
 meinSignalListeErzeuger, meinGraphErzeuger und meinLaufzeitAnalysator.
 */
 
-/*Faktoren meineFaktoren = new Faktoren();
-Bibliothek meineBibliothek = new Bibliothek;
-SignalListeErzeuger meinSignalListeErzeuger = new SignalListeErzeuger;
+/*SignalListeErzeuger meinSignalListeErzeuger = new SignalListeErzeuger;
 GraphErzeuger meinGraphErzeuger = new GraphErzeuger;
 LaufzeitAnalysator meinLaufzeitAnalysator = new LaufzeitAnalysator;
 Signal* signale = new Signal;*/
@@ -57,23 +56,6 @@ Menue::~Menue()
 /**
 ist der Destruktor der Klasse.
 */
-    this->menueKopf();
-    /*(1) aeussere Faktoren
-Spannung [Volt]: 1.2
-Temperatur [Grad Celsius]: 55
-Prozess (1=slow, 2=typical, 3=fast): 1
-
-(2) Bibliothek
-Pfad zur Bibliotheksdatei: c:\bib.txt
-
-(3) Schaltwerk
-Pfad zur Schaltwerksdatei: c:\csd.txt
-
-(4) Analyse starten
-
-(5) Programm beenden
-
-Waehle einen Menuepunkt und bestaetige mit Enter:*/
 }
 
 void Menue::start(){
@@ -82,6 +64,29 @@ schreibt das Hauptmenü in die Konsole und startet die Hauptschleife, in der dur
 navigiert wird.
 */
 
+    while(input != "5") {
+        menueKopf();
+
+        /// Faktoren Hauptmenüpunkt
+        cout << "(1) aeussere Faktoren \nSpannung [Volt]: " << meineFaktoren.getSpannung() << endl;
+        cout << "Temperatur [Grad Celsius]: " << meineFaktoren.getTemp() << endl;
+        cout << "Prozess (1=slow, 2=typical, 3=fast): " << meineFaktoren.getProzess() << endl;
+
+        cout << endl;
+
+        /// Bibliothek Hauptmenüpunkt
+        cout << "(2) Bibliothek" << endl;
+        cout << "Pfad zur Bibliotheksdatei:" << meineBibliothek.getPfad() << endl;
+
+        cout << endl;
+
+        /// Schaltwerk Hauptmenüpunkt
+        cout << "(3) Schaltwerk \nPfad zur Schaltwerksdatei: c:\\csd.txt" << endl;
+
+        cout << "\n(4) Analyse starten \n\n(5) Programm beenden\n\nWaehle einen Menuepunkt und bestaetige mit Enter:\n";
+
+        getline(cin, input);
+    }
 }
 
 void Menue::faktorenMenue(){
@@ -119,5 +124,6 @@ void Menue::menueKopf(){
 /**
 Gibt den Kopf der Menüs aus. Dieser bleibt in Hauptmenü und allen Untermenüs gleich.
 */
+    clear_screen();
     cout << " ****************************************** \n *     IT-Projektpraktikum WS2011/2012    * \n *                                        * \n * Laufzeitanalyse synchroner Schaltwerke * \n ******************************************" << endl; //Ausgabe des "Headers"
 }
