@@ -3,14 +3,22 @@
 
 #include <iostream>
 #include <string.h>
+#include <fstream>
+#include <cstring>
 
 using namespace std;
+
+/** SignalListeErzeuger
+Liest die komplette Datei ein, sortiert und erzeugt Liste.
+Kritik von Lukas: sollte laut Name nur Liste erstellen.
+**/
 
 class SignalListeErzeuger
 {
     public:
-        SignalListeErzeuger();
+        SignalListeErzeuger(string file);
         virtual ~SignalListeErzeuger();
+        int readFile();
         long getFrequenz();
         string getDatei();
         short getAnzahlSignale();
