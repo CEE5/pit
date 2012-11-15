@@ -64,6 +64,7 @@ void Menue::start(){
 schreibt das Hauptmenü in die Konsole und startet die Hauptschleife, in der durch das Hauptmenü
 navigiert wird.
 */
+    cout << " ****************************************** \n *     IT-Projektpraktikum WS2011/2012    * \n *                                        * \n * Laufzeitanalyse synchroner Schaltwerke * \n ******************************************" << endl; //Ausgabe des "Headers"
 }
 
 void Menue::faktorenMenue(){
