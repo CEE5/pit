@@ -2,9 +2,12 @@
 #define SIGNALLISTEERZEUGER_H
 
 #include <iostream>
-#include <string.h>
+#include <string>
+#include <sstream>
 #include <fstream>
 #include <cstdlib>
+#include <vector>
+#include "signals.h"
 
 using namespace std;
 
@@ -16,19 +19,22 @@ Kritik von Lukas: sollte laut Name nur Liste erstellen.
 class SignalListeErzeuger
 {
     public:
-        SignalListeErzeuger(string file);
-        virtual ~SignalListeErzeuger();
-        int readFile();
+        SignalListeErzeuger(string file);           ///CTor führt readFile aus
+        virtual ~SignalListeErzeuger();             ///DTor
+        Signal* getSignal(int i);                   ///gibt Instanz an der Stelle i im vector signale zurück
+        int readFile();                             ///Liest Datei ein und für sortierfunktion aus
+        void readLine(signalTypen typ, int lengthBegin, string line);                            ///Liest nach Signaltyp vorsortierte Zeile ein
         long getFrequenz();
         string getDatei();
         short getAnzahlSignale();
         void setFrequenz(long freq);
-        void setDatei(string file);
+        void setDatei(string file);                 ///Liest Datei NICHT ein
         void setAnzahlSignale(short nSigs);
     protected:
     private:
+        vector <Signal> signale;                    ///Vector mit Signal Instanzen
         long frequenz;
-        string datei;
+        string datei;                               ///Pfad zur Schaltnetz Datei
         short anzahlSignale;
 };
 
