@@ -1,9 +1,8 @@
 #include "Bibliothek.h"
-#include <iostream>
 
 Bibliothek::Bibliothek()
 {
-    //ctor
+    vector<GatterTyp> bibElemente;
 }
 
 Bibliothek::~Bibliothek()
@@ -19,10 +18,10 @@ string Bibliothek::getPfad(void)
 /**Dieser Methode wird ein string, des Gattertyps (z.B. inv1a), übergegeben.
 Sie gibt einen Zeiger auf das entsprechende Element vom Typ GatterTyp zurück.
 */
-/*GatterTyp Bibliothek::getBibElement(string)
+GatterTyp Bibliothek::getBibElement(string)
 {
 
-}*/
+}
 
 /**Ausgabe der Datei auf dem Bildschirm, dabei sollen die Zeilen durchnummeriert werden.
 Dabei  soll,  falls  die  Datei  nicht  vorhanden  ist  oder  ein  Fehler  beim  Lesen  auftritt,
@@ -44,10 +43,32 @@ void Bibliothek::dateiAuswerten(void)
     while (!f.eof())
     {
         getline(f,buffer);
-//        if()
-        cout << buffer << endl;
+
+        if(buffer.find("[[Bausteine]]")==0)
+        {
+            while (!f.eof())
+            {
+                getline(f,buffer);
+
+                if(buffer=="\r")
+                {
+                    cout <<"leerzeile gefunden"<<endl;
+                    break;
+                }
+
+                GatterTyp dummy;
+                dummy.setName(buffer);
+
+                bibElemente.push_back(dummy);
+            }
+        }
+
     }
 
+
+    for(int i=0; i<bibElemente.size();i++){
+        cout <<"el "<<i<<" "<< bibElemente[i].getName()<<endl;
+    }
 }
 /**Speichert den Pfad zu Bibliotheksdatei im entsprechenden Attribut,
 falls diese unter dem angegebenen Pfad vorhanden ist und sie geöﬀnet werden kann.
@@ -56,11 +77,13 @@ bool Bibliothek::pfadEinlesen(string pfad)
 {
 
     ifstream f(pfad.c_str());
-    if(f.is_open()){
+    if(f.good())
+    {
         datei = pfad;
         return true;
     }
-    else{
+    else
+    {
         openError();
         return false;
     }
