@@ -36,7 +36,8 @@ int SignalListeErzeuger::readFile() {
                         cout << "DEBUG: Found SIGNALS line!" << endl;
                     }else if ((line.substr(0,5)) == "CLOCK") {
                         cout << "DEBUG: Found CLOCK line!" << endl;
-                        //frequenz = line.substr(11,(line.length()-11));
+                        frequenz = atoi(line.substr(11,(line.length()-11)).data());
+                        cout << "DEBUG: Set clk to: " << frequenz << endl;
                     }else if (line == "\r"){
                         cout << "DEBUG: Found empty line, leave ENTITY area!" << endl;
                         break;
@@ -67,7 +68,9 @@ int SignalListeErzeuger::readFile() {
         }
     } else {
         cout << "ERR: Error opening file!" << endl;
+        return 1;
     }
+    return 0;
 }
 
 long SignalListeErzeuger::getFrequenz(){
