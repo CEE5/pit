@@ -44,8 +44,10 @@ void Bibliothek::dateiAuswerten(void)
     while (!f.eof())
     {
         getline(f,buffer);
+//        if()
         cout << buffer << endl;
     }
+
 }
 /**Speichert den Pfad zu Bibliotheksdatei im entsprechenden Attribut,
 falls diese unter dem angegebenen Pfad vorhanden ist und sie geöﬀnet werden kann.
