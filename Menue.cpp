@@ -38,21 +38,20 @@ Waehle einen Menuepunkt und bestaetige mit Enter:
 #include "Menue.h"
 using namespace std;
 
-Menue::Menue()
-{
+Menue::Menue() {
 /**
 ist der Konstruktor der Klasse. Erzeugt die Objekte meineFaktoren, meineBibliothek,
 meinSignalListeErzeuger, meinGraphErzeuger und meinLaufzeitAnalysator.
 */
-
+        Faktoren meineFaktoren;
+        Bibliothek meineBibliothek;
 /*SignalListeErzeuger meinSignalListeErzeuger = new SignalListeErzeuger;
 GraphErzeuger meinGraphErzeuger = new GraphErzeuger;
 LaufzeitAnalysator meinLaufzeitAnalysator = new LaufzeitAnalysator;
 Signal* signale = new Signal;*/
 }
 
-Menue::~Menue()
-{
+Menue::~Menue() {
 /**
 ist der Destruktor der Klasse.
 */
@@ -85,7 +84,28 @@ navigiert wird.
 
         cout << "\n(4) Analyse starten \n\n(5) Programm beenden\n\nWaehle einen Menuepunkt und bestaetige mit Enter:\n";
 
+        cin.clear();
         getline(cin, input);
+        switch (atoi(input.c_str())) {
+            case 1:
+                faktorenMenue();
+                break;
+            case 2:
+                bibliothekMenue();
+                break;
+            case 3:
+                schaltwerkMenue();
+                break;
+            case 4:
+                analyse();
+                break;
+            case 5:
+                break;
+            default:
+                cout << "Unzulässiger Input (Enter drücken)"; //oder goto für erneuten eingabe versuch, bad practice?
+                cin.get();
+                break;
+        }
     }
 }
 
@@ -95,6 +115,9 @@ Im Untermenü der äußeren Faktoren sollen die Außenbedingungen geändert und 
 renden Faktoren ausgegeben werden können. Dazu wird von der Klasse Faktoren eine Ausgabeme-
 thode bereitgestellt.
 */
+    menueKopf();
+    cout << "Willkommen bei den Faktoren" <<endl;
+    cin.get();
 }
 
 void Menue::bibliothekMenue(){
@@ -103,6 +126,9 @@ void Menue::bibliothekMenue(){
 soll sich zur Kontrolle auch die Datei im Menü anzeigen lassen können. Auch die Klasse Bibliothek
 stellt dazu eine Ausgabemethode bereit.
 */
+    menueKopf();
+    cout << "Willkommen in der Bibliothek" <<endl;
+    cin.get();
 }
 
 void Menue::schaltwerkMenue(){
@@ -112,12 +138,18 @@ trolle soll diese ausgegeben werden können. Außerdem soll eine Liste der Signa
 phstruktur ausgegeben werden können. Zu diesen Ausgaben werden Methoden durch die Klassen
 SignalListeErzeuger und LaufzeitAnalysator bereitgestellt.
 */
+    menueKopf();
+    cout << "Willkommen deim Schaltwerk" <<endl;
+    cin.get();
 }
 
 void Menue::analyse(){
 /**
 ruft die zur Analyse benötigten Methoden auf und gibt das Ergebnis auf dem Bildschirm aus.
 */
+    menueKopf();
+    cout << "Anaaaalyse mit der Lupe und ZOOOOOOOM" <<endl;
+    cin.get();
 }
 
 void Menue::menueKopf(){
@@ -125,5 +157,5 @@ void Menue::menueKopf(){
 Gibt den Kopf der Menüs aus. Dieser bleibt in Hauptmenü und allen Untermenüs gleich.
 */
     clear_screen();
-    cout << " ****************************************** \n *     IT-Projektpraktikum WS2011/2012    * \n *                                        * \n * Laufzeitanalyse synchroner Schaltwerke * \n ******************************************" << endl; //Ausgabe des "Headers"
+    cout << " ****************************************** \n *     IT-Projektpraktikum WS2011/2012    * \n *                                        * \n * Laufzeitanalyse synchroner Schaltwerke * \n ******************************************" << endl << endl; //Ausgabe des "Headers"
 }
