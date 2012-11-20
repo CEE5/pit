@@ -1,0 +1,7 @@
+#Codeblocks file
+bin/
+obj/
+pit.*
+main.cpp
+*.swp
+*~

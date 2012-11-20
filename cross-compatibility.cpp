@@ -1,6 +1,8 @@
 #include <cstdlib>
 #include <iostream>
 
+#define LINUX
+
 void clear_screen() {
 #ifdef WINDOWS
     std::system ( "CLS" );
