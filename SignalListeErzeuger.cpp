@@ -44,11 +44,11 @@ int SignalListeErzeuger::readFile() {
                         readLine(intern,7,line);
                     }else if ((line.substr(0,5)) == "CLOCK") {
                         cout << "INFO: Found CLOCK line!" << endl;
-                        string hr_frquency = line.substr(11,(line.length()-11));                    ///Schneide Frequenz aus
-                        frequenz = atoi(hr_frquency.data());                                        ///Lese Frequenzzahl
-                        if (hr_frquency.find("M")) {                                                ///Multipliziere frequenz
+                        string hr_frequency = line.substr(11,(line.length()-11));                    ///Schneide Frequenz aus
+                        frequenz = atoi(hr_frequency.data());                                        ///Lese Frequenzzahl
+                        if (hr_frequency.substr(hr_frequency.size()-5,1)=="M") {                                                ///Multipliziere frequenz
                             frequenz = frequenz * 1000000;
-                        } else if (hr_frquency.find("k")) {
+                        } else if (hr_frequency.substr(hr_frequency.size()-5,1)=="k") {
                             frequenz = frequenz * 1000;
                         }
                         cout << "INFO: Set clk to:  " << frequenz << endl;
