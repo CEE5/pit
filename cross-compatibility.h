@@ -4,6 +4,7 @@
 #define CLEARSCREEN_H
 
 #include <cstdlib>
+#include <iostream>
 
 void clear_screen();
 
