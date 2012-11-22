@@ -21,7 +21,7 @@ class GatterTyp
         void setGrundLaufzeit(double gl);
         void setLastFaktor(short lf);
         void setLastKapazitaet(short lk);
-        void seteingaenge(short ei);
+        void setEingaenge(short ei);
 
 
     protected:

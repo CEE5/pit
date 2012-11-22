@@ -1,6 +1,8 @@
 #ifndef BIBLIOTHEK_H
 #define BIBLIOTHEK_H
 
+#include <stdio.h>
+#include <stdlib.h>
 
 #include "GatterTyp.h"
 #include <iostream>
