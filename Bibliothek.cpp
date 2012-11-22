@@ -59,23 +59,32 @@ void Bibliothek::dateiAuswerten(void)
                     cout <<"leerzeile gefunden"<<endl;
                     break;
                 }
+
                 //"\r" entfernen
                 buffer.erase(buffer.size()-1);
+
+
+
 
                 if(buffer =="dff")
                 {
                     GatterTyp* dummy= new GatterTyp();
+                    dummy->setName(buffer);
+
+                    bibElemente.push_back(*dummy);
                 }
                 else
                 {
-                    Flipflop* dummy= new Flipflop();
+                    Flipflop* dummy = (new Flipflop());
+
+                    dummy->setName(buffer);
+
+                    bibElemente.push_back(*dummy);
                 }
 
 
 
-                dummy->setName(buffer);
 
-                bibElemente.push_back(*dummy);
             }
         }
         else if(buffer.find("[")==0)
@@ -102,9 +111,24 @@ void Bibliothek::dateiAuswerten(void)
                         buffer.erase(buffer.size()-1);
 
 
+                        //allgemeine Attribute
                         if(buffer.find("ei:")==0)
                         {
                             it->setEingaenge(atoi(buffer.substr(4).c_str()));
+                        }
+
+                        //Attribute für Flipflops
+                        if(it->getIsFlipflop())
+                        {
+
+
+                        Flipflop* ff;
+                        ff = dynamic_cast <Flipflop*>it;
+
+                            if(buffer.find("tsetup:")==0)
+                            {
+                                (dynamic_cast <Flipflop*>it )->setSetupTime(atoi(buffer.substr(7).c_str()));
+                            }
                         }
 
 
@@ -171,3 +195,4 @@ void Bibliothek::readError(void)
 {
 
 }
+

@@ -2,7 +2,7 @@
 #define FLIPFLOP_H
 #include "GatterTyp.h"
 
-class Flipflop : GatterTyp
+class Flipflop : public GatterTyp
 {
     public:
         Flipflop();

@@ -16,7 +16,7 @@ class GatterTyp
         short getLastFaktor(void);
         short getLastKapazitaet(void);
         short getEingaenge(void);
-        bool getIsFlipFlop(void);
+        bool getIsFlipflop(void);
         void setName(string n);
         void setGrundLaufzeit(double gl);
         void setLastFaktor(short lf);

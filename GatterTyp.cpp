@@ -36,9 +36,9 @@ short GatterTyp::getEingaenge(void)
 {
     return eingaenge;
 }
-bool GatterTyp::getIsFlipFlop(void)
+bool GatterTyp::getIsFlipflop(void)
 {
-
+    return false;
 }
 
 void GatterTyp::setGrundLaufzeit(double gl)
