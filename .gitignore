@@ -1,9 +1,9 @@
 #Codeblocks file
 bin/
 obj/
-doc/
-!*.pdf
-!*.tex
+doc/*
+!doc/*.pdf
+!doc/*.tex
 pit.*
 main.cpp
 *.swp
