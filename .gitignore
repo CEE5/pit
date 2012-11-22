@@ -1,6 +1,7 @@
 #Codeblocks file
 bin/
 obj/
+doc/
 pit.*
 main.cpp
 *.swp

@@ -99,12 +99,12 @@ navigiert wird.
             case 4:
                 analyse();
                 break;
-            case 5:
+            /*case 5:
                 break;
             default:
                 cout << "Unzulässiger Input (Enter drücken)"; //oder goto für erneuten eingabe versuch, bad practice?
                 cin.get();
-                break;
+                break;*/
         }
     }
 }
