@@ -2,7 +2,7 @@
 
 Bibliothek::Bibliothek()
 {
-    vector<GatterTyp> bibElemente;
+    vector<GatterTyp*> bibElemente;
 }
 
 Bibliothek::~Bibliothek()
@@ -43,9 +43,13 @@ void Bibliothek::dateiAuswerten(void)
     while (!f.eof())
     {
         getline(f,buffer);
+        //"\r" entfernen
+        buffer.erase(buffer.size()-1);
 
+        //von [[Bausteine]] bis Leerzeile einlesen
         if(buffer.find("[[Bausteine]]")==0)
         {
+
             while (!f.eof())
             {
                 getline(f,buffer);
@@ -55,19 +59,76 @@ void Bibliothek::dateiAuswerten(void)
                     cout <<"leerzeile gefunden"<<endl;
                     break;
                 }
+                //"\r" entfernen
+                buffer.erase(buffer.size()-1);
 
-                GatterTyp dummy;
-                dummy.setName(buffer);
+                GatterTyp* dummy= new GatterTyp();
 
-                bibElemente.push_back(dummy);
+
+                dummy->setName(buffer);
+
+                bibElemente.push_back(*dummy);
             }
         }
+        else if(buffer.find("[")==0)
+        {
 
+            string name = buffer.substr(1,buffer.size()-2);
+            //sucht in bibElemente nach dem im Absatz gefundenen Element
+            for (vector<GatterTyp>::iterator it = bibElemente.begin(); it!=bibElemente.end(); ++it)
+            {
+                if(it->getName()==name)
+                {
+                    cout <<it->getName()<<"=="<<name<<endl;
+
+                    while (!f.eof())
+                    {
+                        getline(f,buffer);
+
+                        if(buffer=="\r")
+                        {
+                            cout <<"leerzeile gefunden"<<endl;
+                            break;
+                        }
+                        //"\r" entfernen
+                        buffer.erase(buffer.size()-1);
+
+
+                        if(buffer.find("ei:")==0){
+                            it->setEingaenge(atoi(buffer.substr(4).c_str()));
+                        }
+                        if(buffer.find("ei:")==0){
+                            it->setEingaenge(atoi(buffer.substr(4).c_str()));
+                        }
+
+
+                    }
+                    break;
+                }
+
+
+                while (!f.eof())
+                {
+                    getline(f,buffer);
+                    if(buffer=="\r")
+                    {
+                        cout <<"leerzeile gefunden"<<endl;
+                        break;
+                    }
+
+                    cout <<"x "<<buffer<<endl;
+
+                }
+                cout <<endl;
+            }
+
+        }
     }
 
 
-    for(int i=0; i<bibElemente.size();i++){
-        cout <<"el "<<i<<" "<< bibElemente[i].getName()<<endl;
+    for (vector<GatterTyp>::iterator it = bibElemente.begin(); it!=bibElemente.end(); ++it)
+    {
+        cout << it->getName() << endl;
     }
 }
 /**Speichert den Pfad zu Bibliotheksdatei im entsprechenden Attribut,

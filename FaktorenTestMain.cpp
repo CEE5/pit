@@ -1,7 +1,7 @@
 // PIT.cpp : Definiert den Einstiegspunkt für die Konsolenanwendung.
 //
 
-#include "stdafx.h"
+//#include "stdafx.h"
 #include "Faktoren.h"
 
 #include <iostream>
@@ -28,7 +28,7 @@ int _tmain(int argc, _TCHAR* argv[]) {
 	cout << test.getSpannung() << endl;
 	cout << test.getTemp() <<endl <<endl;
 
-	cout << test.berechneSpannungFaktor( test.spannung) << endl; 
+	cout << test.berechneSpannungFaktor( test.spannung) << endl;
 	cout << test.berechneTempFaktor( test.temp) << endl;
 	cout << test.berechneProzessFaktor( test.prozess) << endl;
 
