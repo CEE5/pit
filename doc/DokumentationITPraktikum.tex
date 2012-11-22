@@ -1,0 +1,180 @@
+\documentclass[a4paper,10pt,twoside]{report}
+\usepackage[a4paper]{geometry}
+\usepackage{listings}
+\usepackage[latin1]{inputenc} % ISO 8859-1
+\usepackage[ngerman]{babel}
+\usepackage{color}
+\usepackage[pdftex]{graphicx}
+\usepackage{fancyhdr}
+\usepackage{amsmath,amssymb,amsfonts,textcomp}
+\usepackage{hyperref}
+\usepackage[compact]{titlesec} % Kapitelüberschriften
+\usepackage[T1]{fontenc}
+\usepackage{xspace}
+
+
+
+% Dateipfade
+\graphicspath{{pictures/}}
+
+% Eigene Farben
+\definecolor{lightgray}{rgb}{0.95,0.95,0.95}
+\definecolor{codegray}{rgb}{0.8,0.8,0.8}
+\definecolor{darkgray}{rgb}{0.18,0.18,0.18}
+\definecolor{mygreen}{rgb}{0.133,0.545,0.133}
+\definecolor{mypurple}{rgb}{0.627,0.126,0.941}
+
+% PDF Informationen
+\title{Beispieldokumentation zum Projektpraktikum}
+\author{Hier bitte Autor eintragen}
+
+% Seitengestaltung
+\setlength\textheight{25.0cm}
+\setlength\topmargin{-1.3cm}
+\setlength\textwidth{1.1\textwidth}
+% ohne Heftkante
+\setlength\oddsidemargin{0pt}
+\setlength\evensidemargin{0pt}
+% mit Heftkante
+%\setlength\oddsidemargin{+10pt}
+%\setlength\evensidemargin{-10pt}
+\setlength{\headheight}{13pt}
+
+% Kopf- und Fußzeilen
+\pagestyle{fancy}
+\fancypagestyle{plain}{\thispagestyle{fancy}}
+
+\fancyhead{}
+%\fancyheadoffset[LE,RO]{0pt}
+\fancyhead[LO,RE]{\rightmark} % aktuelle Section
+\fancyhead[RO,LE]{\includegraphics[viewport=0 7.5 168 24,scale=0.5]{header}} % Logo here
+
+\fancyfoot{}
+%\fancyfootoffset[LE,RO]{0pt}
+\fancyfoot[LO,RE]{\leftmark} % aktuelle Chapter
+\fancyfoot[LE]{\thepage\hspace{3em}Dokumentation zum IT-Projektpraktikum} %Seitenzahl links
+\fancyfoot[RO]{Dokumentation zum IT-Projektpraktikum\hspace{3em}\thepage} %Seitenzahl recht
+
+% Titel Linie
+\newcommand{\bigrule}{\titlerule[0.5mm]}
+
+% Titel Format
+\titleformat{\chapter}[display]
+{\bfseries\Huge}
+{%
+ \vskip-2em
+ \titlerule
+ \filright
+ \Large\chaptertitlename\
+ \Large\thechapter
+}
+{0mm}
+{\filright}
+[\bigrule]
+
+% Definitionen für Listing
+\lstset{ %
+language=C++,                % choose the language of the code
+numbers=left,                   % where to put the line-numbers
+%numberstyle=\footnotesize,      % the size of the fonts that are used for the line-numbers
+stepnumber=1,                   % the step between two line-numbers. If it's 1 each line will be numbered
+numbersep=5pt,                  % how far the line-numbers are from the code
+backgroundcolor=\color{white},  % choose the background color. You must add \usepackage{color}
+showspaces=false,               % show spaces adding particular underscores
+showstringspaces=false,         % underline spaces within strings
+%showtabs=false,                 % show tabs within strings adding particular underscores
+frame=single,                   % adds a frame around the code
+tabsize=2,                      % sets default tabsize to 2 spaces
+captionpos=t,                   % sets the caption-position to bottom
+breaklines=true,                % sets automatic line breaking
+xleftmargin=3.5pt,
+xrightmargin=3.5pt,
+breakatwhitespace=false,        % sets if automatic breaks should only happen at whitespace
+extendedchars=true,captionpos=t , prebreak=\mbox{$\hookleftarrow$}, belowcaptionskip=0.5em,postbreak={},
+basicstyle=\ttfamily,       % the size of the fonts that are used for the code
+keywordstyle=\color{blue}\bfseries\sffamily,
+commentstyle=\color{mygreen}\slshape,
+stringstyle=\color{mypurple},
+}
+
+\setlength{\parindent}{0pt} % Texteinzug bei neuem Absatz
+
+% Zähler für Ausgabe
+\newcounter{ausgabe}[chapter]
+\renewcommand\theausgabe{\thechapter.\arabic{ausgabe}}
+
+% Programmausgabe, grau hinterlegen
+\newcommand{\ausg}[2]{
+	\stepcounter{ausgabe}
+
+	\vspace{2mm}
+	\begin{minipage}{\textwidth}
+	  \colorbox{codegray}{
+			\begin{minipage}{0.97\textwidth}
+				\textbf{\texttt{#2}}
+			\end{minipage}
+		}
+		\begin{center}
+			Ausgabe \theausgabe: #1
+		\end{center}
+	\end{minipage}
+}
+
+% Schreibt 'Code::Blocks'
+\newcommand{\cb}{\mbox{Code::Blocks}\xspace}
+
+% Schreibt 'Visual Studio'
+\newcommand{\vs}{\mbox{Visual Studio}\xspace}
+
+% TODO - Command
+\newcommand{\TODO}[1]{{\color{red}TODO!! #1}}
+
+% Leerseite ohne Seitennummer, nächste Seite rechts
+\newcommand{\blankpage}{
+ \clearpage{\pagestyle{empty}\cleardoublepage}
+}
+
+
+
+\begin{document}
+%----------------------------
+\begin{titlepage}
+	\begin{flushleft}
+		\begin{picture}(0,0)
+			\put(0,-2){\includegraphics[height=4em]{KIT_Logo.pdf}}
+		\end{picture}
+			\put(140,14){\Large Karlsruher Institut für Technologie}
+			\put(120,0){\large Institut für Technik der Informationsverarbeitung}
+		\begin{picture}(0,0)
+			\put(410,-2){\includegraphics[height=4em]{itiv}}
+		\end{picture}
+	\end{flushleft}
+
+	\begin{center}
+		\vspace{7cm}
+		\addvspace{1.0cm}
+		\Huge {Dokumentation zum Projektpraktikum Informationstechnik}\\
+	\end{center}
+	\vspace{4.0cm}
+	\Large
+
+	\begin{flushleft}
+	\begin{tabular}{ll}
+		Gruppe:& 001\\
+		Gruppenmitglieder:& Erika Mustermann, Max Mustermann\\
+		Tutor:& Felix Mauch\\
+		Abgabetermin:& 24.02.2011\\
+		Semester:& WS2010/2011
+	\end{tabular}
+
+	\vfill
+
+	KIT - Universität des Landes Baden Württemberg und nationales Forschungszentrum in der Helmholtz-Gemeinschaft
+	\end{flushleft}
+\end{titlepage}
+%----------------------------
+\tableofcontents
+
+\include{main.tex}
+
+\end{document}
