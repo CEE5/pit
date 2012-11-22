@@ -1,14 +1,14 @@
 \documentclass[a4paper,10pt,twoside]{report}
 \usepackage[a4paper]{geometry}
 \usepackage{listings}
-\usepackage[latin1]{inputenc} % ISO 8859-1
+\usepackage[utf8]{inputenc} % ISO 8859-1
 \usepackage[ngerman]{babel}
 \usepackage{color}
 \usepackage[pdftex]{graphicx}
 \usepackage{fancyhdr}
 \usepackage{amsmath,amssymb,amsfonts,textcomp}
 \usepackage{hyperref}
-\usepackage[compact]{titlesec} % Kapitelüberschriften
+\usepackage[compact]{titlesec} % KapitelÃœberschriften
 \usepackage[T1]{fontenc}
 \usepackage{xspace}
 
@@ -40,7 +40,7 @@
 %\setlength\evensidemargin{-10pt}
 \setlength{\headheight}{13pt}
 
-% Kopf- und Fußzeilen
+% Kopf- und FuÃƒÂŸzeilen
 \pagestyle{fancy}
 \fancypagestyle{plain}{\thispagestyle{fancy}}
 
@@ -72,7 +72,7 @@
 {\filright}
 [\bigrule]
 
-% Definitionen für Listing
+% Definitionen fÃƒÂ¼r Listing
 \lstset{ %
 language=C++,                % choose the language of the code
 numbers=left,                   % where to put the line-numbers
@@ -99,7 +99,7 @@ stringstyle=\color{mypurple},
 
 \setlength{\parindent}{0pt} % Texteinzug bei neuem Absatz
 
-% Zähler für Ausgabe
+% ZÃƒÂ¤hler fÃƒÂ¼r Ausgabe
 \newcounter{ausgabe}[chapter]
 \renewcommand\theausgabe{\thechapter.\arabic{ausgabe}}
 
@@ -129,7 +129,7 @@ stringstyle=\color{mypurple},
 % TODO - Command
 \newcommand{\TODO}[1]{{\color{red}TODO!! #1}}
 
-% Leerseite ohne Seitennummer, nächste Seite rechts
+% Leerseite ohne Seitennummer, nÃƒÂ¤chste Seite rechts
 \newcommand{\blankpage}{
  \clearpage{\pagestyle{empty}\cleardoublepage}
 }
@@ -143,8 +143,8 @@ stringstyle=\color{mypurple},
 		\begin{picture}(0,0)
 			\put(0,-2){\includegraphics[height=4em]{KIT_Logo.pdf}}
 		\end{picture}
-			\put(140,14){\Large Karlsruher Institut für Technologie}
-			\put(120,0){\large Institut für Technik der Informationsverarbeitung}
+			\put(140,14){\Large Karlsruher Institut fÃƒÂ¼r Technologie}
+			\put(120,0){\large Institut fÃƒÂ¼r Technik der Informationsverarbeitung}
 		\begin{picture}(0,0)
 			\put(410,-2){\includegraphics[height=4em]{itiv}}
 		\end{picture}
@@ -160,21 +160,21 @@ stringstyle=\color{mypurple},
 
 	\begin{flushleft}
 	\begin{tabular}{ll}
-		Gruppe:& 001\\
-		Gruppenmitglieder:& Erika Mustermann, Max Mustermann\\
-		Tutor:& Felix Mauch\\
-		Abgabetermin:& 24.02.2011\\
-		Semester:& WS2010/2011
+		Gruppe:& 064\\
+		Gruppenmitglieder:& Benedikt Braunger, Cornelius Richt, Fabian Schackmar, Lukas Mohrbacher\\
+		Tutor:& Florian Brauchle\\
+		Abgabetermin:& 18.01.2013\\
+		Semester:& WS2011/2012
 	\end{tabular}
 
 	\vfill
 
-	KIT - Universität des Landes Baden Württemberg und nationales Forschungszentrum in der Helmholtz-Gemeinschaft
+	KIT - UniversitÃƒÂ¤t des Landes Baden WÃƒÂ¼rttemberg und nationales Forschungszentrum in der Helmholtz-Gemeinschaft
 	\end{flushleft}
 \end{titlepage}
 %----------------------------
 \tableofcontents
 
-\include{main.tex}
+\include{main}
 
 \end{document}
