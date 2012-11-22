@@ -62,7 +62,15 @@ void Bibliothek::dateiAuswerten(void)
                 //"\r" entfernen
                 buffer.erase(buffer.size()-1);
 
-                GatterTyp* dummy= new GatterTyp();
+                if(buffer =="dff")
+                {
+                    GatterTyp* dummy= new GatterTyp();
+                }
+                else
+                {
+                    Flipflop* dummy= new Flipflop();
+                }
+
 
 
                 dummy->setName(buffer);
@@ -94,12 +102,11 @@ void Bibliothek::dateiAuswerten(void)
                         buffer.erase(buffer.size()-1);
 
 
-                        if(buffer.find("ei:")==0){
+                        if(buffer.find("ei:")==0)
+                        {
                             it->setEingaenge(atoi(buffer.substr(4).c_str()));
                         }
-                        if(buffer.find("ei:")==0){
-                            it->setEingaenge(atoi(buffer.substr(4).c_str()));
-                        }
+
 
 
                     }
