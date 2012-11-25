@@ -8,7 +8,7 @@ bzw. „NULL“ für Strings und signalTyp als unbekannt initialisieren.**/
 Signal::Signal () {
         quelle = "";
         quellenTyp = "";
-        ziele = "";
+        //ziele = ;
         anzahlZiele = 0;
         signalTyp = unbekannt;
 }
@@ -32,7 +32,7 @@ string Signal::getQuellenTyp() {
     return quellenTyp;
 };
 string Signal::getZiel(int pos) {
-    return ziele;
+    return ziele.at(pos);
 };
 
 signalTypen Signal::setSignalTyp(signalTypen sigTyp) {
@@ -51,6 +51,8 @@ void Signal::setAnzahlZiele(int nZiele) {
     anzahlZiele = nZiele;
 };
 
-void Signal::zielHinzufuegen(string gattername, int pos) {
-
+void Signal::zielHinzufuegen(string gatterno) {
+    ziele.push_back(gatterno);
+    setAnzahlZiele(ziele.size());
+    //cout << "DEBUG: read form vect@" << anzahlZiele-1 << ": " << ziele.at(ziele.size()-1) << endl;
 };
