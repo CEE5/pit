@@ -20,6 +20,8 @@ Signal* SignalListeErzeuger::getSignal(int i) {
 int SignalListeErzeuger::readFile() {
     string line;
     ifstream listfile(getDatei().data());
+    Signal* bufferobj = new Signal;
+    signale.push_back( *bufferobj );
     if (listfile.is_open()) {
         //cout << "INFO: file is open" << endl;
         while (!listfile.eof()) {
@@ -51,9 +53,8 @@ int SignalListeErzeuger::readFile() {
                         } else if (hr_frequency.substr(hr_frequency.size()-5,1)=="k") {
                             frequenz = frequenz * 1000;
                         }
-                        Signal* bufferobj = new Signal;
                         bufferobj->setSignalTyp(clk);
-                        signale.push_back( *bufferobj );
+                        signale.at(0) = *bufferobj;
                         //cout << "INFO: Set clk to:  " << frequenz << endl;
                     }else if (line == "\r"){
                         //cout << "INFO: Found empty line, leave ENTITY area!" << endl;

@@ -11,8 +11,9 @@ int main()
     cin >> longcat;
     SignalListeErzeuger* testlist = new SignalListeErzeuger(longcat);
     cout << "Read: " << testlist->getDatei() << endl;
+    cout << "Vector size: " << testlist->getAnzahlSignale() << endl;
     cout << "Vectorcontent:"  << endl;
-    for (int i=0;i<19;i++) {
+    for (int i=0;i<testlist->getAnzahlSignale();i++) {
         cout << "---------------------------------------------\n";
         cout << "Nummer: " << i << endl;
         cout << "Signaltyp: " << testlist->getSignal(i)->getSignalTyp() << endl;
