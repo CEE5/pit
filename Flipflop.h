@@ -11,7 +11,7 @@ class Flipflop : public GatterTyp
         bool getIsFlipflop(void);
         short getSetupTime(void);
         short getHoldTime(void);
-        short getLastKapazitaet(void);
+        short getLastKapazitaetClock(void);
         void setSetupTime(short st);
         void setHoldTime(short ht);
         void setLastKapazitaetClock(short lkc);
@@ -20,7 +20,7 @@ class Flipflop : public GatterTyp
     private:
         short setupTime;
         short  holdTime;
-        short lastKapazitaetclock;
+        short lastKapazitaetClock;
 
 };
 

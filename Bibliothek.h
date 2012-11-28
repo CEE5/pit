@@ -21,7 +21,7 @@ public:
     virtual ~Bibliothek();
 
     string getPfad(void);
-    GatterTyp getBibElement(string);
+    GatterTyp* getBibElement(string);
     void dateiAusgabe(void);
     void dateiAuswerten(void);
     bool pfadEinlesen(string pfad);

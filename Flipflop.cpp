@@ -15,15 +15,21 @@ Flipflop::~Flipflop()
             return true;
         }
         short Flipflop::getSetupTime(void){
+            return setupTime;
         }
         short Flipflop::getHoldTime(void){
-        }
-        short Flipflop::getLastKapazitaet(void){
+            return holdTime;
         }
         void Flipflop::setSetupTime(short st){
+            setupTime=st;
         }
         void Flipflop::setHoldTime(short ht){
+            holdTime = ht;
         }
         void Flipflop::setLastKapazitaetClock(short lkc){
+            lastKapazitaetClock = lkc;
+        }
+        short Flipflop::getLastKapazitaetClock(){
+            return lastKapazitaetClock;
         }
 
