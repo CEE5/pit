@@ -71,7 +71,10 @@ int SignalListeErzeuger::readFile() {
                         cout << "comment" << endl;
                     }else if ((line.substr(0,1)) == "g") {
                         //cout << "INFO: Found GATE line!" << endl;
-                        readGateLine(line);
+                        if (readGateLine(line) == 1 ) {                                          ///Wenn Kurzschluss bereits vorhanden
+                            cout << "ERR: Short curcuit" << endl;0
+                            return 1;
+                        }
                     }else if ((line.substr(0,6)) == "END") {
                         //cout << "INFO: Found END line!" << endl;
                             signalTypen tmpsig;
@@ -97,7 +100,7 @@ int SignalListeErzeuger::readFile() {
     return 0;
 }
 
-void SignalListeErzeuger::readSignalLine(signalTypen typ, int lengthBegin, string tmpLine) {
+int SignalListeErzeuger::readSignalLine(signalTypen typ, int lengthBegin, string tmpLine) {
     string tmpSignal;
     stringstream tmpStream(tmpLine.substr(lengthBegin+1,(tmpLine.length()-(lengthBegin+3))));       ///Erstellt Stream und schneidet Anfang und Ende ab
     while (getline(tmpStream,tmpSignal,',')) {                                                      ///Trennt nach Komma
@@ -112,14 +115,18 @@ void SignalListeErzeuger::readSignalLine(signalTypen typ, int lengthBegin, strin
     }
 }
 
-void SignalListeErzeuger::readGateLine(string tmpLine) {
+int SignalListeErzeuger::readGateLine(string tmpLine) {
     string gateNo, gatetype, tmpSignal;
     gateNo = tmpLine.substr(0,4);                                       ///Schneide Gatenummer heraus
     gatetype = tmpLine.substr(5,tmpLine.find("(")-5);                   ///Schneide Gatetyp abhängig von der Länge heraus
-
     tmpLine = tmpLine.substr(tmpLine.find("(")+1,tmpLine.size()-tmpLine.find("(")-4);           ///Schneide Signale heraus
     string tmpOut = (tmpLine.substr(tmpLine.size()-3,3));                                       ///Schneide Ausgang heraus
-    signale.at(atoi(tmpOut.c_str())).setQuelle(gateNo);                                         ///Setze Quelle für Ausgangssignal
+    if (signale.at(atoi(tmpOut.c_str())).getQuelle().empty()) {                                     ///Prüfe auf Kurzschluss
+        signale.at(atoi(tmpOut.c_str())).setQuelle(gateNo);                                         ///Setze Quelle für Ausgangssignal
+    }
+    else {
+        return 1;
+    }
     signale.at(atoi(tmpOut.c_str())).setQuellentyp(gatetype);                                         ///Setze Quelletyp für Ausgangssignal
     tmpLine = tmpLine.erase(tmpLine.size()-5,5);                                                      ///Schneide Ausgang ab
     stringstream tmpStream(tmpLine);                                                            ///Erstelle String stream
@@ -133,6 +140,7 @@ void SignalListeErzeuger::readGateLine(string tmpLine) {
             signale.at(atoi((tmpSignal.substr(1,3)).c_str())).zielHinzufuegen(gateNo);               ///Füge Ziele zu aktuellem Signal hinzu
         }
     }
+    return 0;
 }
 
 long SignalListeErzeuger::getFrequenz(){

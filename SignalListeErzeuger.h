@@ -23,8 +23,8 @@ class SignalListeErzeuger
         virtual ~SignalListeErzeuger();             ///DTor
         Signal* getSignal(int i);                   ///gibt Instanz an der Stelle i im vector signale zurück
         int readFile();                             ///Liest Datei ein und für sortierfunktion aus
-        void readSignalLine(signalTypen typ, int lengthBegin, string line);                            ///Liest nach Signaltyp vorsortierte Zeile ein
-        void readGateLine(string tmpLine);
+        int readSignalLine(signalTypen typ, int lengthBegin, string line);                            ///Liest nach Signaltyp vorsortierte Zeile ein
+        int readGateLine(string tmpLine);
         long getFrequenz();
         string getDatei();
         short getAnzahlSignale();
