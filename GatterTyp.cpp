@@ -14,7 +14,6 @@ GatterTyp::~GatterTyp()
 void GatterTyp::setName(string n)
 {
     name=n;
-
 }
 
 string GatterTyp::getName(void)
