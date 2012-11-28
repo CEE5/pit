@@ -30,7 +30,7 @@ class SignalListeErzeuger
         short getAnzahlSignale();
         void setFrequenz(long freq);
         void setDatei(string file);                 ///Liest Datei NICHT ein
-        void setAnzahlSignale(short nSigs);
+        void setAnzahlSignale(short nSignals);
     protected:
     private:
         vector <Signal> signale;                    ///Vector mit Signal Instanzen

@@ -6,8 +6,9 @@ created by Benibr**/
 
 #include <string>
 #include <iostream>
+#include <vector>
 
-enum signalTypen {eingang, intern, ausgang, unbekannt};
+enum signalTypen {eingang, intern, ausgang, unbekannt, clk};
 
 using namespace std;
 
@@ -25,12 +26,12 @@ class Signal
         void setQuelle(string gatterName);
         void setQuellentyp(string gatterTyp);
         void setAnzahlZiele(int nZiele);
-        void zielHinzufuegen(string gattername, int pos);
+        void zielHinzufuegen(string gatterno);
     protected:
     private:
         string quelle;
         string quellenTyp;
-        string ziele;
+        vector <string> ziele;
         int anzahlZiele;
         signalTypen signalTyp;
 };
