@@ -227,11 +227,13 @@ void Bibliothek::dateiAuswerten(void)
                         {
                             //Falls Attribut nicht gefunden
                             readError();
+                            DEBUG_METHOD(buffer<<" nicht gefunden"<<endl);
                         }
 
                     }
 
                 }
+
 
 
             }
