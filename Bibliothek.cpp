@@ -46,12 +46,21 @@ das Programm nicht abstürzen, sondern eine Fehlermeldung ausgeben. */
 void Bibliothek::dateiAusgabe(void)
 {
     ifstream f(datei.c_str());
-    int i=0;
+
     string buffer;
-    while (!f.eof())
-    {
-        cout <<i<<": "<<getline(f,buffer);
-        i++;
+
+    int i=0;
+
+    if(f.good()){
+        while (!f.eof())
+        {
+            getline(f,buffer);
+            cout <<i<<": "<<buffer<<endl;
+            i++;
+        }
+    }
+    else{
+        openError();
     }
 
 }
