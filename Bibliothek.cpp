@@ -1,12 +1,7 @@
 #include "Bibliothek.h"
 
-#define DEBUG 1
+#define DEBUG_METHOD(name) std::cout << "DEBUG -->   " << name<<endl;
 
-#ifdef DEBUG
-    #define DEBUG_METHOD(name) std::cout << "DEBUG-->" << name<<endl;
-#else
-    #define DEBUG_METHOD(name) ;
-#endif
 
 
 
@@ -31,13 +26,14 @@ Sie gibt einen Zeiger auf das entsprechende Element vom Typ GatterTyp zurück.
 */
 GatterTyp* Bibliothek::getBibElement(string typ)
 {
-     for (vector<GatterTyp>::iterator it = bibElemente.begin(); it!=bibElemente.end(); ++it)
-            {
-                if(it->getName()==typ){
+    for (vector<GatterTyp>::iterator it = bibElemente.begin(); it!=bibElemente.end(); ++it)
+    {
+        if(it->getName()==typ)
+        {
 
-                    return &(*it);
-                }
-            }
+            return &(*it);
+        }
+    }
 }
 
 /**Ausgabe der Datei auf dem Bildschirm, dabei sollen die Zeilen durchnummeriert werden.
@@ -51,7 +47,8 @@ void Bibliothek::dateiAusgabe(void)
 
     int i=0;
 
-    if(f.good()){
+    if(f.good())
+    {
         while (!f.eof())
         {
             getline(f,buffer);
@@ -59,7 +56,8 @@ void Bibliothek::dateiAusgabe(void)
             i++;
         }
     }
-    else{
+    else
+    {
         openError();
     }
 
@@ -247,7 +245,7 @@ void Bibliothek::dateiAuswerten(void)
 
     for (vector<GatterTyp>::iterator it = bibElemente.begin(); it!=bibElemente.end(); ++it)
     {
-        cout << it->getName() << endl;
+        DEBUG_METHOD("alle gt: "<<it->getName());
     }
 
 
