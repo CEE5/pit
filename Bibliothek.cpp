@@ -1,7 +1,14 @@
 #include "Bibliothek.h"
 
+#define DEBUG 1
 
-#define DEBUG_METHOD(name) std::cout << "DEBUG-->" << name<<endl;
+#ifdef DEBUG
+    #define DEBUG_METHOD(name) std::cout << "DEBUG-->" << name<<endl;
+#else
+    #define DEBUG_METHOD(name) ;
+#endif
+
+
 
 Bibliothek::Bibliothek()
 {
@@ -27,12 +34,10 @@ GatterTyp* Bibliothek::getBibElement(string typ)
      for (vector<GatterTyp>::iterator it = bibElemente.begin(); it!=bibElemente.end(); ++it)
             {
                 if(it->getName()==typ){
-                    GatterTyp* gt = &it;
-                    return gt;
-                    break;
+
+                    return &(*it);
                 }
             }
-
 }
 
 /**Ausgabe der Datei auf dem Bildschirm, dabei sollen die Zeilen durchnummeriert werden.
