@@ -16,12 +16,11 @@
 		name = "";
 		GatterTyp* typ = gTyp;
 		laufzeitEinzelgatter = 0;
-		nachfolgerElemente[5] = {NULL,NULL,NULL,NULL,NULL};
-		/*nachfolgerElemente[0] = NULL; //schöner lösen?
+		nachfolgerElemente[0] = NULL; //schöner lösen?
 		nachfolgerElemente[1] = NULL;
 		nachfolgerElemente[2] = NULL;
 		nachfolgerElemente[3] = NULL;
-		nachfolgerElemente[4] = NULL;*/
+		nachfolgerElemente[4] = NULL;
 		anzahlNachfolger = 0;
 		isEingangsElement = false;
 		isAusgangsElement = false;
