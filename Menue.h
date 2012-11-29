@@ -25,10 +25,13 @@ class Menue
 
         Faktoren meineFaktoren;
         Bibliothek meineBibliothek;
-        /*SignalListeErzeuger meinSignalListeErzeuger;
-        GraphErzeuger meinGraphErzeuger;
+        SignalListeErzeuger meinSignalListeErzeuger;
+
+        /*GraphErzeuger meinGraphErzeuger;
         LaufzeitAnalysator meinLaufzeitAnalysator;
         Signal* signale;*/
+
+
 
         void faktorenMenue();
 

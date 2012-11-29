@@ -49,7 +49,7 @@ Menue::Menue()
     Faktoren meineFaktoren;
     Bibliothek meineBibliothek;
 
-    SignalListeErzeuger meinSignalListeErzeuger();
+
 
  //   GraphErzeuger meinGraphErzeuger = new GraphErzeuger;
 //    LaufzeitAnalysator meinLaufzeitAnalysator = new LaufzeitAnalysator;
