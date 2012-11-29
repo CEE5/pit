@@ -25,5 +25,11 @@ public:
 	~GraphErzeuger();
 	// blabla
 
+<<<<<<< HEAD
 };
 #endif
+=======
+
+
+};
+>>>>>>> 68681fe6caee419110456039070a9abe18ba8944
