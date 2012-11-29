@@ -3,15 +3,15 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <iostream>
+#include <string>
+#include <vector>
+#include <fstream>
+
 
 #include "GatterTyp.h"
 #include "Flipflop.h"
-#include <iostream>
 
-#include <string>
-#include <vector>
-
-#include <fstream>
 
 using namespace std;
 

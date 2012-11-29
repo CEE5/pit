@@ -5,8 +5,13 @@ SignalListeErzeuger::SignalListeErzeuger()
     //ctor
     anzahlSignale = 0;
     frequenz = 0;
+<<<<<<< HEAD
     //setDatei(file);
     //readFile();
+=======
+    /*setDatei(file);
+    readFile();*/ ///Manuell im Menü aufrufen
+>>>>>>> 9a6ad6ee806721bdfecf073150abeed0ef6528d0
 }
 SignalListeErzeuger::~SignalListeErzeuger()
 {
@@ -17,8 +22,13 @@ Signal* SignalListeErzeuger::getSignal(int i) {
     return &signale.at(i) ;
 }
 
+<<<<<<< HEAD
 int SignalListeErzeuger::readFile(string file) {
     setDatei(file);
+=======
+int SignalListeErzeuger::readFile() {
+    signale.clear();
+>>>>>>> 9a6ad6ee806721bdfecf073150abeed0ef6528d0
     string line;
     ifstream listfile(getDatei().data());
     Signal* bufferobj = new Signal;

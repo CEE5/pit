@@ -26,8 +26,10 @@ Sie gibt einen Zeiger auf das entsprechende Element vom Typ GatterTyp zurück.
 */
 GatterTyp* Bibliothek::getBibElement(string typ)
 {
+
     for (vector<GatterTyp>::iterator it = bibElemente.begin(); it!=bibElemente.end(); ++it)
     {
+
         if(it->getName()==typ)
         {
 
@@ -89,7 +91,7 @@ void Bibliothek::dateiAuswerten(void)
                 if(buffer=="\r")
                 {
 
-                    DEBUG_METHOD("Leerzeile gefunden");
+                    DEBUG_METHOD("Blockende gefunden"<<endl);
                     break;
                 }
 
@@ -225,9 +227,12 @@ void Bibliothek::dateiAuswerten(void)
 
                         else
                         {
-                            //Falls Attribut nicht gefunden
-                            readError();
-                            DEBUG_METHOD(buffer<<" nicht gefunden"<<endl);
+                            if(buffer.find("#endf")!=0){
+                                //Falls Attribut nicht gefunden
+                                readError();
+                                DEBUG_METHOD(buffer<<" nicht gefunden"<<endl);
+                            }
+                            else break;
                         }
 
                     }
@@ -262,11 +267,12 @@ bool Bibliothek::pfadEinlesen(string pfad)
     if(f.good())
     {
         datei = pfad;
+        bibElemente.clear();
         return true;
     }
     else
     {
-        openError();
+        //openError();
         return false;
     }
 
@@ -285,4 +291,3 @@ void Bibliothek::readError(void)
     cerr <<"READ ERROR"<<endl;
 
 }
-
