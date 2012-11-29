@@ -5,6 +5,5 @@ doc/*
 !doc/*.pdf
 !doc/*.tex
 pit.*
-main.cpp
 *.swp
 *~
