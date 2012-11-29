@@ -2,10 +2,12 @@
 //
 // Geruest
 
-#include "stdafx.h"
+//#include "stdafx.h"
+#include <iostream>
 #include "SchaltwerkElement.h"
 #include "ListenElement.h"
 #include "Bibliothek.h"
+#include "signals.h"
 
 #ifndef _GraphErzeuger_
 #define _GraphErzeuger_
@@ -24,3 +26,4 @@ public:
 	// blabla
 
 };
+#endif

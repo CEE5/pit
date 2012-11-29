@@ -9,7 +9,7 @@ int main()
     string longcat;
     cout << "File name:";
     cin >> longcat;
-    SignalListeErzeuger* testlist = new SignalListeErzeuger(longcat);
+    SignalListeErzeuger* testlist = new SignalListeErzeuger();
     cout << "Read: " << testlist->getDatei() << endl;
     cout << "Vector size: " << testlist->getAnzahlSignale() << endl;
     cout << "Vectorcontent:"  << endl;

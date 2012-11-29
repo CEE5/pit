@@ -11,7 +11,7 @@ class LaufzeitAnalysator
 private:
 
     Faktoren* faktoren;
-    long frequenz,
+    long frequenz;
     string uebergangspfad;
     string ausgangspfad;
     double laufzeitUebergangspfad;
@@ -19,10 +19,10 @@ private:
     struct
     {
         SchaltwerkElement* VaterElement;
-        double PfadLaufzeit
+        double PfadLaufzeit;
     } DFS_Daten;
 
-    map< SchaltwerkElement* , DFS_Daten > DFS_Zwischenspeicher;
+    map < SchaltwerkElement* , DFS_Daten > DFS_Zwischenspeicher;
 
 
 

@@ -199,6 +199,8 @@ void Menue::schaltwerkMenue()
             cin >>pf;
             meinSignalListeErzeuger.setDatei(pf);
             meinSignalListeErzeuger.readFile();
+            cin.ignore();
+            cin.get();
             break;
         case 2:
             cout << "Ausgabe der \"puren\" Datei..." << endl;
