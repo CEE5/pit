@@ -48,6 +48,7 @@ Menue::Menue()
     */
     Faktoren meineFaktoren;
     Bibliothek meineBibliothek;
+    SignalListeErzeuger meinSignalListeErzeuger;
 
 
 
@@ -70,8 +71,7 @@ void Menue::start()
     navigiert wird.
     */
 
-    while(input != "5")
-    {
+    while(input != "5") {
         menueKopf();
 
         /// Faktoren Hauptmenüpunkt
@@ -88,11 +88,11 @@ void Menue::start()
         cout << endl;
 
         /// Schaltwerk Hauptmenüpunkt
-        cout << "(3) Schaltwerk \nPfad zur Schaltwerksdatei:" << endl;
+        cout << "(3) Schaltwerk \nPfad zur Schaltwerksdatei: " << meinSignalListeErzeuger.getDatei() << endl;
 
-        cout << "\n(4) Analyse starten \n\n(5) Programm beenden\n\nWaehle einen Menuepunkt und bestaetige mit Enter:\n";
+        cout << "\n(4) Analyse starten \n\n(5) Programm beenden\n\nWaehle einen Menuepunkt und bestaetige mit Enter: ";
 
-        cin.clear();
+
         getline(cin, input);
         switch (atoi(input.c_str()))
         {
@@ -108,12 +108,6 @@ void Menue::start()
         case 4:
             analyse();
             break;
-            /*case 5:
-                break;
-            default:
-                cout << "Unzulässiger Input (Enter drücken)"; //oder goto für erneuten eingabe versuch, bad practice?
-                cin.get();
-                break;*/
         }
     }
 }
@@ -125,9 +119,23 @@ void Menue::faktorenMenue()
     renden Faktoren ausgegeben werden können. Dazu wird von der Klasse Faktoren eine Ausgabeme-
     thode bereitgestellt.
     */
-    menueKopf();
-    cout << "Willkommen bei den Faktoren" <<endl;
-    cin.get();
+    while(input != "5") {
+        menueKopf();
+       cout << "Untermenue Aeussere Faktoren" << endl;
+       cout << "(1) Spannung [Volt]: 1.2" << endl;
+       cout << "(2) Temperatur [Grad Celsius]: 55" << endl;
+       cout << "(3) Prozess (1=slow, 2=typical, 3=fast): 1" << endl;
+       cout << "(4) Ausgabe errechneter Faktoren" << endl;
+       cout << "(5) Hauptmenue" << endl << endl;
+       cout << "Waehle einen Menuepunkt und bestaetige mit Enter: ";
+
+        getline(cin, input);
+        switch (atoi(input.c_str())) {
+        case 1:
+            break;
+        }
+    }
+    input.clear();
 }
 
 void Menue::bibliothekMenue()
@@ -137,19 +145,33 @@ void Menue::bibliothekMenue()
     soll sich zur Kontrolle auch die Datei im Menü anzeigen lassen können. Auch die Klasse Bibliothek
     stellt dazu eine Ausgabemethode bereit.
     */
-    menueKopf();
-    cout << "Willkommen in der Bibliothek" <<endl;
-    cout <<"Pfad eingeben:"<<endl;
+
     string pf;
-    cin >> pf;
-    if(meineBibliothek.pfadEinlesen(pf)){
-        meineBibliothek.dateiAusgabe();
+    while(input != "3") {
+        menueKopf();
+        cout << "Untermenue Bibliothek" <<endl;
+        cout << "(1) Pfad zur Bibliotheksdatei: " << meineBibliothek.getPfad() <<endl;
+        cout << "(2) Ausgabe der Bibliotheksdatei" << endl;
+        cout << "(3) Hauptmenue" << endl<< endl;
+        cout << "Waehle einen Menuepunkt und bestaetige mit Enter: ";
+
+        getline(cin, input);
+        switch (atoi(input.c_str())) {
+        case 1:
+            cout <<"Pfad eingeben: ";
+            cin >> pf;
+            if(!meineBibliothek.pfadEinlesen(pf)){
+                cout << "Fehler beim einlesen!" << endl;
+                cin.get();
+            }
+            break;
+        case 2:
+            meineBibliothek.dateiAusgabe();
+            cin.get();
+            break;
+        }
     }
-    else{
-        cerr <<"OPEN ERROR"<<endl;
-    }
-cin.ignore();
-cin.get();
+    input.clear();
 }
 
 void Menue::schaltwerkMenue()
@@ -160,27 +182,66 @@ void Menue::schaltwerkMenue()
     phstruktur ausgegeben werden können. Zu diesen Ausgaben werden Methoden durch die Klassen
     SignalListeErzeuger und LaufzeitAnalysator bereitgestellt.
     */
-    menueKopf();
-    cout << "Willkommen deim Schaltwerk" <<endl;
-    string pf;
-    cin >>pf;
-    meinSignalListeErzeuger(pf);
+    while(input != "5") {
+        string pf;
+        menueKopf();
+        cout << "Untermenue Schaltwerk" << endl;
+        cout << "(1) Pfad zur Schaltnetzdatei: " << meinSignalListeErzeuger.getDatei() << endl;
+        cout << "(2) Ausgabe der Schaltnetzdatei" << endl;
+        cout << "(3) Ausgabe der Signale" << endl;
+        cout << "(4) Ausgabe der Graphstruktur" << endl;
+        cout << "(5) Hauptmenue\n\nWaehle einen Menuepunkt und bestaetige mit Enter: ";
 
-
-
-    cin.ignore();
-    cin.get();
-
+        getline(cin, input);
+        switch (atoi(input.c_str())) {
+        case 1:
+            cout << "Pfad eingeben: ";
+            cin >>pf;
+            meinSignalListeErzeuger.setDatei(pf);
+            meinSignalListeErzeuger.readFile();
+            break;
+        case 2:
+            cout << "Ausgabe der \"puren\" Datei..." << endl;
+            break;
+        case 3:
+            cout << "Vector size: " << meinSignalListeErzeuger.getAnzahlSignale() << endl;
+            cout << "Vectorcontent:"  << endl;
+            for (int i=0;i<meinSignalListeErzeuger.getAnzahlSignale();i++) {
+                cout << "---------------------------------------------\n";
+                cout << "Nummer: " << i << endl;
+                cout << "Signaltyp: " << meinSignalListeErzeuger.getSignal(i)->getSignalTyp() << endl;
+                cout << "Quelle: " << meinSignalListeErzeuger.getSignal(i)->getQuelle() << endl;
+                cout << "Quellentyp: " << meinSignalListeErzeuger.getSignal(i)->getQuellenTyp() << endl;
+                cout << "Anzahlziele: " << meinSignalListeErzeuger.getSignal(i)->getAnzahlZiele() << endl;
+                for (int i1=0;i1<meinSignalListeErzeuger.getSignal(i)->getAnzahlZiele();i1++) {
+                    cout << "-----" << meinSignalListeErzeuger.getSignal(i)->getZiel(i1) <<endl;
+                }
+            }
+            cin.get();
+            break;
+        case 4:
+            cout << "Ausgabe der Graphstruktur" << endl;
+            break;
+        }
     }
+    input.clear();
+}
 
 void Menue::analyse()
 {
     /**
     ruft die zur Analyse benötigten Methoden auf und gibt das Ergebnis auf dem Bildschirm aus.
     */
-    menueKopf();
-    cout << "Anaaaalyse mit der Lupe und ZOOOOOOOM" <<endl;
-    cin.get();
+    while(input != "5") {
+        menueKopf();
+
+        getline(cin, input);
+        switch (atoi(input.c_str())) {
+        case 1:
+            break;
+        }
+    }
+    input.clear();
 }
 
 void Menue::menueKopf()

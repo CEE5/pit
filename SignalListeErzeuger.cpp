@@ -1,12 +1,12 @@
 #include "SignalListeErzeuger.h"
 
-SignalListeErzeuger::SignalListeErzeuger(string file)
+SignalListeErzeuger::SignalListeErzeuger()
 {
     //ctor
     anzahlSignale = 0;
     frequenz = 0;
-    setDatei(file);
-    readFile();
+    /*setDatei(file);
+    readFile();*/ ///Manuell im Menü aufrufen
 }
 SignalListeErzeuger::~SignalListeErzeuger()
 {
@@ -18,6 +18,7 @@ Signal* SignalListeErzeuger::getSignal(int i) {
 }
 
 int SignalListeErzeuger::readFile() {
+    signale.clear();
     string line;
     ifstream listfile(getDatei().data());
     Signal* bufferobj = new Signal;
