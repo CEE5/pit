@@ -1,3 +1,7 @@
+#include "Menue.h"
+
+
+
 /**
 Menue Klasse
 zuständig für Ein/Ausgabe und Navigation durch das Programm
@@ -35,7 +39,6 @@ Waehle einen Menuepunkt und bestaetige mit Enter:
 */
 
 
-#include "Menue.h"
 
 Menue::Menue()
 {
@@ -46,6 +49,7 @@ Menue::Menue()
     Faktoren meineFaktoren;
     Bibliothek meineBibliothek;
 
+    SignalListeErzeuger meinSignalListeErzeuger();
 
  //   GraphErzeuger meinGraphErzeuger = new GraphErzeuger;
 //    LaufzeitAnalysator meinLaufzeitAnalysator = new LaufzeitAnalysator;
@@ -138,13 +142,14 @@ void Menue::bibliothekMenue()
     cout <<"Pfad eingeben:"<<endl;
     string pf;
     cin >> pf;
-    meineBibliothek.pfadEinlesen(pf);
-    cout <<endl;
-    meineBibliothek.dateiAusgabe();
-
-    string bla;
-    cin>>bla;
-
+    if(meineBibliothek.pfadEinlesen(pf)){
+        meineBibliothek.dateiAusgabe();
+    }
+    else{
+        cerr <<"OPEN ERROR"<<endl;
+    }
+cin.ignore();
+cin.get();
 }
 
 void Menue::schaltwerkMenue()
@@ -159,8 +164,12 @@ void Menue::schaltwerkMenue()
     cout << "Willkommen deim Schaltwerk" <<endl;
     string pf;
     cin >>pf;
-    SignalListeErzeuger meinSignalListeErzeuger(pf);
-    cin >>pf;
+    meinSignalListeErzeuger(pf);
+
+
+
+    cin.ignore();
+    cin.get();
 
     }
 

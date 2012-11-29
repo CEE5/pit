@@ -267,11 +267,12 @@ bool Bibliothek::pfadEinlesen(string pfad)
     if(f.good())
     {
         datei = pfad;
+        bibElemente.clear();
         return true;
     }
     else
     {
-        openError();
+        //openError();
         return false;
     }
 
