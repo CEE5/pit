@@ -11,3 +11,11 @@ void clear_screen();
 #endif
 
 
+
+
+
+#if defined _WIN32 || defined _WIN64
+    #define linuxzusatz 0
+#else
+    #define linuxzusatz 1
+#endif

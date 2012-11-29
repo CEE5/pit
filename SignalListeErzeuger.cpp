@@ -103,7 +103,7 @@ int SignalListeErzeuger::readFile() {
 
 int SignalListeErzeuger::readSignalLine(signalTypen typ, int lengthBegin, string tmpLine) {
     string tmpSignal;
-    stringstream tmpStream(tmpLine.substr(lengthBegin+1,(tmpLine.length()-(lengthBegin+2))));       ///Erstellt Stream und schneidet Anfang und Ende ab     //!!!!! noch 1 dazu addieren bei lenghtbegin fuer linux
+    stringstream tmpStream(tmpLine.substr(lengthBegin+1,(tmpLine.length()-(lengthBegin+2+linuxzusatz))));       ///Erstellt Stream und schneidet Anfang und Ende ab
     while (getline(tmpStream,tmpSignal,',')) {                                                      ///Trennt nach Komma
         cout << "INFO: Aktuelles Signal: " << tmpSignal << endl;
         unsigned int tmpSignalNo = atoi(tmpSignal.substr(1,3).c_str());                                       ///Lese Nummer von aktuellem Signal
@@ -120,8 +120,8 @@ int SignalListeErzeuger::readGateLine(string tmpLine) {
     string gateNo, gatetype, tmpSignal;
     gateNo = tmpLine.substr(0,4);                                       ///Schneide Gatenummer heraus
     gatetype = tmpLine.substr(5,tmpLine.find("(")-5);                   ///Schneide Gatetyp abhängig von der Länge heraus
-    tmpLine = tmpLine.substr(tmpLine.find("(")+1,tmpLine.size()-tmpLine.find("(")-3);           ///Schneide Signale heraus   //  !!! ,tmpLine.size()-tmpLine.find("(")-3);   orig -4
-    string tmpOut = (tmpLine.substr(tmpLine.size()-2,3));                                       ///Schneide Ausgang heraus      // !!!! Line.size()-2,3)); orig -3
+    tmpLine = tmpLine.substr(tmpLine.find("(")+1,tmpLine.size()-tmpLine.find("(")-3-linuxzusatz);           ///Schneide Signale heraus
+    string tmpOut = (tmpLine.substr(tmpLine.size()-2-linuxzusatz,3));                                       ///Schneide Ausgang heraus
     if (signale.at(atoi(tmpOut.c_str())).getQuelle().empty()) {                                     ///Prüfe auf Kurzschluss
         signale.at(atoi(tmpOut.c_str())).setQuelle(gateNo);                                         ///Setze Quelle für Ausgangssignal
     }

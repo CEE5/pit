@@ -16,11 +16,11 @@ private:
     string ausgangspfad;
     double laufzeitUebergangspfad;
     double laufzeitAusgangspfad;
-    struct
+    struct DFS_Daten
     {
         SchaltwerkElement* VaterElement;
         double PfadLaufzeit;
-    } DFS_Daten;
+    };
 
     map < SchaltwerkElement* , DFS_Daten > DFS_Zwischenspeicher;
 

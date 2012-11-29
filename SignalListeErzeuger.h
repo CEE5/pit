@@ -8,6 +8,7 @@
 #include <cstdlib>
 #include <vector>
 #include "signals.h"
+#include "cross-compatibility.h"
 
 using namespace std;
 
