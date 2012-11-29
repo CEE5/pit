@@ -7,6 +7,9 @@
 #define _LAUFZEITANALYSATOR_
 
 #include <map>
+#include "ListenElement.h"
+#include "Faktoren.h"
+
 
 class LaufzeitAnalysator {
   private:
