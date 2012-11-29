@@ -72,7 +72,7 @@ int SignalListeErzeuger::readFile() {
                     }else if ((line.substr(0,1)) == "g") {
                         //cout << "INFO: Found GATE line!" << endl;
                         if (readGateLine(line) == 1 ) {                                          ///Wenn Kurzschluss bereits vorhanden
-                            cout << "ERR: Short curcuit" << endl;0
+                            cout << "ERR: Short curcuit" << endl;
                             return 1;
                         }
                     }else if ((line.substr(0,6)) == "END") {

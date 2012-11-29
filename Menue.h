@@ -1,6 +1,6 @@
 #ifndef MENUE_H
 #define MENUE_H
-
+#include "SignalListeErzeuger.h"
 #include <iostream>
 #include <string>
 #include "Faktoren.h"

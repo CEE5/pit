@@ -290,4 +290,3 @@ void Bibliothek::readError(void)
     cerr <<"READ ERROR"<<endl;
 
 }
-
