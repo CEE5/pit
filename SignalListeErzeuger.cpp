@@ -1,12 +1,12 @@
 #include "SignalListeErzeuger.h"
 
-SignalListeErzeuger::SignalListeErzeuger(string file)
+SignalListeErzeuger::SignalListeErzeuger()
 {
     //ctor
     anzahlSignale = 0;
     frequenz = 0;
-    setDatei(file);
-    readFile();
+    //setDatei(file);
+    //readFile();
 }
 SignalListeErzeuger::~SignalListeErzeuger()
 {
@@ -17,7 +17,8 @@ Signal* SignalListeErzeuger::getSignal(int i) {
     return &signale.at(i) ;
 }
 
-int SignalListeErzeuger::readFile() {
+int SignalListeErzeuger::readFile(string file) {
+    setDatei(file);
     string line;
     ifstream listfile(getDatei().data());
     Signal* bufferobj = new Signal;
@@ -72,7 +73,7 @@ int SignalListeErzeuger::readFile() {
                     }else if ((line.substr(0,1)) == "g") {
                         //cout << "INFO: Found GATE line!" << endl;
                         if (readGateLine(line) == 1 ) {                                          ///Wenn Kurzschluss bereits vorhanden
-                            cout << "ERR: Short curcuit" << endl;0
+                            cout << "ERR: Short curcuit" << endl;
                             return 1;
                         }
                     }else if ((line.substr(0,6)) == "END") {
