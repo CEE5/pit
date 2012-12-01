@@ -223,6 +223,23 @@ void Menue::schaltwerkMenue()
             break;
         case 4:
             cout << "Ausgabe der Graphstruktur" << endl;
+
+            //test grapherzeuger
+
+            GraphErzeuger gez;
+            cout << "set bib"<<endl;
+            gez.setBibliothek(meineBibliothek);
+            cout << "erzeuge grapherzeuger"<<endl;
+            gez.graphErzeugen(meinSignalListeErzeuger);
+            cout << "grapherzeuger erzeugt"<<endl;
+            gez.listenAusgabe( );
+            cout << "liste ausgegeben"<<endl;
+            cin.ignore();
+            cin.get();
+
+
+            //
+
             break;
         }
     }
