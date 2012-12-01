@@ -24,29 +24,29 @@ int SignalListeErzeuger::readFile() {
     Signal* bufferobj = new Signal;
     signale.push_back( *bufferobj );
     if (listfile.is_open()) {
-        cout << "INFO: file is open" << endl;
+        //cout << "INFO: file is open" << endl;
         while (!listfile.eof()) {
             getline(listfile,line);
             if (((line.substr(0,2)) == "//") or (line == "\r") or (line == "")) {
-                cout << "INFO: drop, comment or empty line" << endl;
+                //cout << "INFO: drop, comment or empty line" << endl;
             }else if ((line.substr(0,12)) == "ARCHITECTURE") {
-                cout << "INFO: drop, ARCHITECTURE shit" << endl;
+                //cout << "INFO: drop, ARCHITECTURE shit" << endl;
             }else if ((line.substr(0,6)) == "ENTITY") {
                 while (1) {
                     getline(listfile,line);
                     if ((line.substr(0,2)) == "//") {
-                        cout << "INFO: drop, comment or empty line" << endl;
+                        //cout << "INFO: drop, comment or empty line" << endl;
                     }else if ((line.substr(0,5)) == "INPUT") {
-                        cout << "INFO: Found INPUT line!" << endl;
+                        //cout << "INFO: Found INPUT line!" << endl;
                         readSignalLine(eingang,5,line);
                     }else if ((line.substr(0,6)) == "OUTPUT") {
-                        cout << "INFO: Found OUTPUT line!" << endl;
+                        //cout << "INFO: Found OUTPUT line!" << endl;
                         readSignalLine(ausgang,6,line);
                     }else if ((line.substr(0,7)) == "SIGNALS") {
-                        cout << "INFO: Found SIGNALS line!" << endl;
+                        //cout << "INFO: Found SIGNALS line!" << endl;
                         readSignalLine(intern,7,line);
                     }else if ((line.substr(0,5)) == "CLOCK") {
-                        cout << "INFO: Found CLOCK line!" << endl;
+                        //cout << "INFO: Found CLOCK line!" << endl;
                         string hr_frequency = line.substr(11,(line.length()-11));                    ///Schneide Frequenz aus
                         frequenz = atoi(hr_frequency.data());                                        ///Lese Frequenzzahl
                         if (hr_frequency.substr(hr_frequency.size()-5,1)=="M") {                                                ///Multipliziere frequenz
@@ -56,12 +56,12 @@ int SignalListeErzeuger::readFile() {
                         }
                         bufferobj->setSignalTyp(clk);
                         signale.at(0) = *bufferobj;
-                        cout << "INFO: Set clk to:  " << frequenz << endl;
+                        //cout << "INFO: Set clk to:  " << frequenz << endl;
                     }else if (line == "\r" or (line == "")){
-                        cout << "INFO: Found empty line, leave ENTITY area!" << endl;
+                        //cout << "INFO: Found empty line, leave ENTITY area!" << endl;
                         break;
                     }else {
-                        cout << "ERR: Error reading line" << endl;
+                        //cout << "ERR: Error reading line" << endl;
                         break;
                     }
                 }
@@ -69,33 +69,33 @@ int SignalListeErzeuger::readFile() {
                 while (1) {
                     getline(listfile,line);
                     if ((line.substr(0,2)) == "//") {
-                        cout << "comment" << endl;
+                        //cout << "comment" << endl;
                     }else if ((line.substr(0,1)) == "g") {
-                        cout << "INFO: Found GATE line!" << endl;
+                        //cout << "INFO: Found GATE line!" << endl;
                         if (readGateLine(line) == 1 ) {                                          ///Wenn Kurzschluss bereits vorhanden
-                            cout << "ERR: Short curcuit" << endl;
+                            //cout << "ERR: Short curcuit" << endl;
                             return 1;
                         }
                     }else if ((line.substr(0,6)) == "END") {
-                        cout << "INFO: Found END line!" << endl;
+                        //cout << "INFO: Found END line!" << endl;
                             signalTypen tmpsig;
                             tmpsig = signale.at(0).getSignalTyp();
-                            cout << "DEBUG "<< tmpsig << endl;
+                            //cout << "DEBUG "<< tmpsig << endl;
                             setAnzahlSignale(signale.size());                                       ///AnzahlSignale auf die Größe des Vektor setzen
-                            cout << "DEBUG: AnzahlSignale: " << getAnzahlSignale() << endl;
+                            //cout << "DEBUG: AnzahlSignale: " << getAnzahlSignale() << endl;
                         return 0;
                     }else {
-                        cout << "ERR: Error reading line" << endl;
+                        //cout << "ERR: Error reading line" << endl;
                         break;
                     }
                 }
             } else {//------------------------------------------else
-                cout << "ERR: Error reading headline" << endl;
+                //cout << "ERR: Error reading headline" << endl;
                 break;
             }
         }
     } else {
-        cout << "ERR: Error opening file!" << endl;
+        //cout << "ERR: Error opening file!" << endl;
         return 1;
     }
     return 0;
@@ -105,7 +105,7 @@ int SignalListeErzeuger::readSignalLine(signalTypen typ, int lengthBegin, string
     string tmpSignal;
     stringstream tmpStream(tmpLine.substr(lengthBegin+1,(tmpLine.length()-(lengthBegin+2+linuxzusatz))));       ///Erstellt Stream und schneidet Anfang und Ende ab
     while (getline(tmpStream,tmpSignal,',')) {                                                      ///Trennt nach Komma
-        cout << "INFO: Aktuelles Signal: " << tmpSignal << endl;
+        //cout << "INFO: Aktuelles Signal: " << tmpSignal << endl;
         unsigned int tmpSignalNo = atoi(tmpSignal.substr(1,3).c_str());                                       ///Lese Nummer von aktuellem Signal
         //cout << "DEBUG: tmpSignalNo: " << tmpSignalNo << endl;
         Signal* nullObj = new Signal;                                                                  ///Erzeuge leeres Objekt

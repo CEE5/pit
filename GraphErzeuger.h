@@ -26,11 +26,19 @@ public:
 	~GraphErzeuger();
 	// blabla
 
-    bool graphErzeugen(SignalListeErzeuger signallist);
+    void graphErzeugen( SignalListeErzeuger signallist);
 
     Bibliothek* getBibliothek();
 
+    /*ListenElement* getStartElement();
+    void setStartElement( ListenElement* start);
+
+    ListenElement* getEndElement();
+    void setEndElement( ListenElement* ende);*/
+
     void setBibliothek( Bibliothek biblio);
+
+    void listenAusgabe ( );
 
 };
 #endif

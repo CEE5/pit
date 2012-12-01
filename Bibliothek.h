@@ -7,6 +7,7 @@
 #include <string>
 #include <vector>
 #include <fstream>
+#include "cross-compatibility.h"
 
 
 #include "GatterTyp.h"
@@ -21,7 +22,7 @@ public:
     virtual ~Bibliothek();
 
     string getPfad(void);
-    GatterTyp* getBibElement(string);
+    GatterTyp* getBibElement(string typ);
     void dateiAusgabe(void);
     void dateiAuswerten(void);
     bool pfadEinlesen(string pfad);
