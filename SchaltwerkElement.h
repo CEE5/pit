@@ -42,7 +42,7 @@ public:
       SchaltwerkElement.*/
 
 	void setName( string n);                /**Schreiben  des  privaten  Attributes name eines  einzelnen  Objekts  vom  Typ SchaltwerkElement.*/
-	void nachfolgerHinzufuegen( SchaltwerkElement *schaltwerkElement, int pos);  /**Schreiben  des  privaten  Attributes nachfolger eines  einzelnen  Objekts
+	void nachfolgerHinzufuegen( SchaltwerkElement* schaltwerkElement, int pos);  /**Schreiben  des  privaten  Attributes nachfolger eines  einzelnen  Objekts
                                                                                     vom  Typ SchaltwerkElement.*/
 	void setAnzahlNachfolger( int anzahlN);         /**Schreiben  des  privaten  Attributes anzahlNachfolger eines  einzelnen  Objekts  vom  Typ SchaltwerkElement.*/
 	void setAnzahlEingangssignale( short anzahlE);  /**Schreiben  des  privaten  Attributes anzahlEingangssignale eines  einzelnen  Objekts  vom  Typ SchaltwerkElement.*/

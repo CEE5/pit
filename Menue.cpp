@@ -227,16 +227,18 @@ void Menue::schaltwerkMenue()
             //test grapherzeuger
 
             GraphErzeuger gez;
-            cout << "set bib"<<endl;
+            cout << "INFO: set biblio"<<endl;
             gez.setBibliothek(meineBibliothek);
-            cout << "erzeuge grapherzeuger"<<endl;
-            gez.graphErzeugen(meinSignalListeErzeuger);
-            cout << "grapherzeuger erzeugt"<<endl;
-            gez.listenAusgabe( );
-            cout << "liste ausgegeben"<<endl;
-            cin.ignore();
+            cout << "INFO: erzeuge liste.."<<endl;
+            gez.listeAnlegen(meinSignalListeErzeuger);
+            cout << "INFO: liste erzeugt"<<endl;
+            cout<< "INFO: graph erzeugen:\n "<<endl;
             cin.get();
+            gez.graphErzeugen(meinSignalListeErzeuger);
 
+            cin.get();
+            gez.listenAusgabe( );
+            cin.get();
 
             //
 

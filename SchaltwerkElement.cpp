@@ -72,10 +72,10 @@
 		name = n;
 	}
 
-	void SchaltwerkElement::nachfolgerHinzufuegen( SchaltwerkElement *schaltwerkElement, int pos ){
+	void SchaltwerkElement::nachfolgerHinzufuegen( SchaltwerkElement* schaltwerkElement, int pos ){
 		//
 		nachfolgerElemente[pos] = schaltwerkElement;
-		anzahlNachfolger++;
+		//anzahlNachfolger++;  //
 		//
 	}
 	void SchaltwerkElement::setAnzahlNachfolger( int anzahlN ){

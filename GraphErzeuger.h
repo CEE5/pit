@@ -24,10 +24,10 @@ private:
 public:
 	GraphErzeuger();
 	~GraphErzeuger();
-	// blabla
+
+    void listeAnlegen( SignalListeErzeuger signallist);
 
     void graphErzeugen( SignalListeErzeuger signallist);
-
     Bibliothek* getBibliothek();
 
     /*ListenElement* getStartElement();
@@ -39,6 +39,7 @@ public:
     void setBibliothek( Bibliothek biblio);
 
     void listenAusgabe ( );
+
 
 };
 #endif
