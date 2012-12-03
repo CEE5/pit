@@ -80,9 +80,9 @@ int SignalListeErzeuger::readFile() {
                         cout << "INFO: Found END line!" << endl;
                             signalTypen tmpsig;
                             tmpsig = signale.at(0).getSignalTyp();
-                            cout << "DEBUG "<< tmpsig << endl;
+                            //cout << "DEBUG "<< tmpsig << endl;
                             setAnzahlSignale(signale.size());                                       ///AnzahlSignale auf die Größe des Vektor setzen
-                            cout << "DEBUG: AnzahlSignale: " << getAnzahlSignale() << endl;
+                            //cout << "DEBUG: AnzahlSignale: " << getAnzahlSignale() << endl;
                         return 0;
                     }else {
                         cout << "ERR: Error reading line" << endl;
