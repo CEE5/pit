@@ -6,6 +6,7 @@
 #include "Faktoren.h"
 #include "Bibliothek.h"
 #include "cross-compatibility.h"
+#include "GraphErzeuger.h"
 
 using namespace std;
 

@@ -78,7 +78,7 @@ void Bibliothek::dateiAuswerten(void)
     {
         getline(f,buffer);
         //"\r" entfernen
-        buffer.erase(buffer.size()-1);
+        if(linuxzusatz == 1) {buffer.erase(buffer.size()-linuxzusatz);}
 
         //von [[Bausteine]] bis Leerzeile einlesen
         if(buffer.find("[[Bausteine]]")==0)
@@ -88,7 +88,7 @@ void Bibliothek::dateiAuswerten(void)
             {
                 getline(f,buffer);
 
-                if(buffer=="\r")
+                if((buffer=="\r")or(buffer==""))
                 {
 
                     DEBUG_METHOD("Blockende gefunden"<<endl);
@@ -96,7 +96,7 @@ void Bibliothek::dateiAuswerten(void)
                 }
 
                 //"\r" entfernen
-                buffer.erase(buffer.size()-1);
+                if(linuxzusatz == 1) {buffer.erase(buffer.size()-linuxzusatz);}
 
 
 
@@ -128,7 +128,7 @@ void Bibliothek::dateiAuswerten(void)
         }
         else if(buffer.find("[")==0)
         {
-            //Kalmmern [ ] entfernen
+            //Klammern [ ] entfernen
             string name = buffer.substr(1,buffer.size()-2);
 
             //sucht in bibElemente nach dem im Absatz gefundenen Element
@@ -145,13 +145,13 @@ void Bibliothek::dateiAuswerten(void)
                         getline(f,buffer);
 
                         //Abbruch falls Absatz zu Ende
-                        if(buffer=="\r")
+                        if((buffer=="\r")or(buffer==""))
                         {
                             DEBUG_METHOD("Ende von: "<<name<<" gefunden"<<endl);
                             break;
                         }
                         //"\r" entfernen
-                        buffer.erase(buffer.size()-1);
+                        if(linuxzusatz == 1) {buffer.erase(buffer.size()-linuxzusatz);}
 
 
 

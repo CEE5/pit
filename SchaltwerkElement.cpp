@@ -2,12 +2,8 @@
 //
 //
 //
-// nachfolgerHinzufuegen (?)
 
 #include "SchaltwerkElement.h"
-#include "Bibliothek.h"
-
-
 
 
 	/** Konstruktor der Klasse. Er soll beim Anlegen der Klasse alle Attribute mit dem Wert 0 bzw. NULL für Zeiger initialisieren. Außerdem
@@ -27,50 +23,42 @@
 		anzahlEingangssignale = 0;
 	}
 
-	/** Destruktor der Klasse.*/
-	SchaltwerkElement::~SchaltwerkElement() { }
+
+	SchaltwerkElement::~SchaltwerkElement() { }         /** Destruktor der Klasse.*/
 
 
 	/** Die folgenden Methoden dienen zum Lesen der privaten Attribute eines einzelnen Objekts vom Typ
     SchaltwerkElement.*/
 
-	/** Lesen des privaten Attributes name eines einzelnen Objekts vom Typ SchaltwerkElement. */
-	string SchaltwerkElement::getName(){
+	string SchaltwerkElement::getName(){                /** Lesen des privaten Attributes name eines einzelnen Objekts vom Typ SchaltwerkElement. */
 		return name;
 	}
 
-	/** Lesen des privaten Attributes typ eines einzelnen Objekts vom Typ SchaltwerkElement. */
-	GatterTyp* SchaltwerkElement::getTyp(){
+	GatterTyp* SchaltwerkElement::getTyp(){             /** Lesen des privaten Attributes typ eines einzelnen Objekts vom Typ SchaltwerkElement. */
 		return typ;
 	}
 
-	/** Lesen des privaten Attributes laufzeitEinzelgatter eines einzelnen Objekts vom Typ SchaltwerkElement. */
-	double SchaltwerkElement::getLaufzeitEinzelgatter(){
+	double SchaltwerkElement::getLaufzeitEinzelgatter(){  /** Lesen des privaten Attributes laufzeitEinzelgatter eines einzelnen Objekts vom Typ SchaltwerkElement. */
 		return laufzeitEinzelgatter;
 	}
 
-	/** Lesen des privaten Attributes nachfolgerElemente eines einzelnen Objekts vom Typ SchaltwerkElement. */
-	SchaltwerkElement* SchaltwerkElement::getNachfolger( int pos){
+	SchaltwerkElement* SchaltwerkElement::getNachfolger( int pos){  /** Lesen des privaten Attributes nachfolgerElemente eines einzelnen Objekts vom Typ SchaltwerkElement. */
 		return nachfolgerElemente[pos];
 	}
 
-	/** Lesen des privaten Attributes anzahlNachfolger eines einzelnen Objekts vom Typ SchaltwerkElement. */
-	int SchaltwerkElement::getAnzahlNachfolger(){
+	int SchaltwerkElement::getAnzahlNachfolger(){       /** Lesen des privaten Attributes anzahlNachfolger eines einzelnen Objekts vom Typ SchaltwerkElement. */
 		return anzahlNachfolger;
 	}
 
-	/** Lesen des privaten Attributes anzahlEingangssignale eines einzelnen Objekts vom Typ SchaltwerkElement. */
-	short SchaltwerkElement::getAnzahlEingangssignale(){
+	short SchaltwerkElement::getAnzahlEingangssignale(){ /** Lesen des privaten Attributes anzahlEingangssignale eines einzelnen Objekts vom Typ SchaltwerkElement. */
 		return anzahlEingangssignale;
 	}
 
-	/** Lesen des privaten Attributes isEingangsElement eines einzelnen Objekts vom Typ SchaltwerkElement. */
-	bool SchaltwerkElement::getIsEingangsElement(){
+	bool SchaltwerkElement::getIsEingangsElement(){     /** Lesen des privaten Attributes isEingangsElement eines einzelnen Objekts vom Typ SchaltwerkElement. */
 		return isEingangsElement;
 	}
 
-	/** Lesen des privaten Attributes isAusgangsElement eines einzelnen Objekts vom Typ SchaltwerkElement. */
-	bool SchaltwerkElement::getIsAusgangsElement(){
+	bool SchaltwerkElement::getIsAusgangsElement(){     /** Lesen des privaten Attributes isAusgangsElement eines einzelnen Objekts vom Typ SchaltwerkElement. */
 		return isAusgangsElement;
 	}
 
@@ -80,10 +68,10 @@
 		name = n;
 	}
 
-	void SchaltwerkElement::nachfolgerHinzufuegen( SchaltwerkElement *schaltwerkElement, int pos ){
+	void SchaltwerkElement::nachfolgerHinzufuegen( SchaltwerkElement* schaltwerkElement, int pos ){
 		//
 		nachfolgerElemente[pos] = schaltwerkElement;
-		anzahlNachfolger++;
+		//anzahlNachfolger++;  //
 		//
 	}
 	void SchaltwerkElement::setAnzahlNachfolger( int anzahlN ){
