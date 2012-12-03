@@ -2,12 +2,8 @@
 //
 //
 //
-// nachfolgerHinzufuegen (?)
 
 #include "SchaltwerkElement.h"
-#include "Bibliothek.h"
-
-
 
 
 	/** Konstruktor der Klasse. Er soll beim Anlegen der Klasse alle Attribute mit dem Wert 0 bzw. NULL für Zeiger initialisieren. Außerdem

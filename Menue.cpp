@@ -228,7 +228,7 @@ void Menue::schaltwerkMenue()
 
             GraphErzeuger gez;
             cout << "INFO: set biblio"<<endl;
-            gez.setBibliothek(meineBibliothek);
+            gez.setBibliothek(&meineBibliothek);
             cout << "INFO: erzeuge liste.."<<endl;
             gez.listeAnlegen(meinSignalListeErzeuger);
             cout << "INFO: liste erzeugt"<<endl;

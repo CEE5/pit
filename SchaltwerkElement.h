@@ -2,11 +2,12 @@
 //
 //
 
+#ifndef _SchaltwerkElement_
+#define _SchaltwerkElement_
+
 #include "GatterTyp.h"
 #include <string>
 
-#ifndef _SchaltwerkElement_
-#define _SchaltwerkElement_
 
 class SchaltwerkElement {
 private:

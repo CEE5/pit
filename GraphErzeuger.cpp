@@ -1,3 +1,7 @@
+// GraphErzeuger.cpp
+//
+//
+
 #include "GraphErzeuger.h"
 
 // interaktion mit bib funktioniert noch nicht wirklich, kuriose werte
@@ -22,8 +26,8 @@ Bibliothek* GraphErzeuger::getBibliothek(){
     return bibliothek;
 }
 
-void GraphErzeuger::setBibliothek( Bibliothek biblio){
-    bibliothek = &biblio;
+void GraphErzeuger::setBibliothek( Bibliothek* biblio){
+    bibliothek = biblio;
 }
 
 /*ListenElement* GraphErzeuger::getStartElement(){
@@ -73,7 +77,7 @@ for (int i = 0; i < anzahlSignale; i++) {
     /// Schaltwerk uebernimmt Daten des Signals
     newSchaltwerkElement->setName(tmpSignal.getQuelle());
     newSchaltwerkElement->setAnzahlNachfolger(tmpSignal.getAnzahlZiele());
-    newSchaltwerkElement->setLaufzeitEinzelgatter( tmpGatter->getGrundLaufzeit() );
+    newSchaltwerkElement->setLaufzeitEinzelgatter( tmpGatter->getGrundLaufzeit() );         // geht wegen fehlender Bib einbindung noch nicht
     newSchaltwerkElement->setAnzahlEingangssignale( tmpGatter->getEingaenge());
 
     /// pruefen ob Ausgang
@@ -99,19 +103,20 @@ for (int i = 0; i < anzahlSignale; i++) {
         endElement = newListenElement;
     }
     tmpElement = newListenElement;
-    }else {
+
+    }else { // von leerer Quelle Abfrage, um ungenutzte Signake zu erkennen
         cerr << "Fehler! Unbenutztes Signal gefunden"<<endl;
     }
     }
 
-    else{           /// von Signaltypabfrage
+    else{           // von Signaltypabfrage
         cerr << "Fehler! Unbekannter Signaltyp" <<endl;
     }
 }
     /// eingang finden
     for (int z = 0; z < signallist.getAnzahlSignale(); z++) {              /// geht die Sigalliste durch
         if ( signallist.getSignal(z)->getSignalTyp() == eingang){           /// vergleicht mit Signaltypen, ob "eingang" der Signaltyp ist
-            cout << "INFO: "<<signallist.getSignal(z)->getAnzahlZiele()<< " Ziele hat das EIngangssignal"<<endl;
+            cout << "INFO: "<<signallist.getSignal(z)->getAnzahlZiele()<< " Ziele hat das Eingangssignal"<<endl;
             for( int y = 0; y < signallist.getSignal(z)->getAnzahlZiele(); y++){               /// durchlaeuft alle ziele dieses signals
                 string eingangsGatter = signallist.getSignal(z)->getZiel( y );
                 for (ListenElement* ptr = startElement; ptr != NULL; ptr = ptr->getNextElement()) { /// und gleicht die ziele mit den schaltwerksnamen in dem
@@ -127,26 +132,31 @@ for (int i = 0; i < anzahlSignale; i++) {
 
 
 void GraphErzeuger::graphErzeugen(SignalListeErzeuger signallist){
-
+    /// durchlaeuft die Liste der durch ListenElemente verknuepften Schaltwerke
     for (ListenElement* ptr = startElement; ptr != NULL; ptr = ptr->getNextElement()) {
         ListenElement* tmpListenElement = ptr;
         SchaltwerkElement* tmpSWE = tmpListenElement->getSchaltwerkElement();
+
+        /// prueft ob ein Schaltwerk maximal 5 Nachfolger besitzt
         if ( tmpSWE->getAnzahlNachfolger() <= 5){
+
+            /// durchlaeuft die Signalliste auf der Suche nach gleichnamigen Quellen der Signale und Schaltwerksnamen
             for (int i = 0; i < signallist.getAnzahlSignale(); i++) {
 
                 Signal tmpSignal = *signallist.getSignal( i );
 
                     if ( tmpSignal.getQuelle() == tmpSWE->getName()){
 
+                        /// bei Treffer wird wieder die Signalliste durchlaufen auf der Suche nach den Zielen des gleichnamigen Signals
                         for( int j = 0; j < tmpSignal.getAnzahlZiele(); j++){
                             string folgeGatter = tmpSignal.getZiel( j );
 
+                            /// sucht zu den Zielen des Signals das entsprechende Schaltwerk aus den ListenElementen
                             for (ListenElement* ptr2 = startElement; ptr2 != NULL; ptr2 = ptr2->getNextElement()){
                                 ListenElement* tmpListenElement2 = ptr2;
                                 if ( tmpListenElement2->getSchaltwerkElement()->getName() == folgeGatter ){
                                     tmpListenElement->getSchaltwerkElement()->nachfolgerHinzufuegen( tmpListenElement2->getSchaltwerkElement(), j );
                                     cout << "INFO: "<< tmpListenElement2->getSchaltwerkElement()->getName() << " ist Nachfolger von " << tmpListenElement->getSchaltwerkElement()->getName()<<endl;
-                                    //break;
                                     }
                             }
                         }
@@ -160,7 +170,6 @@ void GraphErzeuger::graphErzeugen(SignalListeErzeuger signallist){
 
         } else {        // von Anzahlnachfolger if-Abfrage
             cerr << "Fehler: Mehr als 5 Nachfolgegatter bei "<< tmpSWE->getName() << endl;
-            //break;
         }
 
     }

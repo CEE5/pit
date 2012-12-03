@@ -1,6 +1,9 @@
 // GraphErzeuger.h
 //
-// Geruest
+//
+
+#ifndef _GraphErzeuger_
+#define _GraphErzeuger_
 
 //#include "stdafx.h"
 #include <iostream>
@@ -10,8 +13,6 @@
 #include "signals.h"
 #include "SignalListeErzeuger.h"
 
-#ifndef _GraphErzeuger_
-#define _GraphErzeuger_
 
 class GraphErzeuger {
 private:
@@ -22,24 +23,23 @@ private:
 	short anzahlSignale;
 
 public:
-	GraphErzeuger();
-	~GraphErzeuger();
+	GraphErzeuger();          /// Konstruktor; initialisiert alle variablen mit NULL bzw 0
+	~GraphErzeuger();          /// unnuetzer Destruktor
 
-    void listeAnlegen( SignalListeErzeuger signallist);
+    void listeAnlegen( SignalListeErzeuger signallist);     /** durchlaeuft die SignalListe, weisst jeder Quelle ein Schaltwerk zu, uebernimmt Eigenschaften der
+                                                            Signale und Gattertypen und verknuepft die Schaltwerke mit je einem Listenelement und die ListenElemente
+                                                            untereinander */
+    void graphErzeugen( SignalListeErzeuger signallist);    /** durchlaeuft oben angelegte Liste und verknuepft auf Grundlage der Signalliste die Schaltwerke
+                                                            miteinander */
+    void listenAusgabe ( );     // bisher nur zum testen /// gibt die Liste mit den Schaltwerkinfos aus inkl der von graphErzeugen gefundenen Adjazenzbeziehungen
 
-    void graphErzeugen( SignalListeErzeuger signallist);
-    Bibliothek* getBibliothek();
+    void setBibliothek( Bibliothek* biblio); /// liest eine Bauteilbibliothek ein
+    Bibliothek* getBibliothek();            /// gibt die gespeicherte Bib zurueck /*(ungebraucht)*/
 
-    /*ListenElement* getStartElement();
+    /*ListenElement* getStartElement(); //braucht man nicht
     void setStartElement( ListenElement* start);
 
     ListenElement* getEndElement();
     void setEndElement( ListenElement* ende);*/
-
-    void setBibliothek( Bibliothek biblio);
-
-    void listenAusgabe ( );
-
-
 };
-#endif
+#endif // _GraphErzeuger_
