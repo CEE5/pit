@@ -15,7 +15,7 @@ system("cls"); löscht den Inhalt der Konsole.
 
 Erwünschte Ausgabe:
 ******************************************
-*     IT-Projektpraktikum WS2011/2012    *
+*     IT-Projektpraktikum WS2012/2013    *
 *                                        *
 * Laufzeitanalyse synchroner Schaltwerke *
 ******************************************
@@ -256,9 +256,19 @@ void Menue::schaltwerkMenue()
                 cout << "ERR: Fehler beim einlesen!" << endl;
                 cin.get();
             }
+            //cout <<"Bib Pfad eingeben: ";
+            //cin >> pf;
+            pf="C:\\csd.txt";
+            //pf="C:\\test_Offener Eingang.txt";
+            //pf="C:\\test_Unbenutztes Signal.txt";
+            //pf="C:\\test_Zyklus 1.txt";
+            //pf="C:\\test_Zyklus 2.txt";
+            //pf="C:\\test_Kurzschluss.txt";
+            meinSignalListeErzeuger.setDatei(pf);
+            meinSignalListeErzeuger.readFile();
 
 
-            meineBibliothek.dateiAusgabe();
+            //meineBibliothek.dateiAusgabe();
             cout << "INFO: bib pfad "<<meineBibliothek.getPfad()<<" eingelesen"<<endl;
 
             cout << "INFO: start auswerten"<<endl;
@@ -309,5 +319,5 @@ void Menue::menueKopf()
     Gibt den Kopf der Menüs aus. Dieser bleibt in Hauptmenü und allen Untermenüs gleich.
     */
     clear_screen();
-    cout << " ****************************************** \n *     IT-Projektpraktikum WS2011/2012    * \n *                                        * \n * Laufzeitanalyse synchroner Schaltwerke * \n ******************************************" << endl << endl; //Ausgabe des "Headers"
+    cout << " ****************************************** \n *     IT-Projektpraktikum WS2012/2013    * \n *                                        * \n * Laufzeitanalyse synchroner Schaltwerke * \n ******************************************" << endl << endl; //Ausgabe des "Headers"
 }
