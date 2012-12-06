@@ -226,6 +226,21 @@ void Menue::schaltwerkMenue()
 
             //test grapherzeuger
 
+            //cout <<"Bib Pfad eingeben: ";
+            //cin >> pf;
+            pf= "C:\\bib.txt";
+            if(!meineBibliothek.pfadEinlesen(pf)){
+                cout << "ERR: Fehler beim einlesen!" << endl;
+                cin.get();
+            }
+
+
+            meineBibliothek.dateiAusgabe();
+            cout << "INFO: bib pfad "<<meineBibliothek.getPfad()<<" eingelesen"<<endl;
+
+            cout << "INFO: start auswerten"<<endl;
+            meineBibliothek.dateiAuswerten();
+            cout << "INFO: Ende auswerten"<<endl;
             GraphErzeuger gez;
             cout << "INFO: set biblio"<<endl;
             gez.setBibliothek(&meineBibliothek);
