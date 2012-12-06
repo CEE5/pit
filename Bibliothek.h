@@ -31,6 +31,7 @@ protected:
 private:
     string datei;
     vector<GatterTyp> bibElemente;
+    vector<Flipflop> bibHilfe;
 
     void openError(void);
     void readError(void);

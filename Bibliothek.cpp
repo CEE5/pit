@@ -7,7 +7,8 @@
 
 Bibliothek::Bibliothek()
 {
-    vector<GatterTyp*> bibElemente;
+    vector<GatterTyp> bibElemente;
+    vector<Flipflop> bibHilfe;
 }
 
 Bibliothek::~Bibliothek()
@@ -99,21 +100,23 @@ void Bibliothek::dateiAuswerten(void)
                 }
 
                 //"\r" entfernen
-                if(linuxzusatz == 1) {buffer.erase(buffer.size()-linuxzusatz);}
+                if(linuxzusatz == 1) {
+                    buffer.erase(buffer.size()-linuxzusatz);
+                }
 
 
 
-                if(buffer =="dff")
-                {
+                /*if(buffer =="dff")
+                {*/
                     Flipflop* dummy = (new Flipflop());
 
                     dummy->setName(buffer);
 
-                    bibElemente.push_back(*dummy);
+                    bibHilfe.push_back(*dummy);
 
                     DEBUG_METHOD( "ff angelegt: "<<buffer);
 
-                }
+                /*}
                 else
                 {
                     GatterTyp* dummy= new GatterTyp();
@@ -122,7 +125,7 @@ void Bibliothek::dateiAuswerten(void)
                     bibElemente.push_back(*dummy);
                     DEBUG_METHOD( "gt angelegt: "<<buffer);
 
-                }
+                }*/
 
 
 
@@ -135,7 +138,7 @@ void Bibliothek::dateiAuswerten(void)
             string name = buffer.substr(1,buffer.size()-2);
 
             //sucht in bibElemente nach dem im Absatz gefundenen Element
-            for (vector<GatterTyp>::iterator it = bibElemente.begin(); it!=bibElemente.end(); ++it)
+            for (vector<Flipflop>::iterator it = bibElemente.begin(); it!=bibElemente.end(); ++it)
             {
                 //Element gefunden
                 if(it->getName()==name)
@@ -188,49 +191,49 @@ void Bibliothek::dateiAuswerten(void)
 
 
                         ///*Flipflop Attribute
-                       else if(buffer.find("tsetup:")==0)
+                        else if(buffer.find("tsetup:")==0)
                         {
-                            ((Flipflop*)&it )->setSetupTime(atoi(buffer.substr(7).c_str()));
+                        it->setSetupTime(atoi(buffer.substr(7).c_str()));
                             DEBUG_METHOD("ff testup init: "<<((Flipflop*)&it )->getSetupTime());
 
                         }
                         else if(buffer.find("ed:")==0)
                         {
-                            ((Flipflop*)&it )->setEingaenge(atoi(buffer.substr(3).c_str()));
+                            it->setEingaenge(atoi(buffer.substr(3).c_str()));
                             DEBUG_METHOD("ff ed init: "<<((Flipflop*)&it )->getEingaenge());
 
                         }
                         else if(buffer.find("thold:")==0)
                         {
-                            ((Flipflop*)&it )->setHoldTime(atoi(buffer.substr(6).c_str()));
+                            it->setHoldTime(atoi(buffer.substr(6).c_str()));
                             DEBUG_METHOD("ff thold init: "<<((Flipflop*)&it )->getHoldTime());
 
                         }
                         else if(buffer.find("cd:")==0)
                         {
-                            ((Flipflop*)&it )->setLastKapazitaet(atoi(buffer.substr(3).c_str()));
+                            it->setLastKapazitaet(atoi(buffer.substr(3).c_str()));
                             DEBUG_METHOD("ff cd init: "<<((Flipflop*)&it )->getLastKapazitaet());
 
                         }
                         else if(buffer.find("tpdt:")==0)
                         {
-                            ((Flipflop*)&it )->setGrundLaufzeit(atof(buffer.substr(5).c_str()));
+                            it->setGrundLaufzeit(atof(buffer.substr(5).c_str()));
                             DEBUG_METHOD("ff tpdt init: "<<((Flipflop*)&it )->getGrundLaufzeit());
 
                         }
                         else if(buffer.find("kl:")==0)
                         {
-                            ((Flipflop*)&it )->setLastFaktor(atoi(buffer.substr(3).c_str()));
+                            it->setLastFaktor(atoi(buffer.substr(3).c_str()));
                             DEBUG_METHOD("ff kl init: "<<((Flipflop*)&it )->getLastFaktor());
 
                         }
                         else if(buffer.find("ct:")==0)
                         {
-                            ((Flipflop*)&it )->setLastKapazitaetClock(atoi(buffer.substr(3).c_str()));
+                            it->setLastKapazitaetClock(atoi(buffer.substr(3).c_str()));
                             DEBUG_METHOD("ff ct init: "<<((Flipflop*)&it )->getLastKapazitaetClock());
 
                         }
-
+*/
                         else
                         {
                             if(buffer.find("#endf")!=0){
@@ -241,20 +244,33 @@ void Bibliothek::dateiAuswerten(void)
                             else break;
                         }
 
+
                     }
 
                 }
+            for (vector<Flipflop>::iterator it = bibElemente.begin(); it!=bibElemente.end(); ++it){
+                if ( it->getName()!= "dff"){
+                        GatterTyp* tmpGatter == it;
+                        bibElemente.push_back(tmpGatter )
+                } else {
+                    bibElemente.push_back(it)
+
+                }
+            }
 
 
 
             }
 
         }
+
+
+
     }
 
 
     //Ausgabe aller angelegten Elemente
-    for (vector<GatterTyp>::iterator it = bibElemente.begin(); it!=bibElemente.end(); ++it)
+    for (vector<Flipflop>::iterator it = bibElemente.begin(); it!=bibElemente.end(); ++it)
     {
         DEBUG_METHOD("alle gt: "<<it->getName());
     }
