@@ -13,6 +13,30 @@ SignalListeErzeuger::~SignalListeErzeuger()
     //dtor
 }
 
+void SignalListeErzeuger::dateiAusgabe(void)
+{
+    ifstream f(datei.c_str());
+
+    string buffer;
+
+    int i=0;
+
+    if(f.good())
+    {
+        while (!f.eof())
+        {
+            getline(f,buffer);
+            cout <<i<<": "<<buffer<<endl;
+            i++;
+        }
+    }
+    else
+    {
+        cout << "ERR: Can not read file!" << endl;
+    }
+
+}
+
 Signal* SignalListeErzeuger::getSignal(int i) {
     return &signale.at(i) ;
 }

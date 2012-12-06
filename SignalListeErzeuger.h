@@ -28,6 +28,7 @@ class SignalListeErzeuger
         int readGateLine(string tmpLine);
         long getFrequenz();
         string getDatei();
+        void dateiAusgabe(void);
         short getAnzahlSignale();
         void setFrequenz(long freq);
         void setDatei(string file);                 ///Liest Datei NICHT ein
