@@ -10,7 +10,7 @@
 	bekommt der Konstruktor einen Zeiger auf ein Element der Bibliotheksdatenbank und speichert es in das Attribut typ.*/
 	SchaltwerkElement::SchaltwerkElement(  GatterTyp* gTyp ){
 		name = "";
-		GatterTyp* typ = gTyp;
+		typ = gTyp;
 		laufzeitEinzelgatter = 0;
 		nachfolgerElemente[0] = NULL; //schöner lösen?
 		nachfolgerElemente[1] = NULL;
@@ -25,7 +25,6 @@
 
 
 	SchaltwerkElement::~SchaltwerkElement() { }         /** Destruktor der Klasse.*/
-
 
 	/** Die folgenden Methoden dienen zum Lesen der privaten Attribute eines einzelnen Objekts vom Typ
     SchaltwerkElement.*/

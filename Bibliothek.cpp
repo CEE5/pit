@@ -78,7 +78,10 @@ void Bibliothek::dateiAuswerten(void)
     {
         getline(f,buffer);
         //"\r" entfernen
-        if(linuxzusatz == 1) {buffer.erase(buffer.size()-linuxzusatz);}
+        if(linuxzusatz == 1) {
+            buffer.erase(buffer.size()-linuxzusatz);
+            DEBUG_METHOD("\\r entfernt"<<endl);
+            }
 
         //von [[Bausteine]] bis Leerzeile einlesen
         if(buffer.find("[[Bausteine]]")==0)
@@ -151,7 +154,10 @@ void Bibliothek::dateiAuswerten(void)
                             break;
                         }
                         //"\r" entfernen
-                        if(linuxzusatz == 1) {buffer.erase(buffer.size()-linuxzusatz);}
+                        if(linuxzusatz == 1) {
+                            buffer.erase(buffer.size()-linuxzusatz);
+                            DEBUG_METHOD("\\r nach "<<name<<" entfernt"<<endl);
+                            }
 
 
 
@@ -182,7 +188,7 @@ void Bibliothek::dateiAuswerten(void)
 
 
                         ///*Flipflop Attribute
-                        else if(buffer.find("tsetup:")==0)
+                       else if(buffer.find("tsetup:")==0)
                         {
                             ((Flipflop*)&it )->setSetupTime(atoi(buffer.substr(7).c_str()));
                             DEBUG_METHOD("ff testup init: "<<((Flipflop*)&it )->getSetupTime());

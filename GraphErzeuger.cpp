@@ -72,12 +72,17 @@ for (int i = 0; i < anzahlSignale; i++) {
 
         ListenElement* newListenElement = new ListenElement();
         SchaltwerkElement* newSchaltwerkElement = new SchaltwerkElement( tmpGatter );
+        //cout <<"Gattertyp: " <<tmpGatter->getName()<<endl;
+        //cout << tmpGatter->getIsFlipflop()<<endl; // ist immer 0 ... virtual bei gattertyp::getIsFlipflop() ?
+        //newSchaltwerkElement->setGatterTyp( tmpGatter);
+
+
 
 
     /// Schaltwerk uebernimmt Daten des Signals
     newSchaltwerkElement->setName(tmpSignal.getQuelle());
     newSchaltwerkElement->setAnzahlNachfolger(tmpSignal.getAnzahlZiele());
-    newSchaltwerkElement->setLaufzeitEinzelgatter( tmpGatter->getGrundLaufzeit() );         // geht wegen fehlender Bib einbindung noch nicht
+    newSchaltwerkElement->setLaufzeitEinzelgatter( tmpGatter->getGrundLaufzeit() );
     newSchaltwerkElement->setAnzahlEingangssignale( tmpGatter->getEingaenge());
 
     /// pruefen ob Ausgang
@@ -179,21 +184,29 @@ void GraphErzeuger::graphErzeugen(SignalListeErzeuger signallist){
 
  void GraphErzeuger::listenAusgabe ( ){             //bisher nur zum testen
 
-    for(ListenElement* ptr = startElement; ptr != NULL; ptr = ptr->getNextElement()) {
+    for( ListenElement* ptr = startElement; ptr != NULL; ptr = ptr->getNextElement()) {
         //SchaltwerkElement* tmpSWE = ptr->getSchaltwerkElement();
         cout << "----------"<<endl
         <<"Gattername: \t\t" <<  ptr->getSchaltwerkElement()->getName() <<endl
-        //<<"Gattertyp: \t\t" << ptr->getSchaltwerkElement()->getTyp()->getName() <<endl      // !!!!!!!!! beim aktivieren gibts krassen fehler.. iwas harmoniert ganz und gar nicht mit der bib
-        ;
-        if(ptr->getSchaltwerkElement()->getIsEingangsElement()== true){
+        <<"Gattertyp: \t\t" << ptr->getSchaltwerkElement()->getTyp()->getName() <<endl;
+
+        if( ptr->getSchaltwerkElement()->getIsEingangsElement() == true) {
         cout <<"Schaltungseingangselement"<<endl;
         }
-        if(ptr->getSchaltwerkElement()->getIsAusgangsElement()==true){
+        if( ptr->getSchaltwerkElement()->getIsAusgangsElement() == true) {
         cout<<"Schaltungsausgangselement"<< endl;
         }
-        cout<<"Laufzeit Einzelgatter: \t"<< ptr->getSchaltwerkElement()->getLaufzeitEinzelgatter() <<endl
-        <<"Anzahl Eingangssignale: "<< ptr->getSchaltwerkElement()->getAnzahlEingangssignale() <<endl
-        <<"Anzahl Nachfolger: \t"<< ptr->getSchaltwerkElement()->getAnzahlNachfolger() <<endl;
+        cout<<"Laufzeit Einzelgatter: \t"<< ptr->getSchaltwerkElement()->getLaufzeitEinzelgatter() <<endl;
+
+        if (ptr->getSchaltwerkElement()->getTyp()->getName()== "dff"){         // bzw ->getIsFlipflop() wenn s virtual waere
+            cout << "Is Flipflop: \t\t"<< (( Flipflop*) (ptr->getSchaltwerkElement()->getTyp()) )->getIsFlipflop()<<endl//;
+            << "Setup-Time: \t\t" << (( Flipflop*) (ptr->getSchaltwerkElement()->getTyp()) )->getSetupTime() << endl
+            << "Hold-Time \t\t" << (( Flipflop*) (ptr->getSchaltwerkElement()->getTyp()) )->getHoldTime()<<endl
+            << "Lastkapazitaet: \t"<< (( Flipflop*) (ptr->getSchaltwerkElement()->getTyp()) )->getLastKapazitaetClock()<<endl;
+        }
+
+        cout<<"Anzahl Eingangssignale: "<< ptr->getSchaltwerkElement()->getAnzahlEingangssignale() <<endl;
+        cout<<"Anzahl Nachfolger: \t"<< ptr->getSchaltwerkElement()->getAnzahlNachfolger() <<endl;
         if (ptr->getSchaltwerkElement()->getAnzahlNachfolger()!=0){
 
         string ausgabe = " ";
