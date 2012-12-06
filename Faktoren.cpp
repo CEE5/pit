@@ -182,16 +182,19 @@ short Faktoren::getProzess(){
 /** Diese Methode dient zum Schreiben des privaten Attributes spannung */
 void Faktoren::setSpannung (double spannung){
 	 this->spannung = spannung;
+	 berechneSpannungFaktor(spannung);
 }
 
 
  /** Diese Methode dient zum Schreiben des privaten Attributes temp */
 void Faktoren::setTemp( double temp){
 	this->temp = temp;
+	berechneTempFaktor(temp);
 }
 
 
 /** Diese Methode dient zum Schreiben des privaten Attributes prozess */
 void Faktoren::setProzess (short prozess){
 	this->prozess = prozess;
+	berechneProzessFaktor(prozess);
 }

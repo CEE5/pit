@@ -132,17 +132,24 @@ void Menue::faktorenMenue()
         getline(cin, input);
         switch (atoi(input.c_str())) {
         case 1:
+            cout << "Neue Spannung eingeben: ";
             getline(cin, input);
-            meineFaktoren.setSpannung(atoi(input.c_str()));
+            meineFaktoren.setSpannung(atof(input.c_str()));
             break;
         case 2:
+            cout << "Neue Temperatur eingeben: ";
             getline(cin, input);
-            meineFaktoren.setTemp(atoi(input.c_str()));
+            meineFaktoren.setTemp(atof(input.c_str()));
             break;
         case 3:
+            cout << "Neue Prozess Geschwindigkeit eingeben: ";
             getline(cin, input);
-            meineFaktoren.setProzess(atoi(input.c_str()));
-            break;
+            if((atoi(input.c_str())<=3) & (atoi(input.c_str()) >= 1)) {
+                meineFaktoren.setProzess(atoi(input.c_str()));
+            } else {
+                cout << "Es gibt nur 1, 2 und 3!" <<endl;
+                cin.get();
+            }
             break;
         case 4:
             meineFaktoren.ausgabeFaktoren();
