@@ -121,17 +121,39 @@ void Menue::faktorenMenue()
     */
     while(input != "5") {
         menueKopf();
-       cout << "Untermenue Aeussere Faktoren" << endl;
-       cout << "(1) Spannung [Volt]: 1.2" << endl;
-       cout << "(2) Temperatur [Grad Celsius]: 55" << endl;
-       cout << "(3) Prozess (1=slow, 2=typical, 3=fast): 1" << endl;
-       cout << "(4) Ausgabe errechneter Faktoren" << endl;
-       cout << "(5) Hauptmenue" << endl << endl;
-       cout << "Waehle einen Menuepunkt und bestaetige mit Enter: ";
+        cout << "Untermenue Aeussere Faktoren" << endl;
+        cout << "(1) Spannung [Volt]: " << meineFaktoren.getSpannung() << endl;
+        cout << "(2) Temperatur [Grad Celsius]: " << meineFaktoren.getTemp() << endl;
+        cout << "(3) Prozess (1=slow, 2=typical, 3=fast): " << meineFaktoren.getProzess() << endl;
+        cout << "(4) Ausgabe errechneter Faktoren" << endl;
+        cout << "(5) Hauptmenue" << endl << endl;
+        cout << "Waehle einen Menuepunkt und bestaetige mit Enter: ";
 
         getline(cin, input);
         switch (atoi(input.c_str())) {
         case 1:
+            cout << "Neue Spannung eingeben: ";
+            getline(cin, input);
+            meineFaktoren.setSpannung(atof(input.c_str()));
+            break;
+        case 2:
+            cout << "Neue Temperatur eingeben: ";
+            getline(cin, input);
+            meineFaktoren.setTemp(atof(input.c_str()));
+            break;
+        case 3:
+            cout << "Neue Prozess Geschwindigkeit eingeben: ";
+            getline(cin, input);
+            if((atoi(input.c_str())<=3) & (atoi(input.c_str()) >= 1)) {
+                meineFaktoren.setProzess(atoi(input.c_str()));
+            } else {
+                cout << "Es gibt nur 1, 2 und 3!" <<endl;
+                cin.get();
+            }
+            break;
+        case 4:
+            meineFaktoren.ausgabeFaktoren();
+            cin.get();
             break;
         }
     }
@@ -203,7 +225,8 @@ void Menue::schaltwerkMenue()
             cin.get();
             break;
         case 2:
-            cout << "Ausgabe der \"puren\" Datei..." << endl;
+            meinSignalListeErzeuger.dateiAusgabe();
+            cin.get();
             break;
         case 3:
             cout << "Vector size: " << meinSignalListeErzeuger.getAnzahlSignale() << endl;
@@ -235,7 +258,7 @@ void Menue::schaltwerkMenue()
             }
 
 
-            meineBibliothek.dateiAusgabe();
+            //meineBibliothek.dateiAusgabe();
             cout << "INFO: bib pfad "<<meineBibliothek.getPfad()<<" eingelesen"<<endl;
 
             cout << "INFO: start auswerten"<<endl;

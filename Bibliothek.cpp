@@ -104,30 +104,13 @@ void Bibliothek::dateiAuswerten(void)
                     buffer.erase(buffer.size()-linuxzusatz);
                 }
 
-
-
-                /*if(buffer =="dff")
-                {*/
                     Flipflop* dummy = (new Flipflop());
 
                     dummy->setName(buffer);
 
                     bibHilfe.push_back(dummy);
 
-                    DEBUG_METHOD( "ff angelegt: "<<buffer);
-
-                /*}
-                else
-                {
-                    GatterTyp* dummy= new GatterTyp();
-                    dummy->setName(buffer);
-
-                    bibElemente.push_back(*dummy);
-                    DEBUG_METHOD( "gt angelegt: "<<buffer);
-
-                }*/
-
-
+                    DEBUG_METHOD( "(Hilfs-)ff angelegt: "<<buffer);
 
 
             }
@@ -137,7 +120,7 @@ void Bibliothek::dateiAuswerten(void)
             //Klammern [ ] entfernen
             string name = buffer.substr(1,buffer.size()-2);
 
-            //sucht in bibElemente nach dem im Absatz gefundenen Element
+            //sucht in bibHilfe nach dem im Absatz gefundenen Element
             for (vector<Flipflop*>::iterator it = bibHilfe.begin(); it!=bibHilfe.end(); ++it)
             {
                 //Element gefunden
@@ -244,31 +227,28 @@ void Bibliothek::dateiAuswerten(void)
                             else break;
                         }
 
-
                     }
 
                 }
-            for (vector<Flipflop*>::iterator it = bibHilfe.begin(); it!=bibHilfe.end(); ++it){
-                if ( (*it)->getName()!= "dff"){
-                        GatterTyp* tmpGatter = *it;
-                        bibElemente.push_back(tmpGatter );
-                } else {
-                    bibElemente.push_back(*it);
-
-                }
-            }
-
-
 
             }
 
         }
-
-
-
     }
 
+    for (vector<Flipflop*>::iterator it = bibHilfe.begin(); it!=bibHilfe.end(); ++it){
+                if ( (*it)->getName()!= "dff"){
+                        GatterTyp* tmpGatter = *it;
+                        bibElemente.push_back(tmpGatter );
+                        DEBUG_METHOD("gt angelegt: "<<tmpGatter->getName());
+                        //DEBUG_METHOD("bibhilfegroesse: "<< bibHilfe.size());
+                        //DEBUG_METHOD("bibelementegroesse: "<< bibElemente.size());
+                } else {
+                    bibElemente.push_back(*it);
+                    DEBUG_METHOD("ff angelegt: "<< (*it)->getName());
 
+                }
+    }
     //Ausgabe aller angelegten Elemente
     for (vector<GatterTyp*>::iterator it = bibElemente.begin(); it!=bibElemente.end(); ++it)
     {
