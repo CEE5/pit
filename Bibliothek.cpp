@@ -274,6 +274,7 @@ void Bibliothek::dateiAuswerten(void)
 
 
 
+
                             DEBUG_METHOD("Ende von: "<<name<<" gefunden"<<endl);
                             break;
                         }
