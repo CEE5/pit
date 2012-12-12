@@ -152,7 +152,8 @@ void Bibliothek::dateiAuswerten(void)
                         {
 
                             //FF zu bibElemente hinzfügen
-                             bibElemente.push_back(dynamic_cast <GatterTyp*> (ff));
+                            // bibElemente.push_back(dynamic_cast <GatterTyp*> (ff));
+                             bibElemente.push_back((ff));
 
 
 
@@ -269,7 +270,6 @@ void Bibliothek::dateiAuswerten(void)
 
                             //GT zu bibElemente hinzfügen
                             bibElemente.push_back(gt);
-
 
 
 
