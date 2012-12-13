@@ -1,8 +1,6 @@
 #ifndef BIBLIOTHEK_H
 #define BIBLIOTHEK_H
 
-
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <iostream>
@@ -32,9 +30,8 @@ public:
 protected:
 private:
     string datei;
-
     vector<GatterTyp*> bibElemente;
-
+    vector<Flipflop*> bibHilfe;
 
     void openError(void);
     void readError(void);
