@@ -7,7 +7,7 @@
 #include <iostream>
 using namespace std;
 
-int _tmain(int argc, _TCHAR* argv[]) {
+int _tmain() {
 	//test
 	Faktoren test;
 	double s,t;
