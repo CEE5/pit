@@ -249,16 +249,16 @@ void Menue::schaltwerkMenue()
 
             //test grapherzeuger
 
-            cout <<"Bib Pfad eingeben: ";
-            cin >> pf;
-            //pf= "C:\\bib.txt";
+            //cout <<"Bib Pfad eingeben: ";
+            //cin >> pf;
+            pf= "C:\\bib.txt";
             if(!meineBibliothek.pfadEinlesen(pf)){
                 cout << "ERR: Fehler beim einlesen!" << endl;
                 cin.get();
             }
-            cout <<"Csd Pfad eingeben: ";
-            cin >> pf;
-           // pf="C:\\csd.txt";
+            //cout <<"Csd Pfad eingeben: ";
+            //cin >> pf;
+            pf="C:\\csd.txt";
             //pf="C:\\test_Offener Eingang.txt";
             //pf="C:\\test_Unbenutztes Signal.txt";
             //pf="C:\\test_Zyklus 1.txt";
@@ -288,7 +288,16 @@ void Menue::schaltwerkMenue()
             gez.listenAusgabe( );
             cin.get();
 
-            //
+            //Test analyse
+
+            Faktoren f;
+            f.setSpannung(1.2);
+            f.setTemp(25);
+            f.setProzess(2);
+
+            LaufzeitAnalysator lza( &gez, &f);
+            lza.berechne_LaufzeitEinzelgatter();
+            cin.get();
 
             break;
         }
@@ -303,8 +312,6 @@ void Menue::analyse()
     */
     while(input != "5") {
         menueKopf();
-
-        LaufzeitAnalysator meinLaufzeitAnalysator(&meinGraphErzeuger,&meineFaktoren);
 
         getline(cin, input);
         switch (atoi(input.c_str())) {

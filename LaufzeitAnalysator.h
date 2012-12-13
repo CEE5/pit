@@ -37,9 +37,13 @@ private:
 
 
 
+
+
 public:
     LaufzeitAnalysator(GraphErzeuger* gE, Faktoren* f);
     virtual ~LaufzeitAnalysator();
+
+    void berechne_LaufzeitEinzelgatter();
 
 
 protected:
