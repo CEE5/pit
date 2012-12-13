@@ -1,4 +1,3 @@
-
 #include "Bibliothek.h"
 
 #define DEBUG_METHOD(name) std::cout << "DEBUG --> " << name<<endl;
@@ -102,25 +101,25 @@ void Bibliothek::dateiAuswerten(void)
 
 
                 /*if(buffer =="dff")
-                {
-                    Flipflop* dummy = (new Flipflop());
+{
+Flipflop* dummy = (new Flipflop());
 
-                    dummy->setName(buffer);
+dummy->setName(buffer);
 
-                    bibElemente.push_back(*dummy);
+bibElemente.push_back(*dummy);
 
-                    DEBUG_METHOD( "ff angelegt: "<<buffer);
+DEBUG_METHOD( "ff angelegt: "<<buffer);
 
-                }
-                else
-                {
-                    GatterTyp* dummy= new GatterTyp();
-                    dummy->setName(buffer);
+}
+else
+{
+GatterTyp* dummy= new GatterTyp();
+dummy->setName(buffer);
 
-                    bibElemente.push_back(*dummy);
-                    DEBUG_METHOD( "gt angelegt: "<<buffer);
+bibElemente.push_back(*dummy);
+DEBUG_METHOD( "gt angelegt: "<<buffer);
 
-                }*/
+}*/
 
 
 
