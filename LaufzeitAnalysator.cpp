@@ -7,7 +7,7 @@ LaufzeitAnalysator::LaufzeitAnalysator(GraphErzeuger* g, Faktoren* f)
     faktoren = f;
     gE = g;
 
-     signallaufzeit* = new double[gE->getGatterAnzahl()];
+//     signallaufzeit* = new double[gE->getGatterAnzahl()];
 }
 
 LaufzeitAnalysator::~LaufzeitAnalysator()

@@ -247,17 +247,18 @@ void GraphErzeuger::graphErzeugen(SignalListeErzeuger signallist)
 }
 
 
-void GraphErzeuger::listenAusgabe ( )              //bisher nur zum testen
+void GraphErzeuger::listenAusgabe ( )         /// gibt die Listenelemente mit Gatternamen und ihre NachfolgeGatter aus
 {
 
-    for ( ListenElement* ptr = startElement; ptr != NULL; ptr = ptr->getNextElement())
+    for ( ListenElement* ptr = startElement; ptr != NULL; ptr = ptr->getNextElement())  /// geht die ListenElemente durch
     {
-        //SchaltwerkElement* tmpSWE = ptr->getSchaltwerkElement();
-        cout << "----------"<<endl
-        <<"Gattername: \t\t" <<  ptr->getSchaltwerkElement()->getName() <<endl
-        <<"Gattertyp: \t\t" << ptr->getSchaltwerkElement()->getTyp()->getName() <<endl;
 
-        if ( ptr->getSchaltwerkElement()->getIsEingangsElement() == true)
+        cout << "-----------\n"<<endl
+        <<"Gattername:  \t\t" <<  ptr->getSchaltwerkElement()->getName() <<endl                  /// Gattername
+        <<"Gattertyp:  \t\t" << ptr->getSchaltwerkElement()->getTyp()->getName() <<endl;         /// GatterTyp
+
+        /// evtle zusaetzliche Ausgaben wie "Eingang", "Ausgang", "LaufzeitEinzelGatter", fuer FlipFlops noch andere Attribute
+        /*if ( ptr->getSchaltwerkElement()->getIsEingangsElement() == true)         // kann man sich mal noch ueberlegen in die Ausgabe mit aufzunehmen
         {
             cout <<"Schaltungseingangselement"<<endl;
         }
@@ -275,20 +276,29 @@ void GraphErzeuger::listenAusgabe ( )              //bisher nur zum testen
             << "Lastkapazitaet: \t"<< (( Flipflop*) (ptr->getSchaltwerkElement()->getTyp()) )->getLastKapazitaetClock()<<endl;
         }
 
-        cout<<"Anzahl Eingangssignale: "<< ptr->getSchaltwerkElement()->getAnzahlEingangssignale() <<endl;
-        cout<<"Anzahl Nachfolger: \t"<< ptr->getSchaltwerkElement()->getAnzahlNachfolger() <<endl;
-        if (ptr->getSchaltwerkElement()->getAnzahlNachfolger()!=0)
+        cout<<"Anzahl Eingangssignale: "<< ptr->getSchaltwerkElement()->getAnzahlEingangssignale() <<endl;  */      // Ende Fakultative Ausgabe
+
+        /// Ausgabe der Anzahl der Folgegatter und dann der Gatter mit ihrem Namen
+        if (ptr->getSchaltwerkElement()->getAnzahlNachfolger()==1){
+            cout<<"--->Das Gatter hat "<< ptr->getSchaltwerkElement()->getAnzahlNachfolger()<<" Ziel" <<endl;  /// Einzahl
+        }else if(ptr->getSchaltwerkElement()->getAnzahlNachfolger()==0){
+            cout<<"--->Das Gatter hat keine Ziele" <<endl;                                                     /// Keine
+        }else{
+            cout<<"--->Das Gatter hat "<< ptr->getSchaltwerkElement()->getAnzahlNachfolger()<<" Ziele" <<endl; /// Mehrzahl
+        }
+
+        if (ptr->getSchaltwerkElement()->getAnzahlNachfolger()!=0) /// falls Nachfolger existieren
         {
 
             string ausgabe = " ";
-            for ( int s = 0; s < ptr->getSchaltwerkElement()->getAnzahlNachfolger() ; s++)
+            for ( int s = 0; s < ptr->getSchaltwerkElement()->getAnzahlNachfolger() ; s++)  /// werden alle Nachfolgernamen in einen Ausgabe string geschrieben
             {
 
                 ausgabe = ausgabe  + ptr->getSchaltwerkElement()->getNachfolger(s)->getName() + " ";
             }
-            cout << "Folgegatter:"<<ausgabe <<endl;
+            cout << "Angeschlossene Gatter:\t"<<ausgabe <<endl;
         }
-        else /*if (ptr->getSchaltwerkElement()->getAnzahlNachfolger()==0)*/
+        else /*if (ptr->getSchaltwerkElement()->getAnzahlNachfolger()==0)*/ /// falls keine Nachfolger existieren
         {
             cout << ptr->getSchaltwerkElement()->getName() << " hat keine Folgegatter"<<endl;
         }
