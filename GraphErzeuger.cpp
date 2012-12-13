@@ -32,7 +32,7 @@ void GraphErzeuger::setBibliothek( Bibliothek* biblio)
     bibliothek = biblio;
 }
 
-/*ListenElement* GraphErzeuger::getStartElement(){
+ListenElement* GraphErzeuger::getStartElement(){
     return startElement;
 }
 
@@ -46,13 +46,16 @@ ListenElement* GraphErzeuger::getEndElement(){
 
 void GraphErzeuger::setEndElement( ListenElement* ende){
     endElement = ende;
-}*/
+}
 
+int GraphErzeuger::getGatterAnzahl(){
+    return gAnzahl;
+}
 
 void GraphErzeuger::listeAnlegen(SignalListeErzeuger signallist)
 {
 
-    int gAnzahl = 0;        // sind bisher nur zum INFO ausgeben da
+    gAnzahl = 0;        // sind bisher nur zum INFO ausgeben da
     short eingaenge = 0;
     short ausgaenge = 0;
 

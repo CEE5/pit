@@ -4,6 +4,7 @@
 #include <map>
 #include "ListenElement.h"
 #include "Faktoren.h"
+#include "GraphErzeuger.h"
 
 
 class LaufzeitAnalysator
@@ -11,24 +12,34 @@ class LaufzeitAnalysator
 private:
 
     Faktoren* faktoren;
+    GraphErzeuger* gE;
+
     long frequenz;
     string uebergangspfad;
     string ausgangspfad;
     double laufzeitUebergangspfad;
     double laufzeitAusgangspfad;
+
+    double *signallaufzeit[];
     struct DFS_Daten
     {
         SchaltwerkElement* VaterElement;
         double PfadLaufzeit;
     };
 
+
     map < SchaltwerkElement* , DFS_Daten > DFS_Zwischenspeicher;
+
+    void DFS(ListenElement* s);
+    void DFS_Visit(ListenElement* k, ListenElement* s);
 
 
 
 public:
-    LaufzeitAnalysator();
+    LaufzeitAnalysator(GraphErzeuger* gE, Faktoren* f);
     virtual ~LaufzeitAnalysator();
+
+
 protected:
 
 };

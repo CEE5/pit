@@ -22,6 +22,8 @@ private:
 	Signal* signale;
 	short anzahlSignale;
 
+	int gAnzahl;
+
 public:
 	GraphErzeuger();          /// Konstruktor; initialisiert alle variablen mit NULL bzw 0
 	~GraphErzeuger();          /// unnuetzer Destruktor
@@ -36,10 +38,12 @@ public:
     void setBibliothek( Bibliothek* biblio); /// liest eine Bauteilbibliothek ein
     Bibliothek* getBibliothek();            /// gibt die gespeicherte Bib zurueck /*(ungebraucht)*/
 
-    /*ListenElement* getStartElement(); //braucht man nicht
+    ListenElement* getStartElement(); //braucht man nicht
     void setStartElement( ListenElement* start);
 
     ListenElement* getEndElement();
-    void setEndElement( ListenElement* ende);*/
+    void setEndElement( ListenElement* ende);
+
+    int getGatterAnzahl(void);
 };
 #endif // _GraphErzeuger_
