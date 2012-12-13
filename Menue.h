@@ -7,6 +7,7 @@
 #include "Bibliothek.h"
 #include "cross-compatibility.h"
 #include "GraphErzeuger.h"
+#include "LaufzeitAnalysator.h"
 
 using namespace std;
 
@@ -28,9 +29,11 @@ class Menue
         Bibliothek meineBibliothek;
         SignalListeErzeuger meinSignalListeErzeuger;
 
-        /*GraphErzeuger meinGraphErzeuger;
-        LaufzeitAnalysator meinLaufzeitAnalysator;
-        Signal* signale;*/
+        GraphErzeuger meinGraphErzeuger;
+
+        //LaufzeitAnalysator meinLaufzeitAnalysator;
+
+       // Signal* signale;
 
 
 

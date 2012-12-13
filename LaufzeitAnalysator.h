@@ -21,6 +21,8 @@ private:
     double laufzeitAusgangspfad;
 
     double *signallaufzeit[];
+    int *vater[];
+
     struct DFS_Daten
     {
         SchaltwerkElement* VaterElement;
