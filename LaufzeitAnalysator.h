@@ -20,6 +20,7 @@ private:
     double laufzeitUebergangspfad;
     double laufzeitAusgangspfad;
 
+    bool zyklensuche(SchaltwerkElement* se);
     double *signallaufzeit[];
     int *vater[];
 
@@ -33,7 +34,7 @@ private:
     map < SchaltwerkElement* , DFS_Daten > DFS_Zwischenspeicher;
 
     void DFS(ListenElement* s);
-    void DFS_Visit(ListenElement* k, ListenElement* s);
+    void DFS_Visit(SchaltwerkElement* k, SchaltwerkElement* s);
 
 
 

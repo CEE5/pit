@@ -11,6 +11,9 @@ LaufzeitAnalysator::LaufzeitAnalysator(GraphErzeuger* g, Faktoren* f)
     *signallaufzeit = new double[gE->getGatterAnzahl()];
     *vater = new int [gE->getGatterAnzahl()];
 
+    laufzeitUebergangspfad=0;
+
+
 }
 
 LaufzeitAnalysator::~LaufzeitAnalysator()
@@ -21,8 +24,8 @@ LaufzeitAnalysator::~LaufzeitAnalysator()
 void LaufzeitAnalysator::berechne_LaufzeitEinzelgatter()  /// berechnet Laufzeit fuer jedes einzelne Gatter
 {
     double  spgFaktor,
-            tmpFaktor,
-            przFaktor;
+    tmpFaktor,
+    przFaktor;
 
     faktoren->getFaktoren(spgFaktor, tmpFaktor, przFaktor); /// holt sich aeussere Faktoren ueber Referenz
 
@@ -65,35 +68,68 @@ void LaufzeitAnalysator::DFS(ListenElement* s)
 
     }
 
-    DFS_Visit(gE->getStartElement(),gE->getStartElement());
+    DFS_Visit(gE->getStartElement()->getSchaltwerkElement(),gE->getStartElement()->getSchaltwerkElement());
 
 
 }
-void LaufzeitAnalysator::DFS_Visit(ListenElement* x,ListenElement* y)
-{
-    SchaltwerkElement * k = x->getSchaltwerkElement();
-    SchaltwerkElement * s = y->getSchaltwerkElement();
+bool LaufzeitAnalysator::zyklensuche(SchaltwerkElement* se){
 
-    for (int i=0;i<k->getAnzahlNachfolger();i++)
+}
+void LaufzeitAnalysator::DFS_Visit(SchaltwerkElement* k,SchaltwerkElement* s)
+{
+ //   SchaltwerkElement * k = x->getSchaltwerkElement();
+   // SchaltwerkElement * s = y->getSchaltwerkElement();
+
+    bool zykBreak = true;
+    for (int i=0; i<k->getAnzahlNachfolger()and zykBreak; i++)
     {
 
         SchaltwerkElement* v =k->getNachfolger(i);
 
         if (v->getTyp()->getIsFlipflop())
         {
-            if (laufzeitUebergangspfad<*signallaufzeit[i] + k->getLaufzeitEinzelgatter())
+            if (laufzeitUebergangspfad<DFS_Zwischenspeicher[k].PfadLaufzeit + k->getLaufzeitEinzelgatter())
             {
-                laufzeitUebergangspfad=*signallaufzeit[i] + k->getLaufzeitEinzelgatter();
+                laufzeitUebergangspfad=DFS_Zwischenspeicher[k].PfadLaufzeit + k->getLaufzeitEinzelgatter();
+
+                uebergangspfad = k->getName() + " ->" + k->getNachfolger(i)->getName();
 //String erstellen
             }
         }
 
-        /*else if ()
+        else if (DFS_Zwischenspeicher[k->getNachfolger(i)].PfadLaufzeit < (DFS_Zwischenspeicher[k].PfadLaufzeit +k->getLaufzeitEinzelgatter()))
         {
+            if( ( ( DFS_Zwischenspeicher[ v ].PfadLaufzeit != 0 ) or ( v== s ) ) and ( DFS_Zwischenspeicher[ v ].VaterElement != k) )
+            {
+                DFS_Zwischenspeicher[v].VaterElement =k;
 
-        }*/
+
+                if(zyklensuche(v))
+            {
+                zykBreak = false;
+                cout << "Fehler Zyklensuche"<<endl;
+
+            }
+        }
+        DFS_Zwischenspeicher[v].PfadLaufzeit = DFS_Zwischenspeicher[k].PfadLaufzeit + k->getLaufzeitEinzelgatter();
+            DFS_Zwischenspeicher[v].VaterElement = k;
+
+            DFS_Visit(v,s);
+
+        }
 
 
+    }
+    if(k->getIsAusgangsElement() and (laufzeitAusgangspfad < (DFS_Zwischenspeicher[k].PfadLaufzeit+k->getLaufzeitEinzelgatter())))
+    {
+        laufzeitAusgangspfad= DFS_Zwischenspeicher[k].PfadLaufzeit + k->getLaufzeitEinzelgatter();
+
+        ausgangspfad =k->getName();
+
+        for(SchaltwerkElement * j = k; j != s; j= DFS_Zwischenspeicher[j].VaterElement)
+        {
+            ausgangspfad.insert(0,(DFS_Zwischenspeicher[j].VaterElement->getName() + "->"));
+        }
     }
 
 }
