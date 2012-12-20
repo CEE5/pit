@@ -1,18 +1,28 @@
 #include "SignalListeErzeuger.h"
 
+/**Konstruktor
+Setzt alle Variablen auf 0
+**/
 SignalListeErzeuger::SignalListeErzeuger()
 {
     //ctor
     anzahlSignale = 0;
     frequenz = 0;
+    datei="";
     /*setDatei(file);
     readFile();*/ ///Manuell im Menü aufrufen
 }
+
+/**Destruktor
+**/
 SignalListeErzeuger::~SignalListeErzeuger()
 {
     //dtor
 }
 
+/**dateiAusgabe
+Öffnet die Datei die in der 'datei' Variable der Klasse gespeichert ist und gibt die aus
+**/
 void SignalListeErzeuger::dateiAusgabe(void)
 {
     ifstream f(datei.c_str());
@@ -36,24 +46,27 @@ void SignalListeErzeuger::dateiAusgabe(void)
     }
 
 }
-
+/** Gibt Signal aus dem 'signale' Vektor an der im Parameter spezifizierten Stelle zurück
+**/
 Signal* SignalListeErzeuger::getSignal(int i) {
     return &signale.at(i) ;
 }
 
+/**Liest die 'datei' aus und beginnt mit der Auswertung
+**/
 int SignalListeErzeuger::readFile() {
-    signale.clear();
+    signale.clear();                              ///Vektor 'signale' wird geleert
     string line;
-    ifstream listfile(getDatei().data());
+    ifstream listfile(getDatei().data());           ///Öffne Dateistream
     Signal* bufferobj = new Signal;
-    signale.push_back( *bufferobj );
+    signale.push_back( *bufferobj );                ///Reserviere leeres Objekt für die CLOCK
     if (listfile.is_open()) {
         //cout << "INFO: file is open" << endl;
         while (!listfile.eof()) {
-            getline(listfile,line);
+            getline(listfile,line);                         ///liest Zeile für Zeile aus
             if (((line.substr(0,2)) == "//") or (line == "\r") or (line == "")) {
                 //cout << "INFO: drop, comment or empty line" << endl;
-            }else if ((line.substr(0,12)) == "ARCHITECTURE") {
+            }else if ((line.substr(0,12)) == "ARCHITECTURE") {                              ///Wenn Kommentar, leere Zeile oder Schwachsinn drin steht, passiert gar nichts
                 //cout << "INFO: drop, ARCHITECTURE shit" << endl;
             }else if ((line.substr(0,6)) == "ENTITY") {
                 while (1) {
