@@ -298,8 +298,10 @@ void Menue::schaltwerkMenue()
             LaufzeitAnalysator lza( &gez, &f);
             lza.berechne_LaufzeitEinzelgatter();
 
-            lza.DFS_startSuche(&gez);
-            lza.maxFrequenz(meinSignalListeErzeuger.getFrequenz());
+            if(lza.DFS_startSuche(&gez)){
+
+                lza.maxFrequenz(meinSignalListeErzeuger.getFrequenz());
+            }
 
             cin.get();
 

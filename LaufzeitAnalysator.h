@@ -25,7 +25,7 @@ private:
     string ausgangspfad;
     double laufzeitUebergangspfad;
     double laufzeitAusgangspfad;
-
+bool zykBreak;
     bool zyklensuche(SchaltwerkElement* se);
     void DFS(ListenElement* s);
 
@@ -40,7 +40,7 @@ public:
 
     void berechne_LaufzeitEinzelgatter();
 
-    void DFS_startSuche(GraphErzeuger* ge);
+    bool DFS_startSuche(GraphErzeuger* ge);
     double maxFrequenz(long freq);
 
 protected:

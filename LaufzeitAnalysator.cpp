@@ -53,7 +53,7 @@ void LaufzeitAnalysator::berechne_LaufzeitEinzelgatter()  /// berechnet Laufzeit
     }
 
 }
-void LaufzeitAnalysator::DFS_startSuche(GraphErzeuger *gE)
+bool LaufzeitAnalysator::DFS_startSuche(GraphErzeuger *gE)
 {
 
     vector < ListenElement *> start;
@@ -79,9 +79,7 @@ void LaufzeitAnalysator::DFS_startSuche(GraphErzeuger *gE)
     }
 
 
-    cout<<"ausgangspfad: "<<ausgangspfad<<"laufzeit :"<<laufzeitAusgangspfad<<endl;
-    cout << "Übergangspfad: "<<uebergangspfad<<"laufzeit :"<<laufzeitUebergangspfad<<endl;
-
+    return !zykBreak;
 
 
 
@@ -104,6 +102,7 @@ void LaufzeitAnalysator::DFS(ListenElement* s)
 
 
 }
+
 bool LaufzeitAnalysator::zyklensuche(SchaltwerkElement* se)
 {
     for(SchaltwerkElement* i=se ; i!=NULL ; i=DFS_Zwischenspeicher[i].VaterElement)
@@ -117,17 +116,15 @@ bool LaufzeitAnalysator::zyklensuche(SchaltwerkElement* se)
 }
 
 
-int count =0;
+
+
 void LaufzeitAnalysator::DFS_Visit(SchaltwerkElement* k,SchaltwerkElement* s)
 {
-    cout <<count<<" k: "<<k->getName()<<endl;
-    count++;
-//   SchaltwerkElement * k = x->getSchaltwerkElement();
-    // SchaltwerkElement * s = y->getSchaltwerkElement();
 
-    bool zykBreak = true;
-    for (int i=0; ((i<(k->getAnzahlNachfolger()))and zykBreak); i++)
+    zykBreak = false;
+    for (int i=0; i<k->getAnzahlNachfolger(); i++)
     {
+        if(!zykBreak)break;
 
 
         SchaltwerkElement* v =k->getNachfolger(i);
@@ -163,7 +160,7 @@ void LaufzeitAnalysator::DFS_Visit(SchaltwerkElement* k,SchaltwerkElement* s)
 
                 if(zyklensuche(v))
                 {
-                    zykBreak = false;
+                    zykBreak = true;
                     cout << "Fehler Zyklensuche"<<endl;
 
                 }
@@ -217,7 +214,7 @@ double LaufzeitAnalysator::maxFrequenz(long freq)
     }
 
     cout << "-----------------------------------------------"<<endl;
-    if(maxF > freq){
+    if(maxF < freq){
         cout << "Frequenz zu groß"<<endl;
     }
     else{
