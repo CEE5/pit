@@ -3,7 +3,11 @@
 
 GatterTyp::GatterTyp()
 {
-    //ctor
+    GatterTyp::eingaenge=0;
+    GatterTyp::grundLaufzeit=0;
+    GatterTyp::lastFaktor=0;
+    GatterTyp::lastKapazitaet=0;
+    GatterTyp::name="";
 }
 
 GatterTyp::~GatterTyp()

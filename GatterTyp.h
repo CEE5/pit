@@ -16,7 +16,7 @@ class GatterTyp
         short getLastFaktor(void);
         short getLastKapazitaet(void);
         short getEingaenge(void);
-        bool getIsFlipflop(void);           // muss das nicht virtual sein? auch wenn dann sonst was wieder nicht geht..
+        virtual bool getIsFlipflop(void);           // muss das nicht virtual sein? auch wenn dann sonst was wieder nicht geht..
         void setName(string n);
         void setGrundLaufzeit(double gl);
         void setLastFaktor(short lf);

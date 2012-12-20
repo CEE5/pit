@@ -3,8 +3,9 @@
 
 Flipflop::Flipflop()
 {
-    //ctor
-
+    holdTime=0;
+    setupTime=0;
+    lastKapazitaetClock=0;
 }
 
 Flipflop::~Flipflop()
@@ -12,7 +13,8 @@ Flipflop::~Flipflop()
     //dtor
 }
         bool Flipflop::getIsFlipflop(void){
-            return true;
+
+        return true;
         }
         short Flipflop::getSetupTime(void){
             return setupTime;

@@ -12,7 +12,7 @@ LaufzeitAnalysator::LaufzeitAnalysator(GraphErzeuger* g, Faktoren* f)
     *vater = new int [gE->getGatterAnzahl()];
 
     laufzeitUebergangspfad=0;
-
+DFS_Zwischenspeicher.clear();
 
 }
 
@@ -53,18 +53,36 @@ void LaufzeitAnalysator::berechne_LaufzeitEinzelgatter()  /// berechnet Laufzeit
     }
 
 }
+void LaufzeitAnalysator::DFS_startSuche(GraphErzeuger *gE){
 
+     vector < ListenElement *> start;
+
+    for(ListenElement *i= gE->getStartElement(); i!=NULL;i=i->getNextElement()){
+        if(i->getSchaltwerkElement()->getIsEingangsElement() or i->getSchaltwerkElement()->getTyp()->getIsFlipflop()){
+            cout <<&i<<endl;
+            start.push_back(i);
+        }
+    }
+
+
+
+        DFS(start.at(0));
+        cout <<endl<<endl<<endl<<endl;
+        DFS(start.at(1));
+
+
+
+}
 
 void LaufzeitAnalysator::DFS(ListenElement* s)
 {
-    int h=0;
+
 
     for (ListenElement* ptr = gE->getStartElement(); ptr != NULL; ptr = ptr->getNextElement())
     {
-        signallaufzeit[h]=0;
-        vater[h]=NULL;
+        DFS_Zwischenspeicher[ptr->getSchaltwerkElement()].PfadLaufzeit =0.0;
+        DFS_Zwischenspeicher[ptr->getSchaltwerkElement()].VaterElement = NULL;
 
-        h++;
 
     }
 
@@ -73,32 +91,44 @@ void LaufzeitAnalysator::DFS(ListenElement* s)
 
 }
 bool LaufzeitAnalysator::zyklensuche(SchaltwerkElement* se){
+    return false;
 
 }
+int count =0;
 void LaufzeitAnalysator::DFS_Visit(SchaltwerkElement* k,SchaltwerkElement* s)
-{
+{cout <<count<<" k: "<<k->getName()<<endl;
+    count++;
  //   SchaltwerkElement * k = x->getSchaltwerkElement();
    // SchaltwerkElement * s = y->getSchaltwerkElement();
 
     bool zykBreak = true;
-    for (int i=0; i<k->getAnzahlNachfolger()and zykBreak; i++)
+    for (int i=0; ((i<(k->getAnzahlNachfolger()))and zykBreak); i++)
     {
 
+        if(i==1){
+        cout <<"x"<<endl;
+        }
+
         SchaltwerkElement* v =k->getNachfolger(i);
+        cout << "nachfolger:"<<v->getName()<<endl;
 
         if (v->getTyp()->getIsFlipflop())
         {
+            cout <<"ff gefunden: "<<v->getName()<<endl;
+
             if (laufzeitUebergangspfad<DFS_Zwischenspeicher[k].PfadLaufzeit + k->getLaufzeitEinzelgatter())
             {
                 laufzeitUebergangspfad=DFS_Zwischenspeicher[k].PfadLaufzeit + k->getLaufzeitEinzelgatter();
 
                 uebergangspfad = k->getName() + " ->" + k->getNachfolger(i)->getName();
+                cout << "Übergangspfad: "<<uebergangspfad<<endl;
 //String erstellen
             }
         }
 
-        else if (DFS_Zwischenspeicher[k->getNachfolger(i)].PfadLaufzeit < (DFS_Zwischenspeicher[k].PfadLaufzeit +k->getLaufzeitEinzelgatter()))
+        else if (DFS_Zwischenspeicher[v].PfadLaufzeit < (DFS_Zwischenspeicher[k].PfadLaufzeit +k->getLaufzeitEinzelgatter()))
         {
+            cout << "v L < k L + kLE"<<endl;
             if( ( ( DFS_Zwischenspeicher[ v ].PfadLaufzeit != 0 ) or ( v== s ) ) and ( DFS_Zwischenspeicher[ v ].VaterElement != k) )
             {
                 DFS_Zwischenspeicher[v].VaterElement =k;
@@ -118,9 +148,9 @@ void LaufzeitAnalysator::DFS_Visit(SchaltwerkElement* k,SchaltwerkElement* s)
 
         }
 
-
     }
-    if(k->getIsAusgangsElement() and (laufzeitAusgangspfad < (DFS_Zwischenspeicher[k].PfadLaufzeit+k->getLaufzeitEinzelgatter())))
+
+    if(k->getIsAusgangsElement() and (laufzeitAusgangspfad < (DFS_Zwischenspeicher[k].PfadLaufzeit + k->getLaufzeitEinzelgatter())))
     {
         laufzeitAusgangspfad= DFS_Zwischenspeicher[k].PfadLaufzeit + k->getLaufzeitEinzelgatter();
 
@@ -130,6 +160,7 @@ void LaufzeitAnalysator::DFS_Visit(SchaltwerkElement* k,SchaltwerkElement* s)
         {
             ausgangspfad.insert(0,(DFS_Zwischenspeicher[j].VaterElement->getName() + "->"));
         }
+        cout<<ausgangspfad<<endl;
     }
 
 }

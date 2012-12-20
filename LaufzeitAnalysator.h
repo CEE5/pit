@@ -5,7 +5,13 @@
 #include "ListenElement.h"
 #include "Faktoren.h"
 #include "GraphErzeuger.h"
+#include <vector>
 
+    struct DFS_Daten
+    {
+        SchaltwerkElement* VaterElement;
+        double PfadLaufzeit;
+    };
 
 class LaufzeitAnalysator
 {
@@ -24,16 +30,12 @@ private:
     double *signallaufzeit[];
     int *vater[];
 
-    struct DFS_Daten
-    {
-        SchaltwerkElement* VaterElement;
-        double PfadLaufzeit;
-    };
 
+    void DFS(ListenElement* s);
 
     map < SchaltwerkElement* , DFS_Daten > DFS_Zwischenspeicher;
 
-    void DFS(ListenElement* s);
+
     void DFS_Visit(SchaltwerkElement* k, SchaltwerkElement* s);
 
 
@@ -46,6 +48,7 @@ public:
 
     void berechne_LaufzeitEinzelgatter();
 
+    void DFS_startSuche(GraphErzeuger* ge);
 
 protected:
 

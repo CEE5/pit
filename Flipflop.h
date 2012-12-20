@@ -8,7 +8,7 @@ class Flipflop : public GatterTyp
         Flipflop();
         virtual ~Flipflop();
 
-        bool getIsFlipflop(void);
+        virtual bool getIsFlipflop(void);
         short getSetupTime(void);
         short getHoldTime(void);
         short getLastKapazitaetClock(void);
