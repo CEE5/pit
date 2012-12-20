@@ -98,7 +98,7 @@ int SignalListeErzeuger::readFile() {
                         //cout << "INFO: Found empty line, leave ENTITY area!" << endl;
                         break;
                     }else {
-                        //cout << "ERR: Error reading line" << endl;
+                        cout << "ERR: Error reading line" << endl;
                         break;
                     }
                 }
@@ -110,7 +110,7 @@ int SignalListeErzeuger::readFile() {
                     }else if ((line.substr(0,1)) == "g") {
                         //cout << "INFO: Found GATE line!" << endl;
                         if (readGateLine(line) == 1 ) {                                          ///Wenn Kurzschluss bereits vorhanden
-                            //cout << "ERR: Short curcuit" << endl;
+                            cout << "ERR: Short curcuit" << endl;
                             return 1;
                         }
                     }else if ((line.substr(0,6)) == "END") {
@@ -122,17 +122,17 @@ int SignalListeErzeuger::readFile() {
                             //cout << "DEBUG: AnzahlSignale: " << getAnzahlSignale() << endl;
                         return 0;
                     }else {
-                        //cout << "ERR: Error reading line" << endl;
+                        cout << "ERR: Error reading line" << endl;
                         break;
                     }
                 }
             } else {//------------------------------------------else
-                //cout << "ERR: Error reading headline" << endl;
+                cout << "ERR: Error reading headline" << endl;
                 break;
             }
         }
     } else {
-        //cout << "ERR: Error opening file!" << endl;
+        cout << "ERR: Error opening file!" << endl;
         return 1;
     }
     return 0;
