@@ -28,13 +28,16 @@ Sie gibt einen Zeiger auf das entsprechende Element vom Typ GatterTyp zurück.
 GatterTyp* Bibliothek::getBibElement(string typ)
 {
 
-    for(int i=0;i< bibElemente.size();i++){
-        if(bibElemente[i]->getName()==typ)
+    for (int i=0;i< bibElemente.size();i++)
+    {
+        if (bibElemente[i]->getName()==typ)
         {
-            if(bibElemente[i]->getIsFlipflop()){
+            if (bibElemente[i]->getIsFlipflop())
+            {
                 return (dynamic_cast<Flipflop*>(bibElemente[i]));
             }
-            else{
+            else
+            {
                 return bibElemente[i];
             }
         }
@@ -54,7 +57,7 @@ void Bibliothek::dateiAusgabe(void)
 
     int i=0;
 
-    if(f.good())
+    if (f.good())
     {
         while (!f.eof())
         {
@@ -83,256 +86,266 @@ void Bibliothek::dateiAuswerten(void)
     {
         getline(f,buffer);
         //"\r" entfernen
-        buffer.erase(buffer.size()-1);
-
-        //von [[Bausteine]] bis Leerzeile einlesen
-        if(buffer.find("[[Bausteine]]")==0)
+        if (linuxzusatz == 1 )
         {
-
-            while (!f.eof())
-            {
-                getline(f,buffer);
-
-                if(buffer=="\r")
-                {
-
-                    DEBUG_METHOD("Blockende gefunden"<<endl);
-                    break;
-                }
-
-                //"\r" entfernen
-                buffer.erase(buffer.size()-1);
-
-
-
-                /*if(buffer =="dff")
-                {
-                    Flipflop* dummy = (new Flipflop());
-
-                    dummy->setName(buffer);
-
-                    bibElemente.push_back(*dummy);
-
-                    DEBUG_METHOD( "ff angelegt: "<<buffer);
-
-                }
-                else
-                {
-                    GatterTyp* dummy= new GatterTyp();
-                    dummy->setName(buffer);
-
-                    bibElemente.push_back(*dummy);
-                    DEBUG_METHOD( "gt angelegt: "<<buffer);
-
-                }*/
-
-
-
-
-            }
+            buffer.erase(buffer.size()-1);
         }
 
-        else if(buffer.find("[")==0)
+        //von [[Bausteine]] bis Leerzeile einlesen
+        if (buffer.find("[[Bausteine]]")==0)
         {
-            //Kalmmern [ ] entfernen
+
+            /* while (!f.eof())
+             {
+                 getline(f,buffer);
+
+                 if(buffer=="\r" or "")
+                 {
+
+                     DEBUG_METHOD("Blockende gefunden"<<endl);
+                     break;
+                 }
+
+                 //"\r" entfernen
+                 if (linuxzusatz == 1 ) {
+                     buffer.erase(buffer.size()-1);
+                 }
+
+
+
+                 /*if(buffer =="dff")
+                 {
+                     Flipflop* dummy = (new Flipflop());
+
+                     dummy->setName(buffer);
+
+                     bibElemente.push_back(*dummy);
+
+                     DEBUG_METHOD( "ff angelegt: "<<buffer);
+
+                 }
+                 else
+                 {
+                     GatterTyp* dummy= new GatterTyp();
+                     dummy->setName(buffer);
+
+                     bibElemente.push_back(*dummy);
+                     DEBUG_METHOD( "gt angelegt: "<<buffer);
+
+                 }*/
+
+
+
+
+            // }
+        }
+
+        else if (buffer.find("[")==0)
+        {
+            //Klammern [ ] entfernen
             string name = buffer.substr(1,buffer.size()-2);
 
 
-                //FF anlegen
-                if(name=="dff")
+            //FF anlegen
+            if (name=="dff")
+            {
+                Flipflop *ff = new Flipflop();
+                ff->setName(name);
+
+                DEBUG_METHOD(name <<" als FF anlegen");
+
+
+                while (!f.eof())
                 {
-                    Flipflop *ff = new Flipflop();
-                    ff->setName(name);
-
-                    DEBUG_METHOD(name <<"als FF anlegen");
+                    getline(f,buffer);
 
 
-                    while (!f.eof())
+                    //"\r" entfernen
+                    if (linuxzusatz == 1 )
                     {
-                        getline(f,buffer);
+                        buffer.erase(buffer.size()-1);
+                    }
 
+
+
+                    ///*allgemeine Attribute
+                    if (buffer.find("ei:")==0)
+                    {
+                        ff->setEingaenge(atoi(buffer.substr(3).c_str()));
+                        DEBUG_METHOD( "ei init "<<ff->getEingaenge());
+                    }
+
+                    else if (buffer.find("cl:")==0)
+                    {
+                        ff->setLastKapazitaet(atoi(buffer.substr(3).c_str()));
+                        DEBUG_METHOD("cl init "<<ff->getLastKapazitaet());
+                    }
+
+                    else if (buffer.find("kl:")==0)
+                    {
+                        ff->setLastFaktor(atoi(buffer.substr(3).c_str()));
+                        DEBUG_METHOD("kl init "<<ff->getLastFaktor());
+                    }
+
+                    else if (buffer.find("tpd0:")==0)
+                    {
+                        ff->setGrundLaufzeit(atof(buffer.substr(5).c_str()));
+                        DEBUG_METHOD("tpd0 init "<<ff->getGrundLaufzeit());
+                    }
+
+
+                    ///*Flipflop Attribute
+                    else if (buffer.find("tsetup:")==0)
+                    {
+                        ff->setSetupTime(atoi(buffer.substr(7).c_str()));
+                        DEBUG_METHOD("ff testup init: "<<ff->getSetupTime());
+
+                    }
+                    else if (buffer.find("ed:")==0)
+                    {
+                        ff->setEingaenge(atoi(buffer.substr(3).c_str()));
+                        DEBUG_METHOD("ff ed init: "<<ff->getEingaenge());
+
+                    }
+                    else if (buffer.find("thold:")==0)
+                    {
+                        ff->setHoldTime(atoi(buffer.substr(6).c_str()));
+                        DEBUG_METHOD("ff thold init: "<<ff->getHoldTime());
+
+                    }
+                    else if (buffer.find("cd:")==0)
+                    {
+                        ff->setLastKapazitaet(atoi(buffer.substr(3).c_str()));
+                        DEBUG_METHOD("ff cd init: "<<ff->getLastKapazitaet());
+
+                    }
+                    else if (buffer.find("tpdt:")==0)
+                    {
+                        ff->setGrundLaufzeit(atof(buffer.substr(5).c_str()));
+                        DEBUG_METHOD("ff tpdt init: "<<ff->getGrundLaufzeit());
+
+                    }
+                    else if (buffer.find("kl:")==0)
+                    {
+                        ff->setLastFaktor(atoi(buffer.substr(3).c_str()));
+                        DEBUG_METHOD("ff kl init: "<<ff->getLastFaktor());
+
+                    }
+                    else if (buffer.find("ct:")==0)
+                    {
+                        ff->setLastKapazitaetClock(atoi(buffer.substr(3).c_str()));
+                        DEBUG_METHOD("ff ct init: "<<ff->getLastKapazitaetClock());
+
+                    }
+                    else if (buffer.find("et:") == 0){
+                        DEBUG_METHOD("ff et found");
+                    }
+
+                    else
+                    {
                         //Abbruch falls Absatz zu Ende
-                        if(buffer=="\r")
+                        if (buffer=="\r" or "")
                         {
 
                             //FF zu bibElemente hinzfügen
-                             bibElemente.push_back((ff));
-
-
-
+                            bibElemente.push_back((ff));
 
                             DEBUG_METHOD("Ende von: "<<name<<" gefunden"<<endl);
                             break;
                         }
-                        //"\r" entfernen
+                        if (buffer.find("#endf")!=0)
+                        {
+                            //Falls Attribut nicht gefunden
+                            readError();
+                            DEBUG_METHOD(buffer<<" nicht gefunden"<<endl);
+                        }
+                        else if (buffer.find("#endf")==0)
+                        {
+                            bibElemente.push_back((ff));
+                            break;
+                        }
+                    }
+                }
+            }
+
+            else
+            {
+
+                GatterTyp *gt = new GatterTyp();
+
+                DEBUG_METHOD(name <<" als GT anlegen");
+                gt->setName(name);
+
+
+
+                while (!f.eof())
+                {
+                    getline(f,buffer);
+
+
+                    //"\r" entfernen
+                    if (linuxzusatz == 1 )
+                    {
                         buffer.erase(buffer.size()-1);
-
-
-
-                        ///*allgemeine Attribute
-                        if(buffer.find("ei:")==0)
-                        {
-                            ff->setEingaenge(atoi(buffer.substr(3).c_str()));
-                            DEBUG_METHOD( "ei init "<<ff->getEingaenge());
-                        }
-
-                        else if(buffer.find("cl:")==0)
-                        {
-                            ff->setLastKapazitaet(atoi(buffer.substr(3).c_str()));
-                            DEBUG_METHOD("cl init "<<ff->getLastKapazitaet());
-                        }
-
-                        else if(buffer.find("kl:")==0)
-                        {
-                            ff->setLastFaktor(atoi(buffer.substr(3).c_str()));
-                            DEBUG_METHOD("kl init "<<ff->getLastFaktor());
-                        }
-
-                        else if(buffer.find("tpd0:")==0)
-                        {
-                            ff->setGrundLaufzeit(atof(buffer.substr(5).c_str()));
-                            DEBUG_METHOD("tpd0 init "<<ff->getGrundLaufzeit());
-                        }
-
-
-                        ///*Flipflop Attribute
-                        else if(buffer.find("tsetup:")==0)
-                        {
-                            ff->setSetupTime(atoi(buffer.substr(7).c_str()));
-                            DEBUG_METHOD("ff testup init: "<<ff->getSetupTime());
-
-                        }
-                        else if(buffer.find("ed:")==0)
-                        {
-                            ff->setEingaenge(atoi(buffer.substr(3).c_str()));
-                            DEBUG_METHOD("ff ed init: "<<ff->getEingaenge());
-
-                        }
-                        else if(buffer.find("thold:")==0)
-                        {
-                            ff->setHoldTime(atoi(buffer.substr(6).c_str()));
-                            DEBUG_METHOD("ff thold init: "<<ff->getHoldTime());
-
-                        }
-                        else if(buffer.find("cd:")==0)
-                        {
-                            ff->setLastKapazitaet(atoi(buffer.substr(3).c_str()));
-                            DEBUG_METHOD("ff cd init: "<<ff->getLastKapazitaet());
-
-                        }
-                        else if(buffer.find("tpdt:")==0)
-                        {
-                            ff->setGrundLaufzeit(atof(buffer.substr(5).c_str()));
-                            DEBUG_METHOD("ff tpdt init: "<<ff->getGrundLaufzeit());
-
-                        }
-                        else if(buffer.find("kl:")==0)
-                        {
-                            ff->setLastFaktor(atoi(buffer.substr(3).c_str()));
-                            DEBUG_METHOD("ff kl init: "<<ff->getLastFaktor());
-
-                        }
-                        else if(buffer.find("ct:")==0)
-                        {
-                            ff->setLastKapazitaetClock(atoi(buffer.substr(3).c_str()));
-                            DEBUG_METHOD("ff ct init: "<<ff->getLastKapazitaetClock());
-
-                        }
-
-                        else
-                        {
-                            if(buffer.find("#endf")!=0){
-                                //Falls Attribut nicht gefunden
-                                readError();
-                                DEBUG_METHOD(buffer<<" nicht gefunden"<<endl);
-                            }
-                            else { bibElemente.push_back((ff));break;}
-                        }
-
                     }
 
 
-                }
 
-                else{
-
-                    GatterTyp *gt = new GatterTyp();
-
-                    DEBUG_METHOD(name <<"als GT anlegen");
-                    gt->setName(name);
-
-
-
-                                        while (!f.eof())
+                    ///*allgemeine Attribute
+                    if (buffer.find("ei:")==0)
                     {
-                        getline(f,buffer);
+                        gt->setEingaenge(atoi(buffer.substr(3).c_str()));
+                        DEBUG_METHOD( "ei init "<<gt->getEingaenge());
+                    }
 
+                    else if (buffer.find("cl:")==0)
+                    {
+                        gt->setLastKapazitaet(atoi(buffer.substr(3).c_str()));
+                        DEBUG_METHOD("cl init "<<gt->getLastKapazitaet());
+                    }
+
+                    else if (buffer.find("kl:")==0)
+                    {
+                        gt->setLastFaktor(atoi(buffer.substr(3).c_str()));
+                        DEBUG_METHOD("kl init "<<gt->getLastFaktor());
+                    }
+
+                    else if (buffer.find("tpd0:")==0)
+                    {
+                        gt->setGrundLaufzeit(atof(buffer.substr(5).c_str()));
+                        DEBUG_METHOD("tpd0 init "<<gt->getGrundLaufzeit());
+                    }
+
+
+                    else
+                    {
                         //Abbruch falls Absatz zu Ende
-                        if(buffer=="\r")
+                        if (buffer=="\r" or "")
                         {
-
                             //GT zu bibElemente hinzfügen
                             bibElemente.push_back(gt);
 
-
-
-
-
                             DEBUG_METHOD("Ende von: "<<name<<" gefunden"<<endl);
                             break;
                         }
-                        //"\r" entfernen
-                        buffer.erase(buffer.size()-1);
 
-
-
-                        ///*allgemeine Attribute
-                        if(buffer.find("ei:")==0)
+                        if (buffer.find("#endf")!=0)
                         {
-                            gt->setEingaenge(atoi(buffer.substr(3).c_str()));
-                            DEBUG_METHOD( "ei init "<<gt->getEingaenge());
+                            //Falls Attribut nicht gefunden
+                            readError();
+                            DEBUG_METHOD(buffer<<" nicht gefunden"<<endl);
                         }
-
-                        else if(buffer.find("cl:")==0)
-                        {
-                            gt->setLastKapazitaet(atoi(buffer.substr(3).c_str()));
-                            DEBUG_METHOD("cl init "<<gt->getLastKapazitaet());
-                        }
-
-                        else if(buffer.find("kl:")==0)
-                        {
-                            gt->setLastFaktor(atoi(buffer.substr(3).c_str()));
-                            DEBUG_METHOD("kl init "<<gt->getLastFaktor());
-                        }
-
-                        else if(buffer.find("tpd0:")==0)
-                        {
-                            gt->setGrundLaufzeit(atof(buffer.substr(5).c_str()));
-                            DEBUG_METHOD("tpd0 init "<<gt->getGrundLaufzeit());
-                        }
-
-
-                        else
-                        {
-                            if(buffer.find("#endf")!=0){
-                                //Falls Attribut nicht gefunden
-                                readError();
-                                DEBUG_METHOD(buffer<<" nicht gefunden"<<endl);
-                            }
-                            else break;
-                        }
-
+                        else break;
                     }
-
-
                 }
-
+            }
         }
     }
 
 
 
-    for(int h=0;h<bibElemente.size();h++){
+    for (int h=0;h<bibElemente.size();h++)
+    {
         cout << bibElemente[h]->getName()<<endl;
     }
 
@@ -350,7 +363,7 @@ bool Bibliothek::pfadEinlesen(string pfad)
 
     ifstream f(pfad.c_str());
 
-    if(f.good())
+    if (f.good())
     {
         datei = pfad;
         return true;

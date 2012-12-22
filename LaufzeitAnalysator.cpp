@@ -121,10 +121,12 @@ bool LaufzeitAnalysator::zyklensuche(SchaltwerkElement* se)
 void LaufzeitAnalysator::DFS_Visit(SchaltwerkElement* k,SchaltwerkElement* s)
 {
 
-    zykBreak = false;
+    //zykBreak = false;
     for (int i=0; i<k->getAnzahlNachfolger(); i++)
     {
-        if(!zykBreak)break;
+        if(!zykBreak){
+            break;
+        }
 
 
         SchaltwerkElement* v =k->getNachfolger(i);
@@ -152,7 +154,7 @@ void LaufzeitAnalysator::DFS_Visit(SchaltwerkElement* k,SchaltwerkElement* s)
         else if (DFS_Zwischenspeicher[v].PfadLaufzeit < (DFS_Zwischenspeicher[k].PfadLaufzeit +k->getLaufzeitEinzelgatter()))
         {
 
-            if( ( ( DFS_Zwischenspeicher[ v ].PfadLaufzeit != 0 ) or ( v== s ) ) and ( DFS_Zwischenspeicher[ v ].VaterElement != k) )
+            if( ((DFS_Zwischenspeicher[v].PfadLaufzeit != 0) or (v==s)) and (DFS_Zwischenspeicher[v].VaterElement != k))
             {
 
                 DFS_Zwischenspeicher[v].VaterElement =k;
@@ -192,11 +194,11 @@ void LaufzeitAnalysator::DFS_Visit(SchaltwerkElement* k,SchaltwerkElement* s)
 double LaufzeitAnalysator::maxFrequenz(long freq)
 {
 
-    cout << "Längster Pfad im Überfuehrungsschaltnetz:" << endl;
+    cout << "Laengster Pfad im Ueberfuehrungsschaltnetz:" << endl;
     cout << uebergangspfad << endl << endl;
-    cout << "Maximale Laufzeit der Pfade im Überfuehrungsschaltnetz: " << laufzeitUebergangspfad << " ps" << endl;
+    cout << "Maximale Laufzeit der Pfade im Ueberfuehrungsschaltnetz: " << laufzeitUebergangspfad << " ps" << endl;
     cout << endl;
-    cout << "Längster Pfad im Ausgangsschaltnetz:" << endl;
+    cout << "Laengster Pfad im Ausgangsschaltnetz:" << endl;
     cout << ausgangspfad << endl << endl;
     cout << "Maximale Laufzeit der Pfade im Ausgangsschaltnetz: " << laufzeitAusgangspfad << " ps" << endl;
     cout << endl;

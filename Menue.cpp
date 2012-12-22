@@ -249,19 +249,19 @@ void Menue::schaltwerkMenue()
 
             //test grapherzeuger
 
-            cout <<"Bib Pfad eingeben: ";
-            cin >> pf;
-          //  pf= "C:\\bib.txt";
+            //cout <<"Bib Pfad eingeben: ";
+            //cin >> pf;
+            pf= "C:\\bib.txt";
             if(!meineBibliothek.pfadEinlesen(pf)){
                 cout << "ERR: Fehler beim einlesen!" << endl;
                 cin.get();
             }
-            cout <<"Csd Pfad eingeben: ";
-            cin >> pf;
-          //  pf="C:\\csd.txt";
+            //cout <<"Csd Pfad eingeben: ";
+            //cin >> pf;
+            //pf="C:\\csd.txt";
             //pf="C:\\test_Offener Eingang.txt";
             //pf="C:\\test_Unbenutztes Signal.txt";
-            //pf="C:\\test_Zyklus 1.txt";
+            pf="C:\\test_Zyklus 1.txt";
             //pf="C:\\test_Zyklus 2.txt";
             //pf="C:\\test_Kurzschluss.txt";
             meinSignalListeErzeuger.setDatei(pf);
