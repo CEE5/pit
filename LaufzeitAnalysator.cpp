@@ -13,6 +13,7 @@ LaufzeitAnalysator::LaufzeitAnalysator(GraphErzeuger* g, Faktoren* f)
     laufzeitUebergangspfad=0;
     laufzeitAusgangspfad=0;
     DFS_Zwischenspeicher.clear();
+    zyklusFound = false;
 
 }
 
@@ -120,11 +121,12 @@ bool LaufzeitAnalysator::zyklensuche(SchaltwerkElement* se)
 
 void LaufzeitAnalysator::DFS_Visit(SchaltwerkElement* k,SchaltwerkElement* s)
 {
-
-    zyklusFound = false;
     for (int i=0; i<k->getAnzahlNachfolger(); i++)
     {
-        if(zyklusFound)break;
+        if(zyklusFound) {
+            break;
+            cout << "Zyklus gefunde, breche ab!" << endl;
+        }
 
 
         SchaltwerkElement* v =k->getNachfolger(i);
