@@ -79,7 +79,7 @@ bool LaufzeitAnalysator::DFS_startSuche(GraphErzeuger *gE)
     }
 
 
-    return !zykBreak;
+    return !zyklusFound;
 
 
 
@@ -121,10 +121,10 @@ bool LaufzeitAnalysator::zyklensuche(SchaltwerkElement* se)
 void LaufzeitAnalysator::DFS_Visit(SchaltwerkElement* k,SchaltwerkElement* s)
 {
 
-    zykBreak = false;
+    zyklusFound = false;
     for (int i=0; i<k->getAnzahlNachfolger(); i++)
     {
-        if(!zykBreak)break;
+        if(zyklusFound)break;
 
 
         SchaltwerkElement* v =k->getNachfolger(i);
@@ -160,7 +160,7 @@ void LaufzeitAnalysator::DFS_Visit(SchaltwerkElement* k,SchaltwerkElement* s)
 
                 if(zyklensuche(v))
                 {
-                    zykBreak = true;
+                    zyklusFound = true;
                     cout << "Fehler Zyklensuche"<<endl;
 
                 }

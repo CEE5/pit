@@ -25,7 +25,7 @@ private:
     string ausgangspfad;
     double laufzeitUebergangspfad;
     double laufzeitAusgangspfad;
-bool zykBreak;
+    bool zyklusFound;
     bool zyklensuche(SchaltwerkElement* se);
     void DFS(ListenElement* s);
 
