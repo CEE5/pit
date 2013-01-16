@@ -30,7 +30,7 @@ void LaufzeitAnalysator::berechne_LaufzeitEinzelgatter()  /// berechnet Laufzeit
 
     faktoren->getFaktoren(spgFaktor, tmpFaktor, przFaktor); /// holt sich aeussere Faktoren ueber Referenz
 
-    cout << "INFO: SPG-F: "<<spgFaktor<<" TMP-F: "<<tmpFaktor<<" PRZ-F: "<<przFaktor<<endl<<endl;
+    debug_msg( "INFO: SPG-F: "<<spgFaktor<<" TMP-F: "<<tmpFaktor<<" PRZ-F: "<<przFaktor<<endl<<endl);
 
     for (ListenElement* ptr = gE->getStartElement(); ptr != NULL; ptr = ptr->getNextElement()) /// durchlaeuft die ListenElemente und weist jedem Schaltwerk im Listenelement seine
     {
@@ -43,14 +43,14 @@ void LaufzeitAnalysator::berechne_LaufzeitEinzelgatter()  /// berechnet Laufzeit
         {
 
             last_C = last_C + ptr->getSchaltwerkElement()->getNachfolger(i)->getTyp()->getLastKapazitaet();  /// speichert diese im Schaltwerkelement
-            cout <<"INFO: C-Last: \t"<<last_C<<endl;
+            debug_msg("INFO: C-Last: \t"<<last_C<<endl);
 
         }
         /// t_pd,actual = (t_pd0 + LastF + LastC) * TempF * SpgF * PrzF
         //  (ps)       = ( ps  + (fs/fF)  * fF  * 1000)   //wieso funkionierts mit 1/1000  und nicht mit 1000 ???????
         ptr->getSchaltwerkElement()->setLaufzeitEinzelgatter(((tpd0 + lastFaktor * last_C * 0.001) * spgFaktor * tmpFaktor * przFaktor));  /// berechnet die Gesamtlaufzeit des Einzelgatters
 
-        cout << "INFO: Laufzeit Einzelgatter von "<< ptr->getSchaltwerkElement()->getName() << ":\t"<<ptr->getSchaltwerkElement()->getLaufzeitEinzelgatter()<<endl;
+        debug_msg("INFO: Laufzeit Einzelgatter von "<< ptr->getSchaltwerkElement()->getName() << ":\t"<<ptr->getSchaltwerkElement()->getLaufzeitEinzelgatter()<<endl);
     }
 
 }
@@ -125,16 +125,16 @@ void LaufzeitAnalysator::DFS_Visit(SchaltwerkElement* k,SchaltwerkElement* s)
     {
         if(zyklusFound) {
             break;
-            cout << "Zyklus gefunde, breche ab!" << endl;
+            debug_msg( "Zyklus gefunde, breche ab!" << endl);
         }
 
 
         SchaltwerkElement* v =k->getNachfolger(i);
-        cout << "nachfolger:"<<v->getName()<<endl;
+        debug_msg("nachfolger:"<<v->getName()<<endl);
 
         if (v->getTyp()->getIsFlipflop())
         {
-            cout <<"ff gefunden: "<<v->getName()<<endl<<endl<<endl;
+            debug_msg("ff gefunden: "<<v->getName()<<endl<<endl<<endl);
 
             if (laufzeitUebergangspfad<DFS_Zwischenspeicher[k].PfadLaufzeit + k->getLaufzeitEinzelgatter())
             {
@@ -163,7 +163,7 @@ void LaufzeitAnalysator::DFS_Visit(SchaltwerkElement* k,SchaltwerkElement* s)
                 if(zyklensuche(v))
                 {
                     zyklusFound = true;
-                    cout << "Fehler Zyklensuche"<<endl;
+                    cout << "Fehler Zyklensuche!"<<endl;
 
                 }
             }

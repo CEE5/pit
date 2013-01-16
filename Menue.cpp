@@ -185,6 +185,9 @@ void Menue::bibliothekMenue()
             if(!meineBibliothek.pfadEinlesen(pf)){
                 cout << "Fehler beim einlesen!" << endl;
                 cin.get();
+            } else {
+                meineBibliothek.dateiAuswerten();
+                meinGraphErzeuger.setBibliothek(&meineBibliothek);
             }
             break;
         case 2:
@@ -217,12 +220,18 @@ void Menue::schaltwerkMenue()
         getline(cin, input);
         switch (atoi(input.c_str())) {
         case 1:
-            cout << "Pfad eingeben: ";
-            cin >>pf;
-            meinSignalListeErzeuger.setDatei(pf);
-            meinSignalListeErzeuger.readFile();
-            cin.ignore();
-            cin.get();
+            if (meineBibliothek.getPfad() != "") {
+                cout << "Pfad eingeben: ";
+                cin >>pf;
+                meinSignalListeErzeuger.setDatei(pf);
+                meinSignalListeErzeuger.readFile();
+                debug_pause();
+                meinGraphErzeuger.listeAnlegen(meinSignalListeErzeuger);
+                meinGraphErzeuger.graphErzeugen(meinSignalListeErzeuger);
+            } else {
+                cout << "\n Die Bibliothek muss als erstes geladen werden!";
+                cin.get();
+            }
             break;
         case 2:
             meinSignalListeErzeuger.dateiAusgabe();
@@ -245,7 +254,7 @@ void Menue::schaltwerkMenue()
             cin.get();
             break;
         case 4:
-            cout << "Ausgabe der Graphstruktur" << endl;
+            /*cout << "Ausgabe der Graphstruktur" << endl;
 
             //test grapherzeuger
 
@@ -271,39 +280,30 @@ void Menue::schaltwerkMenue()
             //meineBibliothek.dateiAusgabe();
             cout << "INFO: bib pfad "<<meineBibliothek.getPfad()<<" eingelesen"<<endl;
 
-            cout << "INFO: start auswerten"<<endl;
-            meineBibliothek.dateiAuswerten();
-            cout << "INFO: Ende auswerten"<<endl;
-            GraphErzeuger gez;
-            cout << "INFO: set biblio"<<endl;
-            gez.setBibliothek(&meineBibliothek);
-            cout << "INFO: erzeuge liste.."<<endl;
-            gez.listeAnlegen(meinSignalListeErzeuger);
-            cout << "INFO: liste erzeugt"<<endl;
-            cout<< "INFO: graph erzeugen:\n "<<endl;
-            cin.get();
-            gez.graphErzeugen(meinSignalListeErzeuger);
+            cout << "INFO: start auswerten"<<endl;*/
+            //meineBibliothek.dateiAuswerten();
+            //cout << "INFO: Ende auswerten"<<endl;
+            //cout << "INFO: set biblio"<<endl;
+            //meinGraphErzeuger.setBibliothek(&meineBibliothek);
+            //cout << "INFO: erzeuge liste.."<<endl;
+            //meinGraphErzeuger.listeAnlegen(meinSignalListeErzeuger);
+            //out << "INFO: liste erzeugt"<<endl;
+            //cout<< "INFO: graph erzeugen:\n "<<endl;
+            //cin.get();
+            //meinGraphErzeuger.graphErzeugen(meinSignalListeErzeuger);
 
-            cin.get();
-            gez.listenAusgabe( );
+            //cin.get();
+            meinGraphErzeuger.listenAusgabe( );
             cin.get();
 
             //Test analyse
 
-            Faktoren f;
+            /*Faktoren f;
             f.setSpannung(1.2);
             f.setTemp(25);
-            f.setProzess(2);
+            f.setProzess(2);*/
 
-            LaufzeitAnalysator lza( &gez, &f);
-            lza.berechne_LaufzeitEinzelgatter();
 
-            if(lza.DFS_startSuche(&gez)){
-
-                lza.maxFrequenz(meinSignalListeErzeuger.getFrequenz());
-            }
-
-            cin.get();
 
             break;
         }
@@ -316,15 +316,15 @@ void Menue::analyse()
     /**
     ruft die zur Analyse benötigten Methoden auf und gibt das Ergebnis auf dem Bildschirm aus.
     */
-    while(input != "5") {
-        menueKopf();
+    LaufzeitAnalysator lza( &meinGraphErzeuger, &meineFaktoren);
+    lza.berechne_LaufzeitEinzelgatter();
 
-        getline(cin, input);
-        switch (atoi(input.c_str())) {
-        case 1:
-            break;
-        }
+    if(lza.DFS_startSuche(&meinGraphErzeuger)){
+
+        lza.maxFrequenz(meinSignalListeErzeuger.getFrequenz());
     }
+
+    cin.get();
     input.clear();
 }
 

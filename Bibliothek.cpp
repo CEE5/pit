@@ -1,7 +1,7 @@
 
 #include "Bibliothek.h"
 
-#define DEBUG_METHOD(name) std::cout << "DEBUG --> " << name<<endl;
+
 
 
 
@@ -34,7 +34,7 @@ GatterTyp* Bibliothek::getBibElement(string typ)
             if(bibElemente[i]->getIsFlipflop()){
                 return (dynamic_cast<Flipflop*>(bibElemente[i]));
             }
-            else{
+            else {
                 return bibElemente[i];
             }
         }
@@ -59,7 +59,7 @@ void Bibliothek::dateiAusgabe(void)
         while (!f.eof())
         {
             getline(f,buffer);
-            cout <<i<<": "<<buffer<<endl;
+            cout << i<<": "<<buffer<<endl;
             i++;
         }
     }
@@ -96,7 +96,7 @@ void Bibliothek::dateiAuswerten(void)
                 if(buffer=="\r")
                 {
 
-                    DEBUG_METHOD("Blockende gefunden"<<endl);
+                    debug_msg("Blockende gefunden");
                     break;
                 }
 
@@ -113,7 +113,7 @@ void Bibliothek::dateiAuswerten(void)
 
                     bibElemente.push_back(*dummy);
 
-                    DEBUG_METHOD( "ff angelegt: "<<buffer);
+                    debug_msg( "ff angelegt: "<<buffer);
 
                 }
                 else
@@ -122,7 +122,7 @@ void Bibliothek::dateiAuswerten(void)
                     dummy->setName(buffer);
 
                     bibElemente.push_back(*dummy);
-                    DEBUG_METHOD( "gt angelegt: "<<buffer);
+                    debug_msg( "gt angelegt: "<<buffer);
 
                 }*/
 
@@ -144,7 +144,7 @@ void Bibliothek::dateiAuswerten(void)
                     Flipflop *ff = new Flipflop();
                     ff->setName(name);
 
-                    DEBUG_METHOD(name <<"als FF anlegen");
+                    debug_msg(name <<"als FF anlegen");
 
 
                     while (!f.eof())
@@ -161,7 +161,7 @@ void Bibliothek::dateiAuswerten(void)
 
 
 
-                            DEBUG_METHOD("Ende von: "<<name<<" gefunden"<<endl);
+                            debug_msg("Ende von: "<<name<<" gefunden");
                             break;
                         }
                         //"\r" entfernen
@@ -173,25 +173,25 @@ void Bibliothek::dateiAuswerten(void)
                         if(buffer.find("ei:")==0)
                         {
                             ff->setEingaenge(atoi(buffer.substr(3).c_str()));
-                            DEBUG_METHOD( "ei init "<<ff->getEingaenge());
+                            debug_msg( "ei init "<<ff->getEingaenge());
                         }
 
                         else if(buffer.find("cl:")==0)
                         {
                             ff->setLastKapazitaet(atoi(buffer.substr(3).c_str()));
-                            DEBUG_METHOD("cl init "<<ff->getLastKapazitaet());
+                            debug_msg("cl init "<<ff->getLastKapazitaet());
                         }
 
                         else if(buffer.find("kl:")==0)
                         {
                             ff->setLastFaktor(atoi(buffer.substr(3).c_str()));
-                            DEBUG_METHOD("kl init "<<ff->getLastFaktor());
+                            debug_msg("kl init "<<ff->getLastFaktor());
                         }
 
                         else if(buffer.find("tpd0:")==0)
                         {
                             ff->setGrundLaufzeit(atof(buffer.substr(5).c_str()));
-                            DEBUG_METHOD("tpd0 init "<<ff->getGrundLaufzeit());
+                            debug_msg("tpd0 init "<<ff->getGrundLaufzeit());
                         }
 
 
@@ -199,43 +199,43 @@ void Bibliothek::dateiAuswerten(void)
                         else if(buffer.find("tsetup:")==0)
                         {
                             ff->setSetupTime(atoi(buffer.substr(7).c_str()));
-                            DEBUG_METHOD("ff testup init: "<<ff->getSetupTime());
+                            debug_msg("ff testup init: "<<ff->getSetupTime());
 
                         }
                         else if(buffer.find("ed:")==0)
                         {
                             ff->setEingaenge(atoi(buffer.substr(3).c_str()));
-                            DEBUG_METHOD("ff ed init: "<<ff->getEingaenge());
+                            debug_msg("ff ed init: "<<ff->getEingaenge());
 
                         }
                         else if(buffer.find("thold:")==0)
                         {
                             ff->setHoldTime(atoi(buffer.substr(6).c_str()));
-                            DEBUG_METHOD("ff thold init: "<<ff->getHoldTime());
+                            debug_msg("ff thold init: "<<ff->getHoldTime());
 
                         }
                         else if(buffer.find("cd:")==0)
                         {
                             ff->setLastKapazitaet(atoi(buffer.substr(3).c_str()));
-                            DEBUG_METHOD("ff cd init: "<<ff->getLastKapazitaet());
+                            debug_msg("ff cd init: "<<ff->getLastKapazitaet());
 
                         }
                         else if(buffer.find("tpdt:")==0)
                         {
                             ff->setGrundLaufzeit(atof(buffer.substr(5).c_str()));
-                            DEBUG_METHOD("ff tpdt init: "<<ff->getGrundLaufzeit());
+                            debug_msg("ff tpdt init: "<<ff->getGrundLaufzeit());
 
                         }
                         else if(buffer.find("kl:")==0)
                         {
                             ff->setLastFaktor(atoi(buffer.substr(3).c_str()));
-                            DEBUG_METHOD("ff kl init: "<<ff->getLastFaktor());
+                            debug_msg("ff kl init: "<<ff->getLastFaktor());
 
                         }
                         else if(buffer.find("ct:")==0)
                         {
                             ff->setLastKapazitaetClock(atoi(buffer.substr(3).c_str()));
-                            DEBUG_METHOD("ff ct init: "<<ff->getLastKapazitaetClock());
+                            debug_msg("ff ct init: "<<ff->getLastKapazitaetClock());
 
                         }
 
@@ -244,7 +244,7 @@ void Bibliothek::dateiAuswerten(void)
                             if(buffer.find("#endf")!=0){
                                 //Falls Attribut nicht gefunden
                                 readError();
-                                DEBUG_METHOD(buffer<<" nicht gefunden"<<endl);
+                                debug_msg(buffer<<" nicht gefunden");
                             }
                             else { bibElemente.push_back((ff));break;}
                         }
@@ -258,7 +258,7 @@ void Bibliothek::dateiAuswerten(void)
 
                     GatterTyp *gt = new GatterTyp();
 
-                    DEBUG_METHOD(name <<"als GT anlegen");
+                    debug_msg(name <<"als GT anlegen");
                     gt->setName(name);
 
 
@@ -278,7 +278,7 @@ void Bibliothek::dateiAuswerten(void)
 
 
 
-                            DEBUG_METHOD("Ende von: "<<name<<" gefunden"<<endl);
+                            debug_msg("Ende von: "<<name<<" gefunden");
                             break;
                         }
                         //"\r" entfernen
@@ -290,25 +290,25 @@ void Bibliothek::dateiAuswerten(void)
                         if(buffer.find("ei:")==0)
                         {
                             gt->setEingaenge(atoi(buffer.substr(3).c_str()));
-                            DEBUG_METHOD( "ei init "<<gt->getEingaenge());
+                            debug_msg( "ei init "<<gt->getEingaenge());
                         }
 
                         else if(buffer.find("cl:")==0)
                         {
                             gt->setLastKapazitaet(atoi(buffer.substr(3).c_str()));
-                            DEBUG_METHOD("cl init "<<gt->getLastKapazitaet());
+                            debug_msg("cl init "<<gt->getLastKapazitaet());
                         }
 
                         else if(buffer.find("kl:")==0)
                         {
                             gt->setLastFaktor(atoi(buffer.substr(3).c_str()));
-                            DEBUG_METHOD("kl init "<<gt->getLastFaktor());
+                            debug_msg("kl init "<<gt->getLastFaktor());
                         }
 
                         else if(buffer.find("tpd0:")==0)
                         {
                             gt->setGrundLaufzeit(atof(buffer.substr(5).c_str()));
-                            DEBUG_METHOD("tpd0 init "<<gt->getGrundLaufzeit());
+                            debug_msg("tpd0 init "<<gt->getGrundLaufzeit());
                         }
 
 
@@ -317,7 +317,7 @@ void Bibliothek::dateiAuswerten(void)
                             if(buffer.find("#endf")!=0){
                                 //Falls Attribut nicht gefunden
                                 readError();
-                                DEBUG_METHOD(buffer<<" nicht gefunden"<<endl);
+                                debug_msg(buffer<<" nicht gefunden");
                             }
                             else break;
                         }
@@ -333,7 +333,7 @@ void Bibliothek::dateiAuswerten(void)
 
 
     for(int h=0;h<bibElemente.size();h++){
-        cout << bibElemente[h]->getName()<<endl;
+        debug_msg( bibElemente[h]->getName());
     }
 
 

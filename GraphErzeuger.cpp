@@ -69,12 +69,12 @@ void GraphErzeuger::listeAnlegen(SignalListeErzeuger signallist)
 
         if ((tmpSignal.getSignalTyp() == eingang) )         /// prueft ob Eingang
         {
-            cout <<"INFO: eingang gefunden"<<endl;
+            debug_msg("INFO: eingang gefunden");
             eingaenge++;
         }
         else if (tmpSignal.getSignalTyp() == clk)         /// prueft ob Takt
         {
-            cout <<"INFO: clock gefunden"<<endl;
+            debug_msg("INFO: clock gefunden");
         }
         else if ((tmpSignal.getSignalTyp() == intern) or (tmpSignal.getSignalTyp() == ausgang))   /// wenn intern oder ausgangs-signal hat das signal eine quelle,
         {
@@ -96,14 +96,14 @@ void GraphErzeuger::listeAnlegen(SignalListeErzeuger signallist)
                 if ( tmpSignal.getSignalTyp() == ausgang )
                 {
                     newSchaltwerkElement->setIsAusgangsElement(true);
-                    cout <<"INFO: ausgang gefunden"<<endl;
+                    debug_msg("INFO: ausgang gefunden");
                     ausgaenge++;
                 }
 
                 /// verknuepfen von Schaltwerkselement mit Listenelement
                 newListenElement->setSchaltwerkElement( newSchaltwerkElement );
                 gAnzahl++;
-                cout <<"INFO: "<<gAnzahl<<". ListenElement angelegt vom Typ "<< tmpSignal.getQuellenTyp()<<" !"<<endl;
+                debug_msg("INFO: "<<gAnzahl<<". ListenElement angelegt vom Typ "<< tmpSignal.getQuellenTyp()<<" !");
 
 
                 /// baut die Liste auf
@@ -123,13 +123,13 @@ void GraphErzeuger::listeAnlegen(SignalListeErzeuger signallist)
             }
             else   // von leerer Quelle Abfrage, um ungenutzte Signake zu erkennen
             {
-                cerr << "Fehler! Unbenutztes Signal gefunden"<<endl;
+                cout << "Fehler! Unbenutztes Signal gefunden" << endl;
             }
         }
 
         else            // von Signaltypabfrage
         {
-            cerr << "Fehler! Unbekannter Signaltyp" <<endl;
+            cout << "Fehler! Unbekannter Signaltyp" << endl;
         }
     }
     /// eingang finden
@@ -137,7 +137,7 @@ void GraphErzeuger::listeAnlegen(SignalListeErzeuger signallist)
     {
         if ( signallist.getSignal(z)->getSignalTyp() == eingang)            /// vergleicht mit Signaltypen, ob "eingang" der Signaltyp ist
         {
-            cout << "INFO: Dieses Eingangssignal hat "<<signallist.getSignal(z)->getAnzahlZiele()<< " Ziel(e)"<<endl;
+            debug_msg( "INFO: Dieses Eingangssignal hat "<<signallist.getSignal(z)->getAnzahlZiele()<< " Ziel(e)");
             for ( int y = 0; y < signallist.getSignal(z)->getAnzahlZiele(); y++)               /// durchlaeuft alle ziele dieses signals
             {
                 string eingangsGatter = signallist.getSignal(z)->getZiel( y );
@@ -146,7 +146,7 @@ void GraphErzeuger::listeAnlegen(SignalListeErzeuger signallist)
                     if ( ptr->getSchaltwerkElement()->getName() == eingangsGatter )                 /// jeweiligen listenelement ab
                     {
                         ptr->getSchaltwerkElement()->setIsEingangsElement(true);
-                        cout << "INFO: "<< ptr->getSchaltwerkElement()->getName() <<" ist Eingang"<<endl;
+                        debug_msg( "INFO: "<< ptr->getSchaltwerkElement()->getName() <<" ist Eingang");
                     }
                 }
             }
@@ -159,7 +159,7 @@ void GraphErzeuger::listeAnlegen(SignalListeErzeuger signallist)
     {
         tmpZaehler = 0;
 
-        cout <<"INFO:-----"<<endl;
+        debug_msg("INFO:-----");
 
         for (int z = 0; z < signallist.getAnzahlSignale(); z++)         ///danach die Signalliste
         {
@@ -171,7 +171,7 @@ void GraphErzeuger::listeAnlegen(SignalListeErzeuger signallist)
                 {
                     tmpZaehler += 1;
 
-                    cout <<"INFO: "<< tmpZaehler <<". Eingang von "<< ptr->getSchaltwerkElement()->getName() <<" gefunden"<<endl;
+                    debug_msg("INFO: "<< tmpZaehler <<". Eingang von "<< ptr->getSchaltwerkElement()->getName() <<" gefunden");
                 }
             }
         }
@@ -183,8 +183,8 @@ void GraphErzeuger::listeAnlegen(SignalListeErzeuger signallist)
         /// check, ob Schaltwerk und Bib fuer das jeweilige Element dieselbe Anzahl Eingaenge verzeichnet haben
         if (ptr->getSchaltwerkElement()->getTyp()->getEingaenge() != tmpZaehler)
         {
-            cerr << "Fehler!\nAnzahl Eingaenge laut Bibliothek: \t"<<ptr->getSchaltwerkElement()->getTyp()->getEingaenge()<<endl
-            <<"Anzahl Eingaenge laut Schaltwerk: \t"<<tmpZaehler<<endl;
+            cout << "Fehler!\nAnzahl Eingaenge laut Bibliothek: \t"<<ptr->getSchaltwerkElement()->getTyp()->getEingaenge()<<endl
+            <<"Anzahl Eingaenge laut Schaltwerk: \t"<<tmpZaehler << endl;
         }
     }
 
@@ -224,7 +224,7 @@ void GraphErzeuger::graphErzeugen(SignalListeErzeuger signallist)
                             if ( tmpListenElement2->getSchaltwerkElement()->getName() == folgeGatter )
                             {
                                 tmpListenElement->getSchaltwerkElement()->nachfolgerHinzufuegen( tmpListenElement2->getSchaltwerkElement(), j );
-                                cout << "INFO: "<< tmpListenElement2->getSchaltwerkElement()->getName() << " ist Nachfolger von " << tmpListenElement->getSchaltwerkElement()->getName()<<endl;
+                                debug_msg( "INFO: "<< tmpListenElement2->getSchaltwerkElement()->getName() << " ist Nachfolger von " << tmpListenElement->getSchaltwerkElement()->getName());
                             }
                         }
                     }
@@ -236,13 +236,12 @@ void GraphErzeuger::graphErzeugen(SignalListeErzeuger signallist)
         }
         else          // von Anzahlnachfolger if-Abfrage
         {
-            cerr << "Fehler: Mehr als 5 Nachfolgegatter bei "<< tmpSWE->getName() << endl;
+            cout << "Fehler: Mehr als 5 Nachfolgegatter bei "<< tmpSWE->getName() << endl;
         }
 
     }
 
 }
-
 
 void GraphErzeuger::listenAusgabe ( )         /// gibt die Listenelemente mit Gatternamen und ihre NachfolgeGatter aus
 {
@@ -303,3 +302,6 @@ void GraphErzeuger::listenAusgabe ( )         /// gibt die Listenelemente mit Ga
 
     }
 }
+
+
+
