@@ -56,7 +56,7 @@ void LaufzeitAnalysator::berechne_LaufzeitEinzelgatter()  /// berechnet Laufzeit
 }
 bool LaufzeitAnalysator::DFS_startSuche(GraphErzeuger *gE)
 {
-
+    zyklusFound = false;
     vector < ListenElement *> start;
 
     for(ListenElement *i = gE->getStartElement(); i!=NULL ; i=i->getNextElement())

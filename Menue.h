@@ -31,10 +31,6 @@ class Menue
 
         GraphErzeuger meinGraphErzeuger;
 
-        //LaufzeitAnalysator meinLaufzeitAnalysator;
-
-       // Signal* signale;
-
 
 
         void faktorenMenue();
