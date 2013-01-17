@@ -128,12 +128,16 @@ void GraphErzeuger::listeAnlegen(SignalListeErzeuger signallist)
             else   // von leerer Quelle Abfrage, um ungenutzte Signake zu erkennen
             {
                 cout << "Fehler! Unbenutztes Signal gefunden" << endl;
+                cin.ignore();
+                cin.get();
             }
         }
 
         else            // von Signaltypabfrage
         {
             cout << "Fehler! Unbekannter Signaltyp" << endl;
+            cin.ignore();
+            cin.get();
         }
     }
     /// eingang finden
@@ -189,6 +193,9 @@ void GraphErzeuger::listeAnlegen(SignalListeErzeuger signallist)
         {
             cout << "Fehler!\nAnzahl Eingaenge laut Bibliothek: \t"<<ptr->getSchaltwerkElement()->getTyp()->getEingaenge()<<endl
             <<"Anzahl Eingaenge laut Schaltwerk: \t"<<tmpZaehler << endl;
+            cin.ignore();
+            cin.clear();
+            cin.get();
         }
     }
 

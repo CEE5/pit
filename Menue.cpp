@@ -233,15 +233,24 @@ void Menue::schaltwerkMenue()
             if (meineBibliothek.getPfad() != "") {
                 cout << "Pfad eingeben: ";
                 cin >>pf;
-                meinSignalListeErzeuger.setDatei(pf);
-                if (meinSignalListeErzeuger.readFile() == 21 ) {
-                    //cout << "Kurzschluss gefunden!"<< endl;
+                ifstream f(pf.c_str());
+                if(!f.good()) {
+                    cout << "Datei nicht gefunden!"<<endl;
+                    cin.ignore();
                     cin.get();
                 } else {
 
+                    meinSignalListeErzeuger.setDatei(pf);
+                    if (meinSignalListeErzeuger.readFile() == 21 ) {
+                        //cout << "Kurzschluss gefunden!"<< endl;
+                        cin.get();
+                    } else {
+
+                        debug_pause();
+                        meinGraphErzeuger.listeAnlegen(meinSignalListeErzeuger);
+                        meinGraphErzeuger.graphErzeugen(meinSignalListeErzeuger);
+                    }
                     debug_pause();
-                    meinGraphErzeuger.listeAnlegen(meinSignalListeErzeuger);
-                    meinGraphErzeuger.graphErzeugen(meinSignalListeErzeuger);
                 }
             } else {
                 cout << "\n Die Bibliothek muss als erstes geladen werden!";
