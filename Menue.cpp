@@ -264,57 +264,8 @@ void Menue::schaltwerkMenue()
             cin.get();
             break;
         case 4:
-            /*cout << "Ausgabe der Graphstruktur" << endl;
-
-            //test grapherzeuger
-
-            cout <<"Bib Pfad eingeben: ";
-            cin >> pf;
-          //  pf= "C:\\bib.txt";
-            if(!meineBibliothek.pfadEinlesen(pf)){
-                cout << "ERR: Fehler beim einlesen!" << endl;
-                cin.get();
-            }
-            cout <<"Csd Pfad eingeben: ";
-            cin >> pf;
-          //  pf="C:\\csd.txt";
-            //pf="C:\\test_Offener Eingang.txt";
-            //pf="C:\\test_Unbenutztes Signal.txt";
-            //pf="C:\\test_Zyklus 1.txt";
-            //pf="C:\\test_Zyklus 2.txt";
-            //pf="C:\\test_Kurzschluss.txt";
-            meinSignalListeErzeuger.setDatei(pf);
-            meinSignalListeErzeuger.readFile();
-
-
-            //meineBibliothek.dateiAusgabe();
-            cout << "INFO: bib pfad "<<meineBibliothek.getPfad()<<" eingelesen"<<endl;
-
-            cout << "INFO: start auswerten"<<endl;*/
-            //meineBibliothek.dateiAuswerten();
-            //cout << "INFO: Ende auswerten"<<endl;
-            //cout << "INFO: set biblio"<<endl;
-            //meinGraphErzeuger.setBibliothek(&meineBibliothek);
-            //cout << "INFO: erzeuge liste.."<<endl;
-            //meinGraphErzeuger.listeAnlegen(meinSignalListeErzeuger);
-            //out << "INFO: liste erzeugt"<<endl;
-            //cout<< "INFO: graph erzeugen:\n "<<endl;
-            //cin.get();
-            //meinGraphErzeuger.graphErzeugen(meinSignalListeErzeuger);
-
-            //cin.get();
             meinGraphErzeuger.listenAusgabe( );
             cin.get();
-
-            //Test analyse
-
-            /*Faktoren f;
-            f.setSpannung(1.2);
-            f.setTemp(25);
-            f.setProzess(2);*/
-
-
-
             break;
         }
     }
@@ -326,14 +277,17 @@ void Menue::analyse()
     /**
     ruft die zur Analyse benötigten Methoden auf und gibt das Ergebnis auf dem Bildschirm aus.
     */
-    LaufzeitAnalysator lza( &meinGraphErzeuger, &meineFaktoren);
-    lza.berechne_LaufzeitEinzelgatter();
+    if ((meineFaktoren.getTemp() != 0) && (meineFaktoren.getSpannung() != 0) && (meineFaktoren.getProzess() != 0) && (meineBibliothek.getPfad() != "") && (meinSignalListeErzeuger.getDatei() != "") ) {
+        LaufzeitAnalysator lza( &meinGraphErzeuger, &meineFaktoren);
+        lza.berechne_LaufzeitEinzelgatter();
 
-    if(lza.DFS_startSuche(&meinGraphErzeuger)){
+        if(lza.DFS_startSuche(&meinGraphErzeuger)){
 
-        lza.maxFrequenz(meinSignalListeErzeuger.getFrequenz());
+            lza.maxFrequenz(meinSignalListeErzeuger.getFrequenz());
+        }
+    } else {
+        cout << "Es sind noch nicht alle benötigten Parameter ausgefüllt!";
     }
-
     cin.get();
     input.clear();
 }
