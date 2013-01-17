@@ -54,8 +54,12 @@ int GraphErzeuger::getGatterAnzahl(){
 
 void GraphErzeuger::listeAnlegen(SignalListeErzeuger signallist)
 {
+    startElement = NULL;///Initialisierung
+    endElement = NULL;
+    signale = NULL;
+    anzahlSignale = 0;
+    gAnzahl = 0;
 
-    gAnzahl = 0;        // sind bisher nur zum INFO ausgeben da
     short eingaenge = 0;
     short ausgaenge = 0;
 
