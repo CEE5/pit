@@ -134,12 +134,22 @@ void Menue::faktorenMenue()
         case 1:
             cout << "Neue Spannung eingeben: ";
             getline(cin, input);
-            meineFaktoren.setSpannung(atof(input.c_str()));
+            	if  ( (atof(input.c_str()) >= 1.08) && (atof(input.c_str()) <= 1.32) ) {
+                    meineFaktoren.setSpannung(atof(input.c_str()));
+            	} else {
+                    cout << "Die Spannung muss zwischen 1.08 und 1.32 liegen" <<endl;
+                    cin.get();
+            	}
             break;
         case 2:
             cout << "Neue Temperatur eingeben: ";
             getline(cin, input);
-            meineFaktoren.setTemp(atof(input.c_str()));
+            if  ( (atof(input.c_str()) >= -25) && (atof(input.c_str()) <= 125)) {
+                meineFaktoren.setTemp(atof(input.c_str()));
+            } else {
+                cout << "Die Temperatur muss zwischen -25 und 125 liegen!";
+                cin.get();
+            }
             break;
         case 3:
             cout << "Neue Prozess Geschwindigkeit eingeben: ";

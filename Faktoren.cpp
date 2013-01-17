@@ -167,7 +167,8 @@ double Faktoren::getSpannung(){
 }
 
 
-/** Diese Methode dient zum Lesen des privaten Attributes temp (die Temperatur) */
+/** Diese Methode dient zum Lesen des privaten Attributes temp (die
+eratur) */
 double Faktoren::getTemp(){
 	return temp;
 }
