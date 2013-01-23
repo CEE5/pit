@@ -1,0 +1,202 @@
+\documentclass[11pt]{article}
+
+\usepackage{listings}
+ \lstset{
+   basicstyle=\scriptsize\ttfamily,
+   keywordstyle=\bfseries\ttfamily\color{orange},
+   stringstyle=\color{green}\ttfamily,
+   commentstyle=\color{middlegray}\ttfamily,
+   emph={square}, 
+   emphstyle=\color{blue}\texttt,
+   emph={[2]root,base},
+   emphstyle={[2]\color{yac}\texttt},
+   showstringspaces=false,
+   flexiblecolumns=true,
+   tabsize=2,
+   numbers=left,
+   numberstyle=\tiny,
+   numberblanklines=false,
+   stepnumber=1,
+   numbersep=10pt,
+   xleftmargin=1 pt
+ }
+\begin{document}
+
+\section{LaufzeitAnalysator}
+In dieser Methode wird die Laufzeit der einzelnen Gatter abhängig von äu"seren Faktoren berechnet
+\begin{lstlisting}
+	void LaufzeitAnalysator::berechne_LaufzeitEinzelgatter() /// berechnet Laufzeit fuer jedes einzelne Gatter
+{
+    double spgFaktor,
+    tmpFaktor,
+    przFaktor;
+
+    faktoren->getFaktoren(spgFaktor, tmpFaktor, przFaktor); /// holt sich aeussere Faktoren ueber Referenz
+
+    debug_msg( "INFO: SPG-F: "<<spgFaktor<<" TMP-F: "<<tmpFaktor<<" PRZ-F: "<<przFaktor<<endl<<endl);
+
+    for (ListenElement* ptr = gE->getStartElement(); ptr != NULL; ptr = ptr->getNextElement()) /// durchlaeuft die ListenElemente und weist jedem Schaltwerk im Listenelement seine
+    {
+
+        double tpd0 = ptr->getSchaltwerkElement()->getTyp()->getGrundLaufzeit(); /// Grundlaufzeit tpd0 (in ps) und seinen
+        double lastFaktor = ptr->getSchaltwerkElement()->getTyp()->getLastFaktor(); /// Lastfaktor lastFaktor (in fs/fF) zu
+        double last_C = 0;
+
+        for (int i = 0; i < (ptr->getSchaltwerkElement()->getAnzahlNachfolger()); i++ ) /// summiert die Eingangs-C (in fF) der mit dem Ausgang verbundenen Gatter und
+        {
+
+            last_C = last_C + ptr->getSchaltwerkElement()->getNachfolger(i)->getTyp()->getLastKapazitaet(); /// speichert diese im Schaltwerkelement
+            debug_msg("INFO: C-Last: \t"<<last_C<<endl);
+
+        }
+        /// t_pd,actual = (t_pd0 + LastF + LastC) * TempF * SpgF * PrzF
+        // (ps) = ( ps + (fs/fF) * fF * 1000) //wieso funkionierts mit 1/1000 und nicht mit 1000 ???????
+        ptr->getSchaltwerkElement()->setLaufzeitEinzelgatter(((tpd0 + lastFaktor * last_C * 0.001) * spgFaktor * tmpFaktor * przFaktor)); /// berechnet die Gesamtlaufzeit des Einzelgatters
+
+        debug_msg("INFO: Laufzeit Einzelgatter von "<< ptr->getSchaltwerkElement()->getName() << ":\t"<<ptr->getSchaltwerkElement()->getLaufzeitEinzelgatter()<<endl);
+    }
+
+}
+
+\end{lstlisting}
+
+Die Zyklensuche pr"uft die Schaltung auf einen eventuell vorhandenen Zyklus, damit die Laufzeitanalyse darauf reagieren kann
+\begin{lstlisting}
+	bool LaufzeitAnalysator::zyklensuche(SchaltwerkElement* se)
+{
+    for(SchaltwerkElement* i=se ; i!=NULL ; i=DFS_Zwischenspeicher[i].VaterElement)
+    {
+        if( DFS_Zwischenspeicher[i].VaterElement == se )
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+
+\end{lstlisting}
+
+
+Die Tiefensuche durchsucht die einzelnen "Aste des Baumes nach evtuellen Zyklen und berechnet den l"angsten "Ubergangspfad sowie Ausgangspfad
+
+\begin{lstlisting}
+void LaufzeitAnalysator::DFS_Visit(SchaltwerkElement* k,SchaltwerkElement* s)
+{
+    for (int i=0; i<k->getAnzahlNachfolger(); i++)
+    {
+        if(zyklusFound) {
+            break;
+            debug_msg( "Zyklus gefunde, breche ab!" << endl);
+        }
+
+
+        SchaltwerkElement* v =k->getNachfolger(i);
+        debug_msg("nachfolger:"<<v->getName()<<endl);
+
+        if (v->getTyp()->getIsFlipflop())
+        {
+            debug_msg("ff gefunden: "<<v->getName()<<endl<<endl<<endl);
+
+            if (laufzeitUebergangspfad<DFS_Zwischenspeicher[k].PfadLaufzeit + k->getLaufzeitEinzelgatter())
+            {
+                laufzeitUebergangspfad=DFS_Zwischenspeicher[k].PfadLaufzeit + k->getLaufzeitEinzelgatter();
+
+                uebergangspfad = k->getName() + " ->" + k->getNachfolger(i)->getName();
+                //cout << "Übergangspfad: "<<uebergangspfad<<":"<<laufzeitUebergangspfad<<endl;
+                //String erstellen
+                for( SchaltwerkElement* v = k ; v != s ; v = DFS_Zwischenspeicher[v].VaterElement )
+                {
+                    uebergangspfad.insert( 0 , ( DFS_Zwischenspeicher[v].VaterElement->getName() + "-> " ));
+                }
+
+            }
+        }
+
+        else if (DFS_Zwischenspeicher[v].PfadLaufzeit < (DFS_Zwischenspeicher[k].PfadLaufzeit +k->getLaufzeitEinzelgatter()))
+        {
+
+            if( ( ( DFS_Zwischenspeicher[ v ].PfadLaufzeit != 0 ) or ( v== s ) ) and ( DFS_Zwischenspeicher[ v ].VaterElement != k) )
+            {
+
+                DFS_Zwischenspeicher[v].VaterElement =k;
+
+
+                if(zyklensuche(v))
+                {
+                    zyklusFound = true;
+                    cout << "Fehler Zyklensuche!"<<endl;
+
+                }
+            }
+            DFS_Zwischenspeicher[v].PfadLaufzeit = DFS_Zwischenspeicher[k].PfadLaufzeit + k->getLaufzeitEinzelgatter();
+            DFS_Zwischenspeicher[v].VaterElement = k;
+
+            DFS_Visit(v,s);
+
+        }
+
+    }
+
+    if(k->getIsAusgangsElement() and (laufzeitAusgangspfad < (DFS_Zwischenspeicher[k].PfadLaufzeit + k->getLaufzeitEinzelgatter())))
+    {
+        laufzeitAusgangspfad = DFS_Zwischenspeicher[k].PfadLaufzeit + k->getLaufzeitEinzelgatter();
+
+        ausgangspfad = k->getName();
+
+        for(SchaltwerkElement * j = k; j != s; j= DFS_Zwischenspeicher[j].VaterElement)
+        {
+            ausgangspfad.insert(0,(DFS_Zwischenspeicher[j].VaterElement->getName() + "->"));
+        }
+
+    }
+
+}
+\end{lstlisting}
+
+
+
+Im Folgenden wird die maximale Frequenz berechnet, mit welcher die Schaltung betrieben werden kann und gepr"uft ob die vorgesehene Frequenz die maximale Frequenz nicht "uberschreitet
+
+\begin{lstlisting}
+double LaufzeitAnalysator::maxFrequenz(long freq)
+{
+
+    cout << "Längster Pfad im Überfuehrungsschaltnetz:" << endl;
+    cout << uebergangspfad << endl << endl;
+    cout << "Maximale Laufzeit der Pfade im Überfuehrungsschaltnetz: " << laufzeitUebergangspfad << " ps" << endl;
+    cout << endl;
+    cout << "Längster Pfad im Ausgangsschaltnetz:" << endl;
+    cout << ausgangspfad << endl << endl;
+    cout << "Maximale Laufzeit der Pfade im Ausgangsschaltnetz: " << laufzeitAusgangspfad << " ps" << endl;
+    cout << endl;
+    cout << "-----------------------------------------------"<<endl;
+    long double maxF = 1/ (dynamic_cast<Flipflop*>(( gE->getBibliothek()->getBibElement("dff")))->getSetupTime() * 0.000000000001 + laufzeitUebergangspfad * 0.000000000001 );
+
+    if(maxF>1000){
+        if(maxF>1000000){
+
+        cout << "maxFrequenz: "<<maxF/1000000<<" MHz"<<endl;
+        }
+        else{
+            cout << "maxFrequenz: "<<maxF/1000<<" kHz"<<endl;
+        }
+    }
+
+    cout << "-----------------------------------------------"<<endl;
+    if(maxF < freq){
+        cout << "Frequenz zu groß"<<endl;
+    }
+    else{
+        cout << "Frequenz okay"<<endl;
+
+    }
+
+
+}
+\end{lstlisting}
+
+\begin{lstlisting}
+\end{lstlisting}
+
+\end{document}
