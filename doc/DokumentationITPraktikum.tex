@@ -1,7 +1,7 @@
 \documentclass[a4paper,10pt,twoside]{report}
 \usepackage[a4paper]{geometry}
 \usepackage{listings}
-\usepackage[utf8]{inputenc} % ISO 8859-1
+\usepackage[latin1]{inputenc} % ISO 8859-1
 \usepackage[ngerman]{babel}
 \usepackage{color}
 \usepackage[pdftex]{graphicx}
@@ -129,6 +129,12 @@ stringstyle=\color{mypurple},
 % TODO - Command
 \newcommand{\TODO}[1]{{\color{red}TODO!! #1}}
 
+% code - Command
+\newcommand{\code}[1]{
+\newpage{#1}
+\lstinputlisting[caption={#1}]{#1}
+}
+
 % Leerseite ohne Seitennummer, nÃ¤chste Seite rechts
 \newcommand{\blankpage}{
  \clearpage{\pagestyle{empty}\cleardoublepage}
@@ -174,7 +180,7 @@ stringstyle=\color{mypurple},
 \end{titlepage}
 %----------------------------
 \tableofcontents
-
-\include{main}
+\lstlistoflistings
+\include{05-code}
 
 \end{document}
