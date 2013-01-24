@@ -8,7 +8,7 @@
 \usepackage{fancyhdr}
 \usepackage{amsmath,amssymb,amsfonts,textcomp}
 \usepackage{hyperref}
-\usepackage[compact]{titlesec} % KapitelÜberschriften
+\usepackage[compact]{titlesec} % Kapitel�berschriften
 \usepackage[T1]{fontenc}
 \usepackage{xspace}
 
@@ -40,7 +40,7 @@
 %\setlength\evensidemargin{-10pt}
 \setlength{\headheight}{13pt}
 
-% Kopf- und FuÃzeilen
+% Kopf- und Fußzeilen
 \pagestyle{fancy}
 \fancypagestyle{plain}{\thispagestyle{fancy}}
 
@@ -72,7 +72,7 @@
 {\filright}
 [\bigrule]
 
-% Definitionen fÃ¼r Listing
+% Definitionen für Listing
 \lstset{ %
 language=C++,                % choose the language of the code
 numbers=left,                   % where to put the line-numbers
@@ -99,7 +99,7 @@ stringstyle=\color{mypurple},
 
 \setlength{\parindent}{0pt} % Texteinzug bei neuem Absatz
 
-% ZÃ¤hler fÃ¼r Ausgabe
+% Zähler für Ausgabe
 \newcounter{ausgabe}[chapter]
 \renewcommand\theausgabe{\thechapter.\arabic{ausgabe}}
 
@@ -135,7 +135,7 @@ stringstyle=\color{mypurple},
 \lstinputlisting[caption={#1}]{#1}
 }
 
-% Leerseite ohne Seitennummer, nÃ¤chste Seite rechts
+% Leerseite ohne Seitennummer, nächste Seite rechts
 \newcommand{\blankpage}{
  \clearpage{\pagestyle{empty}\cleardoublepage}
 }
@@ -149,8 +149,8 @@ stringstyle=\color{mypurple},
 		\begin{picture}(0,0)
 			\put(0,-2){\includegraphics[height=4em]{KIT_Logo.pdf}}
 		\end{picture}
-			\put(140,14){\Large Karlsruher Institut für Technologie}
-			\put(120,0){\large Institut für Technik der Informationsverarbeitung}
+			\put(140,14){\Large Karlsruher Institut f�r Technologie}
+			\put(120,0){\large Institut f�r Technik der Informationsverarbeitung}
 		\begin{picture}(0,0)
 			\put(410,-2){\includegraphics[height=4em]{itiv}}
 		\end{picture}
@@ -175,7 +175,7 @@ stringstyle=\color{mypurple},
 
 	\vfill
 
-	KIT - Universität des Landes Baden Württemberg und nationales Forschungszentrum in der Helmholtz-Gemeinschaft
+	KIT - Universit�t des Landes Baden W�rttemberg und nationales Forschungszentrum in der Helmholtz-Gemeinschaft
 	\end{flushleft}
 \end{titlepage}
 %----------------------------
