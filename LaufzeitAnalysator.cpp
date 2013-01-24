@@ -141,7 +141,7 @@ void LaufzeitAnalysator::DFS_Visit(SchaltwerkElement* k,SchaltwerkElement* s)
                 laufzeitUebergangspfad=DFS_Zwischenspeicher[k].PfadLaufzeit + k->getLaufzeitEinzelgatter();
 
                 uebergangspfad = k->getName() + " ->" + k->getNachfolger(i)->getName();
-                //cout << "Übergangspfad: "<<uebergangspfad<<":"<<laufzeitUebergangspfad<<endl;
+                //cout << "übergangspfad: "<<uebergangspfad<<":"<<laufzeitUebergangspfad<<endl;
                 //String erstellen
                 for( SchaltwerkElement* v = k ; v != s ; v = DFS_Zwischenspeicher[v].VaterElement )
                 {
@@ -194,9 +194,9 @@ void LaufzeitAnalysator::DFS_Visit(SchaltwerkElement* k,SchaltwerkElement* s)
 double LaufzeitAnalysator::maxFrequenz(long freq)
 {
 
-    cout << "Längster Pfad im Überfuehrungsschaltnetz:" << endl;
+    cout << "Längster Pfad im überfuehrungsschaltnetz:" << endl;
     cout << uebergangspfad << endl << endl;
-    cout << "Maximale Laufzeit der Pfade im Überfuehrungsschaltnetz: " << laufzeitUebergangspfad << " ps" << endl;
+    cout << "Maximale Laufzeit der Pfade im überfuehrungsschaltnetz: " << laufzeitUebergangspfad << " ps" << endl;
     cout << endl;
     cout << "Längster Pfad im Ausgangsschaltnetz:" << endl;
     cout << ausgangspfad << endl << endl;
@@ -217,7 +217,7 @@ double LaufzeitAnalysator::maxFrequenz(long freq)
 
     cout << "-----------------------------------------------"<<endl;
     if(maxF < freq){
-        cout << "Frequenz zu groß"<<endl;
+        cout << "Frequenz zu gross"<<endl;
     }
     else{
         cout << "Frequenz okay"<<endl;

@@ -6,13 +6,13 @@
 #include "SchaltwerkElement.h"
 
 
-	/** Konstruktor der Klasse. Er soll beim Anlegen der Klasse alle Attribute mit dem Wert 0 bzw. NULL für Zeiger initialisieren. Außerdem
+	/** Konstruktor der Klasse. Er soll beim Anlegen der Klasse alle Attribute mit dem Wert 0 bzw Null fÃ¼r Zeiger initialisiern. Ausserdem
 	bekommt der Konstruktor einen Zeiger auf ein Element der Bibliotheksdatenbank und speichert es in das Attribut typ.*/
 	SchaltwerkElement::SchaltwerkElement(  GatterTyp* gTyp ){
 		name = "";
 		typ = gTyp;
 		laufzeitEinzelgatter = 0;
-		nachfolgerElemente[0] = NULL; //schöner lösen?
+		nachfolgerElemente[0] = NULL; //schÃ¶ner lÃ¶sen?
 		nachfolgerElemente[1] = NULL;
 		nachfolgerElemente[2] = NULL;
 		nachfolgerElemente[3] = NULL;

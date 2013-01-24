@@ -1,4 +1,4 @@
-// PIT.cpp : Definiert den Einstiegspunkt für die Konsolenanwendung.
+// PIT.cpp : Definiert den Einstiegspunkt fÃ¼r die Konsolenanwendung.
 //
 
 //#include "stdafx.h"

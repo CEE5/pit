@@ -22,7 +22,7 @@ private:
 
 public:
 
-	/** Konstruktor der Klasse. Er soll beim Anlegen der Klasse alle Attribute mit dem Wert 0 bzw. NULL für Zeiger initialisieren. Außerdem
+	/** Konstruktor der Klasse. Er soll beim Anlegen der Klasse alle Attribute mit dem Wert 0 bzw. NULL fÃ¼r Zeiger initialisieren. Ausserdem
 	bekommt der Konstruktor einen Zeiger auf ein Element der Bibliotheksdatenbank und speichert es in das Attribut typ.*/
 	SchaltwerkElement( GatterTyp* gTyp);
     ~SchaltwerkElement();                   /** Ist der Destruktor der Klasse.*/

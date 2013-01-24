@@ -1,5 +1,5 @@
-// Diese Schaltnetzdatei enthält einen
-// kaskadierenden Rückwertzzähler
+// Diese Schaltnetzdatei enthaelt einen
+// kaskadierenden Rueckwertzzaehler
 
 ARCHITECTURE schaltwerk2 OF Informationstechnik IS
 

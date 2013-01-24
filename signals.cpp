@@ -4,7 +4,7 @@ created by Benibr  **/
 #include "signals.h"
 
 /**Signal() Ist der Konstruktor der Klasse. Er soll beim Anlegen der Klasse alle Attribute mit dem Wert 0
-bzw. „NULL“ für Strings und signalTyp als unbekannt initialisieren.**/
+bzw. NULL für Strings und signalTyp als unbekannt initialisieren.**/
 Signal::Signal () {
         quelle = "";
         quellenTyp = "";
@@ -12,7 +12,7 @@ Signal::Signal () {
         anzahlZiele = 0;
         signalTyp = unbekannt;
 }
-/**∼Signal() Ist der Destruktor der Klasse. Er soll implementiert werden, hat allerdings keine Aufgabe.**/
+/**Signal() Ist der Destruktor der Klasse. Er soll implementiert werden, hat allerdings keine Aufgabe.**/
 Signal::~Signal () {
     //dtor
 }

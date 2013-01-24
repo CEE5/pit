@@ -28,7 +28,7 @@ void Faktoren::ausgabeFaktoren(){
 }
 
 
-/** dient zum Lesen (über Referenzübergabe) der entsprechenden privaten Attribute. */						//kuriose (unfertige?) Funktion
+/** dient zum Lesen (Ã¼ber ReferenzÃ¼bergabe) der entsprechenden privaten Attribute. */						//kuriose (unfertige?) Funktion
 void Faktoren::getFaktoren(double& spgFaktor, double& tmpFaktor, double& przFaktor){
 	//
 	//erst spaeter??
@@ -40,9 +40,9 @@ void Faktoren::getFaktoren(double& spgFaktor, double& tmpFaktor, double& przFakt
 }
 
 
-/** Beinhaltet die Werte Spannungstabelle in Form eines 2-dimensionalen Arrays. Überprüft anhand des Arrays, ob der Wert vom Attribut spannung innerhalb
-der vorgegebenen Grenzen liegt. Wenn dies nicht der Fall ist, wird eine Fehlermeldung ausgegeben und false zurück gegeben. Ansonsten wird die private Methode
-berechneFaktor() mit dem Wert, dem Array und der Größe des Arrays als Übergabeparameter aufgerufen. Der Rückgabewert der Methode berechneFaktor() wird in dem
+/** Beinhaltet die Werte Spannungstabelle in Form eines 2-dimensionalen Arrays. Ã¼berprÃ¼ft anhand des Arrays, ob der Wert vom Attribut spannung innerhalb
+der vorgegebenen Grenzen liegt. Wenn dies nicht der Fall ist, wird eine Fehlermeldung ausgegeben und false zurÃ¼ck gegeben. Ansonsten wird die private Methode
+berechneFaktor() mit dem Wert, dem Array und der GrÃ¶sse des Arrays als Ã¼bergabeparameter aufgerufen. Der RÃ¼ckgabewert der Methode berechneFaktor() wird in dem
 Attribut spannungFaktor gespeichert.*/
 bool Faktoren::berechneSpannungFaktor (double spannung){
 	if  ( (spannung >= 1.08) && (spannung <= 1.32)) {
@@ -65,9 +65,9 @@ bool Faktoren::berechneSpannungFaktor (double spannung){
 }
 
 
-/** Beinhaltet die Werte Temperaturtabelle in Form eines 2-dimensionalen Arrays. Überprüft anhand des Arrays, ob der Wert vom Attribut temp innerhalb
-der vorgegebenen Grenzen liegt. Wenn dies nicht der Fall ist, wird eine Fehlermeldung ausgegeben und false zurück gegeben. Ansonsten wird die private Methode
-berechneFaktor() mit dem Wert, dem Array und der Größe des Arrays als Übergabeparameter aufgerufen. Der Rückgabewert der Methode berechneFaktor() wird in dem
+/** Beinhaltet die Werte Temperaturtabelle in Form eines 2-dimensionalen Arrays. Ã¼berprÃ¼ft anhand des Arrays, ob der Wert vom Attribut temp innerhalb
+der vorgegebenen Grenzen liegt. Wenn dies nicht der Fall ist, wird eine Fehlermeldung ausgegeben und false zurÃ¼ck gegeben. Ansonsten wird die private Methode
+berechneFaktor() mit dem Wert, dem Array und der GrÃ¶sse des Arrays als Ã¼bergabeparameter aufgerufen. Der RÃ¼ckgabewert der Methode berechneFaktor() wird in dem
 Attribut tempFaktor gespeichert. */
 bool Faktoren::berechneTempFaktor (double temp){
 	if  ( (temp >= -25) && (temp <= 125)) {
@@ -99,9 +99,9 @@ bool Faktoren::berechneTempFaktor (double temp){
 
 
 
-/** Beinhaltet die Werte Prozesstablle in Form eines 2-dimensionalen Arrays. Überprüft anhand des Arrays, ob der Wert vom Attribut prozess innerhalb
-der vorgegebenen Grenzen liegt. Wenn dies nicht der Fall ist, wird eine Fehlermeldung ausgegeben und false zurück gegeben. Ansonsten wird die private Methode
-berechneFaktor() mit dem Wert, dem Array und der Größe des Arrays als Übergabeparameter aufgerufen. Der Rückgabewert der Methode berechneFaktor() wird in dem
+/** Beinhaltet die Werte Prozesstablle in Form eines 2-dimensionalen Arrays. Ã¼berprÃ¼ft anhand des Arrays, ob der Wert vom Attribut prozess innerhalb
+der vorgegebenen Grenzen liegt. Wenn dies nicht der Fall ist, wird eine Fehlermeldung ausgegeben und false zurÃ¼ck gegeben. Ansonsten wird die private Methode
+berechneFaktor() mit dem Wert, dem Array und der GrÃ¶sse des Arrays als Ã¼bergabeparameter aufgerufen. Der RÃ¼ckgabewert der Methode berechneFaktor() wird in dem
 Attribut prozessFaktor gespeichert.*/
 bool Faktoren::berechneProzessFaktor (short prozess){
 	if  ((prozess >= 1) && (prozess <= 3)) {
@@ -120,9 +120,9 @@ bool Faktoren::berechneProzessFaktor (short prozess){
 }
 
 
-/** Die Methode durchsucht das übergebene Array nach dem übergebenen Wert. Wenn der Wert im Array vorhanden ist (1. Spalte der Tabelle) wird der zugehörige
-Faktor (2. Spalte der Tabelle) direkt zurückgegeben, ansonsten wird mit den am nächsten liegenden Punkten eine Interpolation über die entsprechende Methode
-gestartet und der interpolierte Wert zurückgegeben. */
+/** Die Methode durchsucht das Ã¼bergebene Array nach dem Ã¼bergebenen Wert. Wenn der Wert im Array vorhanden ist (1. Spalte der Tabelle) wird der zugehÃ¶rige
+Faktor (2. Spalte der Tabelle) direkt zurÃ¼ckgegeben, ansonsten wird mit den am nÃ¤chsten liegenden Punkten eine Interpolation Ã¼ber die entsprechende Methode
+gestartet und der interpolierte Wert zurÃ¼ckgegeben. */
 double Faktoren::berechneFaktor (double wert, double arr[][2], int laenge){
 
 	double Faktor;
@@ -153,7 +153,7 @@ double Faktoren::berechneFaktor (double wert, double arr[][2], int laenge){
 
 /** Diese Methode interpoliert einen Wert zwischen zwei vorgegebenen Punkten im 2D-Raum. Dabei bestimmen x1,
 y1 und x2, y2 jeweils die Koordinaten der zwei Punkte zwischen denen interpoliert werden soll. Der
-Übergabeparameter wert bestimmt den x-Wert des gesuchten Wertes, dabei gilt x1 < wert < x2.*/
+Ã¼bergabeparameter wert bestimmt den x-Wert des gesuchten Wertes, dabei gilt x1 < wert < x2.*/
 double Faktoren::interpolation ( double wert, double x1, double x2, double y1, double y2){
 	//
 	double interpolwert = wert * (y2-y1)/(x2-x1) + (y1 - (y2-y1)/(x2-x1)*x1);

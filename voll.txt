@@ -1,4 +1,4 @@
-// Diese Schaltnetzdatei enthält
+// Diese Schaltnetzdatei enthaelt
 // einen Volladdierer
 
 ARCHITECTURE schaltnetz1 OF Informationstechnik IS

@@ -72,8 +72,8 @@ void Bibliothek::dateiAusgabe(void)
 /**Die Methode dient zum Einlesen und Auswerten der Bibliotheksdatei.
 Dabei soll jeder in der Datei beschriebene Gattertyp in einem Element vom Typ
 GatterTyp im Vektor bibElemente gespeichert werden. Die Reihenfolge ist
-dabei nicht wichtig. Das Flipﬂop kann dabei am Namen erkannt werden, welcher als bekannt vorausgesetzt wird.
-Das Flipﬂop wird in einem Element vom Typ Flipflop im Vektor bibElemente gespeichert. */
+dabei nicht wichtig. Das Flipflop kann dabei am Namen erkannt werden, welcher als bekannt vorausgesetzt wird.
+Das Flipflop wird in einem Element vom Typ Flipflop im Vektor bibElemente gespeichert. */
 void Bibliothek::dateiAuswerten(void)
 {
     ifstream f(datei.c_str());
@@ -343,7 +343,7 @@ void Bibliothek::dateiAuswerten(void)
 
 }
 /**Speichert den Pfad zu Bibliotheksdatei im entsprechenden Attribut,
-falls diese unter dem angegebenen Pfad vorhanden ist und sie geöﬀnet werden kann.
+falls diese unter dem angegebenen Pfad vorhanden ist und sie geändert werden kann.
 */
 bool Bibliothek::pfadEinlesen(string pfad)
 {
@@ -363,7 +363,7 @@ bool Bibliothek::pfadEinlesen(string pfad)
 
 }
 
-/**Ausgabe einer Fehlermeldung beim Öﬀnen einer Datei. */
+/**Ausgabe einer Fehlermeldung beim ändern einer Datei. */
 void Bibliothek::openError(void)
 {
     cerr <<"OPEN ERROR"<<endl;

@@ -115,7 +115,7 @@ void Menue::start()
 void Menue::faktorenMenue()
 {
     /**
-    Im Untermenü der äußeren Faktoren sollen die Außenbedingungen geändert und die daraus resultie-
+    Im Untermenü der äusseren Faktoren sollen die Aussenbedingungen geändert und die daraus resultie-
     renden Faktoren ausgegeben werden können. Dazu wird von der Klasse Faktoren eine Ausgabeme-
     thode bereitgestellt.
     */
@@ -213,7 +213,7 @@ void Menue::schaltwerkMenue()
 {
     /**
     Im Untermenü des Schaltwerks soll der Pfad zur Schaltwerksdatei veränderbar sein. Zur Kon-
-    trolle soll diese ausgegeben werden können. Außerdem soll eine Liste der Signale und die Gra-
+    trolle soll diese ausgegeben werden können. Ausserdem soll eine Liste der Signale und die Gra-
     phstruktur ausgegeben werden können. Zu diesen Ausgaben werden Methoden durch die Klassen
     SignalListeErzeuger und LaufzeitAnalysator bereitgestellt.
     */

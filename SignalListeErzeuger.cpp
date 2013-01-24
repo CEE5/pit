@@ -21,7 +21,7 @@ SignalListeErzeuger::~SignalListeErzeuger()
 }
 
 /**dateiAusgabe
-Öffnet die Datei die in der 'datei' Variable der Klasse gespeichert ist und gibt die aus
+öffnet die Datei die in der 'datei' Variable der Klasse gespeichert ist und gibt die aus
 **/
 void SignalListeErzeuger::dateiAusgabe(void)
 {
@@ -57,7 +57,7 @@ Signal* SignalListeErzeuger::getSignal(int i) {
 int SignalListeErzeuger::readFile() {
     signale.clear();                              ///Vektor 'signale' wird geleert
     string line;
-    ifstream listfile(getDatei().data());           ///Öffne Dateistream
+    ifstream listfile(getDatei().data());           ///öffne Dateistream
     Signal* bufferobj = new Signal;
     signale.push_back( *bufferobj );                ///Reserviere leeres Objekt für die CLOCK
     if (listfile.is_open()) {
@@ -119,7 +119,7 @@ int SignalListeErzeuger::readFile() {
                             signalTypen tmpsig;
                             tmpsig = signale.at(0).getSignalTyp();
                             debug_msg( "DEBUG "<< tmpsig );
-                            setAnzahlSignale(signale.size());                                       ///AnzahlSignale auf die Größe des Vektor setzen
+                            setAnzahlSignale(signale.size());                                       ///AnzahlSignale auf die Grösse des Vektor setzen
                             debug_msg( "DEBUG: AnzahlSignale: " << getAnzahlSignale() );
                         return 0;
                     }else {
@@ -149,7 +149,7 @@ int SignalListeErzeuger::readSignalLine(signalTypen typ, int lengthBegin, string
         debug_msg( "DEBUG: tmpSignalNo: " << tmpSignalNo );
         Signal* nullObj = new Signal;                                                                  ///Erzeuge leeres Objekt
         while (signale.size() <= tmpSignalNo) {                                              ///Solange der Vektor kleiner ist als aktuelle Signalnummer
-            signale.push_back( *nullObj );                                                             ///Vergrößere Vektor
+            signale.push_back( *nullObj );                                                             ///Vergrössere Vektor
         }
         signale.at(tmpSignalNo).setSignalTyp(typ);                                          ///Schreibe Typ an Stelle der akt. Signalnummer in Vektor
     }
