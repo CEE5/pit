@@ -1,4 +1,4 @@
-#include "cross-compatibility.h"
+y#include "cross-compatibility.h"
 using namespace std;
 
 void clear_screen() {
@@ -9,12 +9,5 @@ void clear_screen() {
     std::system ( "clear" );
 #endif
 }
-/*
-void debug_msg(char text) {
-    #if !defined NDEBUG
-        cout << text << endl;
-    #endif
-        cout << "Blaaaa!!!!";
-}*/
 
 

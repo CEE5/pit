@@ -7,8 +7,7 @@
 #define _Faktoren_
 
 class Faktoren {
-//private:
-	public:       //zum test, eig private
+    private:
 
 	double	spannung,
 			temp,

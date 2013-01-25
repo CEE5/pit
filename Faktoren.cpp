@@ -28,11 +28,8 @@ void Faktoren::ausgabeFaktoren(){
 }
 
 
-/** dient zum Lesen (über Referenzübergabe) der entsprechenden privaten Attribute. */						//kuriose (unfertige?) Funktion
+/** dient zum Lesen (über Referenzübergabe) der entsprechenden privaten Attribute. */
 void Faktoren::getFaktoren(double& spgFaktor, double& tmpFaktor, double& przFaktor){
-	//
-	//erst spaeter??
-	//keine Ahnung, ob das so gemeint ist
 
 	spgFaktor = spannungFaktor;
 	tmpFaktor = tempFaktor;
