@@ -1,8 +1,8 @@
 \chapter{Umsetzung}
 
 \section{Zeitplanung}
-Im ersten Tutorium verschafften wir uns einen groben "Uberblick "uber die Aufgabenstellung und besprachen die Vorgehensweise. Die Umsetzung folgte in den n"achsten Tutorien bis zu den Abschlusstest und der Pr"asentation vor dem Tutor.
-Wie an der Git-Grafik zu sehen ist wurde die Möglichkeit Donnerstags an der Uni während des Tutoriums zu arbeiten intensiv und fast ausschließlich genutzt.
+Im ersten Tutorium verschafften wir uns einen groben "Uberblick "uber die Aufgabenstellung und besprachen die Vorgehensweise. Die Umsetzung folgte in den n"achsten Tutorien bis zum Abschlusstest und der Pr"asentation vor dem Tutor.
+Wie an der Git-Grafik zu sehen ist wurde die Möglichkeit donnerstags an der Uni während des Tutoriums zu arbeiten intensiv und fast ausschließlich genutzt.
 
 \begin{figure}[h]
 \centering
@@ -12,35 +12,35 @@ Wie an der Git-Grafik zu sehen ist wurde die Möglichkeit Donnerstags an der Uni 
 
 \section{Materialien}
 \subsection{Programmierumgebung}
-Als Programmierumgebung wurde hauptsächliche \textbf{\cb} verwendet da ein Großteil der Gruppe Linux nutzt und dort kein Visual Studio läuft. Kompiliert wurde mit dem gcc, da dieser Compiler unter Linux wie auch Windows mit nahezu dem gleichen Quellcode auskommt. Mehr dazu im Abschnitt Kompatibilität.
+Als Programmierumgebung wurde hauptsächliche \textbf{\cb} verwendet,y da ein Großteil der Gruppe Linux nutzt und dort kein Visual Studio läuft. Kompiliert wurde mit dem gcc, da dieser Compiler unter Linux, wie auch Windows mit nahezu dem gleichen Quellcode auskommt. Mehr dazu im Abschnitt Kompatibilität.
 
 \subsection{Versionsverwaltung}
 Der Austausch des Fortschrittes untereinander wurde mit der Versionsverwaltung \textbf{Git} gemacht. Als Zentrales Repository wurde der kostenlose Service von Github genutzt. Git ermöglicht es mit geringem Aufwand den Quellcode untereinander synchron zu halten und gleichzeitig auch eine History für "Anderungen am Quellcode zu haben.
 
 \subsection{Dokumentation}
-Zur Dokumentation verwendeten wir \textbf{\TeX} denn dies spielt mit der Versionsverwaltung Git am besten zusammen und es ist keine aufwendige Formatierung des Dokumentes nötig.
+Zur Dokumentation verwendeten wir \textbf{\TeX}. Denn dies spielt mit der Versionsverwaltung Git am besten zusammen und es ist keine aufwendige Formatierung des Dokumentes nötig.
 
 
 \newpage
 \section{Besondere Codeabschnitte}
 \subsection{Allgemein}
-Bibliothek, Gattertyp, Flipflop, Signale und Listenelement sind prinzipiell nur Umsetzung der Prototypen in der Aufgabenstellung bzw. des Angegeben Pseudocodes. Code-Abschnitte die etwas spezieller sind odder von der Aufgabenstellung abweichen sind in diesem Abschnitt erläutert.
+Bibliothek, Gattertyp, Flipflop, Signale und Listenelement sind prinzipiell nur Umsetzung der Prototypen in der Aufgabenstellung bzw. des angegeben Pseudocodes. Code-Abschnitte die etwas spezieller sind oder von der Aufgabenstellung abweichen sind in diesem Abschnitt erläutert.
 
 \subsection{Klasse Äußere Faktoren (faktoren.h/ *.cpp)}
-Diese Klasse beinhaltet Attribute und Methoden, um aus den physikalischen Randbedingungen der Schaltung Faktoren zu errechnen, die in der Laufzeitanalyse später gebraucht werden. Alle Attribute werden als private angelegt und man kann nur mittels der für die 3 Attribute Spannung,  Temperatur und Prozess geschriebenen öffentlichen get- und set-Methoden darauf zugreifen.  Die 3 Faktorattribute werden in den nach ihnen benannten privaten Methoden (berechneXFaktor(..)) mittels der in ihnen als zweidimensionale Arrays gespeicherten Listen,  die 3 (Prozess: slow, typical, fast), 7 (Spannung: 1,08 - 1,32V) oder  15 (Temperatur: -25 ? 125°C) Werten einen Faktor zuweisen, berechnet. 
+Diese Klasse beinhaltet Attribute und Methoden, um aus den physikalischen Randbedingungen der Schaltung Faktoren zu errechnen, die in der Laufzeitanalyse später gebraucht werden. Alle Attribute werden als private angelegt und man kann nur mittels der für die 3 Attribute Spannung,  Temperatur und Prozess geschriebenen öffentlichen get- und set-Methoden darauf zugreifen.  Die 3 Faktorattribute werden in den nach ihnen benannten privaten Methoden (berechneXFaktor(..)) mittels der in ihnen als zweidimensionale Arrays gespeicherten Listen,  die 3 (Prozess: slow, typical, fast), 7 (Spannung: 1,08 - 1,32V) oder  15 (Temperatur: -25 - 125°C) Werten einen Faktor zuweisen, berechnet. 
 
-Diese schließen zuerst höhere bzw. niedrigere  Eingaben als die zugelassenen aus ? durch Ausgabe einer Fehlermeldung ? und rufen dann allesamt die private Methode "berechneFaktor (?)" auf,  der sie den Array, die Array-Zeilenanzahl und den Wert der Randbedingung übergeben. Die Methode durchsucht das übergebene Array  vom kleinsten Eintrag an nach dem übergebenen Wert, wobei  sie für jeden Listeneintrag (im Array), den der Wert überbietet, eine untere Schranke und dessen direkter Nachfolger in der Liste als obere Schranke festlegt.
+Diese schließen zuerst höhere bzw. niedrigere  Eingaben als die zugelassenen, durch Ausgabe einer Fehlermeldung aus, und rufen dann allesamt die private Methode "berechneFaktor()" auf,  der sie den Array, die Array-Zeilenanzahl und den Wert der Randbedingung übergeben. Die Methode durchsucht das übergebene Array  vom kleinsten Eintrag an nach dem übergebenen Wert, wobei  sie für jeden Listeneintrag (im Array), den der Wert überbietet, eine untere Schranke und dessen direkter Nachfolger in der Liste als obere Schranke festlegt.
 
  Existiert der gesuchte Wert in der Liste wird sofort der diesem zugeordnete Faktor zurückgegeben, wenn nicht, wird die private Methode "interpolation(..)" mit dem Wert, der unteren und oberen Schranke, sowie deren zugeordnete Faktoren als Parametern aufgerufen. Diese berechnet aus den 4 Schrankenwerten (2 Punkte) eine Geradengleichung (m*x +n) und kann somit dem Wert den gesuchten Faktor zurückgeben. 
 
-Des Weiteren sind ist noch eine öffentliche Displayausgabefunktion (ausgabeFaktoren() ) für die errechneten Faktoren implementiert und öffentlich get-Methode, die alle 3 berechneten Faktoren per Referenzübergabe zurückgibt( getFaktoren(?)). Der Konstruktor initialisiert sämtliche Attribute mit 0.
+Des Weiteren sind ist noch eine öffentliche Displayausgabefunktion (ausgabeFaktoren() ) für die errechneten Faktoren implementiert und öffentlich get-Methode, die alle 3 berechneten Faktoren per Referenzübergabe zurückgibt( getFaktoren()). Der Konstruktor initialisiert sämtliche Attribute mit 0.
 
-Zum Testen wurde eine eigene Main-Datei geschrieben (FaktorenTestMain.cpp), die zuerst eine Klasse vom Typ äußere Faktoren anlegt. Dann werden via Konsoleneingabe die 3 äußeren Randbedingungen Spannung, Temp. und Prozess übergeben, über die set-Methoden gesetzt und zur Kontrolle die Faktoren (alle zu diesem Zeitpunkt 0) und eingegebenen Werte ausgegeben , dann berechnet und im Anschluss werden die Faktoren ? nun mit den richtigen Werten - noch einmal ausgegeben. Für jede Bedingung wurden ungültige Werte eingesetzt, die alle abgefangen wurden.
+Zum Testen wurde eine eigene Main-Datei geschrieben (FaktorenTestMain.cpp), die zuerst eine Klasse vom Typ äußere Faktoren anlegt. Dann werden via Konsoleneingabe die 3 äußeren Randbedingungen Spannung, Temp. und Prozess übergeben, über die set-Methoden gesetzt und zur Kontrolle die Faktoren (alle zu diesem Zeitpunkt 0) und eingegebenen Werte ausgegeben , dann berechnet und im Anschluss werden die Faktoren - nun mit den richtigen Werten - noch einmal ausgegeben. Für jede Bedingung wurden ungültige Werte eingesetzt, die alle abgefangen wurden.
 
 \lstinputlisting[caption={FaktorenTestMain.cpp}]{../FaktorenTestMain.cpp}
 
 \subsection{SignalListeErzeuger}
-Diese Klasse liest die Signaldatei Zeilenweise ein und aufgrund unterschiedlicher Zeilenanfänge werden diese dann interpretiert, im Gegensatz zur Vorgabe wurden die Signale nicht in einem dynamischen Array gespeichert sondern in einem Vektor da dieser einiges flexibler ist als ein Array.
+Diese Klasse liest die Signaldatei zeilenweise ein und aufgrund unterschiedlicher Zeilenanfänge werden diese dann interpretiert, im Gegensatz zur Vorgabe wurden die Signale nicht in einem dynamischen Array gespeichert, sondern in einem Vektor, da dieser einiges flexibler ist als ein Array.
 Die Ergebnisse dieser Funktion wurden vor der Fertigstellung des Programmes mit der Datei Signal\_test\_main.cpp getestet.
 
 \lstinputlisting[caption={Signal\_test\_main.cpp}]{../SIGNAL_TEST_MAIN.cpp}
@@ -48,11 +48,10 @@ Die Ergebnisse dieser Funktion wurden vor der Fertigstellung des Programmes mit 
 \subsection{Bibliothek}
 Stellvertretend für alle Menüpunkte ist hier das Bibliotheksmenü abgebildet, der Ablauf ist immer gleich.
 
-Erst wird mit der Funktion menueKopf der Header ausgegeben, dann die Menüpunkte und dann wird eine Zahl für den jeweiligen Menüpunkt abgefragt. Das ganze kommt noch in eine Endlosschleife die mit einem anderen Menüpunkt abgebrochen werden kann und fertig ist das Menü.
+Erst wird mit der Funktion menueKopf der Header ausgegeben, dann die Menüpunkte und dann wird eine Zahl für den jeweiligen Menüpunkt abgefragt. Das ganze kommt noch in eine Endlosschleife, die mit einem anderen Menüpunkt abgebrochen werden kann und fertig ist das Menü.
 
-\begin{figure}[h]
-\caption{Menue::bibliothekMenue()}
-\begin{lstlisting}
+
+\begin{lstlisting}[caption={Menue::bibliothekMenue()}]
 void Menue::bibliothekMenue()
 {
     /**
@@ -92,13 +91,10 @@ void Menue::bibliothekMenue()
     input.clear();
 }
 \end{lstlisting}
-\end{figure}
 
 
 
-\begin{figure}[h]
-\caption{Menue::menueKopf()}
-\begin{lstlisting}
+\begin{lstlisting}[caption={Menue::menueKopf()}]
 void Menue::menueKopf()
 {
     /**
@@ -108,26 +104,117 @@ void Menue::menueKopf()
     cout << " ****************************************** \n *     IT-Projektpraktikum WS2012/2013    * \n *                                        * \n * Laufzeitanalyse synchroner Schaltwerke * \n ******************************************" << endl << endl; //Ausgabe des "Headers"
 }
 \end{lstlisting}
+
+\subsection{Grapherzeuger}
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{pictures/graph.png}
+\caption{Schema des Grapherzeuger}
 \end{figure}
+
+\subsection{Analyse und Tiefensuche}
+\subsubsection{Beschreibung der Klasse}
+Die Klasse LaufzeitAnalysator beinhaltet alle notwendigen Methoden und Attribute, die für die Schaltwerksanalyse
+benötigt werden. Sie benötigt dafür den von der Klasse GraphErzeuger erstellten Graphen.
+Dieser wird über einen Zeiger auf das erste Listenelement startElement an den LaufzeitAnalysator übergeben.
+Im Graphen sind bereits alle Informationen der Klasse SignalListeErzeuger und der Klasse Bibliothek
+verarbeitet. Die zweiten, von auÿen bereitgestellten Daten, sind die Faktoren und die Frequenz, welche
+in der Schaltnetzdatei angegeben ist und somit von der Klasse SignalListeErzeuger bereitgestellt wird.
+
+Um die Faktoren auslesen zu können, enthält die Klasse LaufzeitAnalysator einen Zeiger auf das Objekt
+meineFaktoren. Über diesen Zeiger kann dann in der Methode laufzeitEinzelgatterBerechnen() auf die
+berechneten Faktoren zugegriffen werden. Die Frequenz wird über eine set-Methode und entsprechender
+get-Methode der Klasse SignallisteErzeuger gesetzt. Die Klasse steht auÿerdem in Verbindung mit der
+Klasse Menue. Für die Menüintegration werden die entsprechenden Ausgabemethoden bereitgestellt.
+
+\subsubsection{tiefensuche}
+Die Funktion tiefensuche() ist die öffentliche Methode der Klasse LaufzeitAnalysator zum Starten des
+Tiefensuchalgorithmus.
+
+\subsubsection{DFS}
+ Sie hat die Aufgabe den Zwischenspeicher
+für die Daten der Tiefensuche zurückzusetzen, damit keine Fehler in der Laufzeitberechnung
+eines Pfades oder in der Abspeicherung des durchlaufenen Pfades passieren. Der Zwischenspeicher wurde,
+wie in der Spezifkation vorgeschlagen, über eine Map organisiert. Die Map enthält dafür als Schlüsselelement
+einen Zeiger des jeweiligen Knotens vom Typ SchaltwerkElement* und als Ziel den struct von
+Typ DFS-Daten. DFS-Daten besitzt die Attribute VaterElement vom Typ SchaltwerkElement*, welches
+das Vaterelement des Knotens abspeichern soll, welcher als Schlüssel eingegeben wurde. Des weiteren soll
+der struct die aktuelle Pfadlaufzeit, die bis zum aktuellen Knoten benötigt wurde, speichern. Das dafür
+benötigte Attribut heiÿt PfadLaufzeit und ist vom Typ double.
+Das Zurücksetzen der Daten wurde über eine for-Schleife durch alle Listenelemente gelöst. Beim ersten
+Durchlauf wird so die günstige Eigenschaft der Map genutzt, da sie für nicht vorhandene Schlüssel ein
+neues Wertepaar anlegt. Bei späteren Durchläufen wird ganz normal auf die Map und ihre Wertepaare
+zugegriffen. Anschließend wird die Methode DFS-Visit() mit übergebenen Startknoten aufgerufen.
+\subsubsection{DFS-Visit}
+Die Methode DFS-Visit() beschreibt
+den eigentlichen Tiefensuchalgorithmus. Die Funktion wurde in der Spezifikation der Projektarbeit
+als Pseudocode gegeben und entsprechend in C++ Code umgesetzt.
+Die Funktion besitzt zwei Übergabeparameter. Zum einen SchaltwerkElement* knoten und zum anderen
+SchaltwerkElement* startknoten. Knoten beschreibt dabei immer den aktuellen Knoten auf dem man sich
+im Graph befindet. Startknoten ist der Knoten von dem man die Tiefensuche gestartet hat.
+
+Als erstes wird nun eine for-Schleife gestartet in der alle Folgeknoten des aktuellen Knotens durchlaufen
+werden. In der for-Schleife beendet sich eine if-Struktur in der überprüft wird, ob das aktuelle Nachfolgeelement
+ein Flipflop ist, oder wenn nicht, ob die Pfadlaufzeit des Nachfolgeknoten kleiner der Pfadlaufzeit
+bis zum aktuellen Knoten plus der Laufzeit des aktuellen Knotens ist.
+
+Wenn das aktuelle Nachfolgeelement ein Flipflop ist, wird in der nächsten if-Struktur überprüft, ob der
+Wert des privaten Attributs laufzeituebergangspfad kleiner als die Pfadlaufzeit bis zum Knoten knoten und
+der Laufzeit des Knotens knoten ist. Wenn ja hat der Algorithmus einen neuen längsten Pfad im Überf
+ührungsschaltnetz gefunden und die neue längere Laufzeit wird in laufzeituebergangspfad abgespeichert.
+Danach wird ein String der besuchten Gatter erstellt. Dies wird mithilfe einer for-Schleife durchgeführt,
+die sich iterativ vom aktuellen Knoten bis zum Startelement zurück arbeitet. In der Graphstruktur sind
+keine Rückwärtskanten vermerkt. Hierzu kann jedoch der DFS-Zwischenspeicher genutzt werden, welcher
+immer den Vaterknoten des entsprechenden Knotens abgelegt hat. Der Name des Knotens, bei welchem
+sich die for-Schleife beendet, wird damit am Anfang des Strings uebergangspfad per .insert() eingefügt.
+Ist das Nachfolgeelement kein Flipflop und die zweite oben beschriebene if-Abfrage greift, wird durch eine
+weitere if-Abfrage überprüft, ob der Knoten während dieses Durchgangs der Tiefensuche schon einmal
+besucht wurde. Wenn dies der Fall ist, wird das Vaterelement des Nachfolgeelements auf knoten gesetzt.
+
+
+Danach wird untersucht, ob sich im bisher gegangen Pfad ein Zyklus beendet. Die Zyklensuche mit der entsprechenden
+Fehlerbehandlung wird im nächsten Abschnitt genauer erklärt, somit soll im Moment davon
+ausgegangen werden, dass kein Zyklus gefunden wurde. Nach der Zyklensuche wird der Zwischenspeicher
+mit den neuen Daten für die Laufzeit und dem Vaterelements des Nachfolgeknoten gesetzt und danach rekursiv
+wieder die Funktion DFS-Visit() mit dem Nachfolgeknoten als Knoten aufgerufen. Der Startknoten
+bleibt unverändert.
+
+Hier sieht man deutlich wie sich der Algorithmus zuerst in die Tiefe vorarbeitet, erst danach in die Breite.
+Anstatt erst alle Nachfolgeelemente, wie in der for-Schleife ganz am Anfang der Methode gefordert
+zu durchsuchen, wird rekursiv wieder die Funktion DFS-Visit() aufgerufen. Dieser Prozess wird solang
+wiederholt bis kein Nachfolger mehr vorhanden ist, erst dann wird wieder eine Ebene höher weiter in die
+Tiefe gesucht.
+
+Wenn der Knoten auf dem man sich gerade beendet keine Nachfolgeelemente besitzt, ist es ein Ausgangselement
+und somit wird die for-Schleife am Anfang nicht abgearbeitet. Unter der for-Schleife beendet sich
+der Funktionsteil, den somit alle Ausgangselemente durchlaufen. Als erstes wird durch eine if-Abfrage gepr
+üft ob es sich bei dem Knoten knoten wirklich um ein Ausgangselement handelt und ob die Laufzeit des
+Knotens plus die Pfadlaufzeit bis zum Knoten gröÿer als die bisher längste Pfadlaufzeit im Ausgangsschaltnetz
+ist. Wenn das zutrifft wird das Attribut laufzeitausgangspfad neu gesetzt und der String ausgangspfad
+analog wie bei uebergangspfad erstellt. Wenn die neue Laufzeit nicht größer ist, als die bisher maximale
+Laufzeit im Ausgangsschaltnetz, wird der Pfad einfach verworfen.
+
+\subsubsection{zyklensuche}
+Die Zyklensuche wird für jedes neue gefundene Element aufgerufen. Diese Funktion geht vom gegebenen Startelemt über alle Vaterelemente bis sie ganz oben angekommen ist. Sollte der Knoten selbst wieder gefunden worden sein handelt es sich um einen Zyklus.
 
 \subsection{Plattform unabhängigkeit}
 Da wir gemischt unter Windows und Linux programmiert haben wollten wir das Programm natürlich nicht nur unter beiden Betriebssystemen kompilieren sondern auch nutzen können. Dabei traten zwei Probleme auf.
 \subsubsection{Konsole löschen}
-Für den clear Befehl benutzen die beiden Betriebssysteme unterschiedliche Funktionen. Diese sind jedoch in zwei Bibliotheken zu finden und somit musste nur die jeweilige Funktion einfach aufgerufen werden. Um herauszufinden unter welchem System man gerade kompiliert stellt der compiler eine FLAG zur verfügung die man dan ganz einfach auslesen kann. Dieses auslesen passiert in der Funktion clear\_screen().
+Für den clear Befehl benutzen die beiden Betriebssysteme unterschiedliche Funktionen. Diese sind jedoch in zwei Bibliotheken zu finden und somit musste nur die jeweilige Funktion einfach aufgerufen werden. Um herauszufinden unter welchem System man gerade kompiliert, stellt der compiler eine FLAG zur Verfügung, die man dan ganz einfach auslesen kann. Dieses Auslesen passiert in der Funktion clear\_screen().
 \lstinputlisting[caption={cross-compatibility.cpp}]{../cross-compatibility.cpp}
 
 \subsubsection{Zeilenendung}
-Windows und Linux definieren die Zeilenendung unterschiedlich, und zwar wird gibt es zwei Funktionen, zum einen \textbackslash n für newline und \textbackslash r für carriage returns was denn Zeiger an den Anfang der Zeile verschiebt. Windows nutzt nun \textbackslash n \textbackslash r hintereinander um ein Zeilenende zu formulieren, und unter Linux reicht \textbackslash r. Nun führt diese unterschiedliche Konvention dazu das man unter Windows ein Zeichen zu wenig subtrahiert wenn man die funktion String.substr() nutzen möchte. Daher der define Linuxzusatz (was aber eigentlich ein Windowszusatz ist).
+Windows und Linux definieren die Zeilenendung unterschiedlich, und zwar gibt es zwei Funktionen, zum einen \textbackslash n für newline und \textbackslash r für carriage returns, was denn Zeiger an den Anfang der Zeile verschiebt. Windows nutzt nun \textbackslash n \textbackslash r hintereinander um ein Zeilenende zu formulieren, unter Linux reicht \textbackslash r. Nun führt diese unterschiedliche Konvention dazu, dass man unter Windows ein Zeichen zu wenig subtrahiert, wenn man die funktion String.substr() nutzen möchte. Daher der define Linuxzusatz (was aber eigentlich ein Windowszusatz ist).
 
-\subsubsection{Debug ausgabe}
-Um die Ausgabe von debug Nachrichten variabel je nach Debug oder Release zu ermöglichen gibt es die zwei defines, debug\_msg() und debug\_pause(). Hier wird aufgrund des Defines DEBUG entschieden ob die Nachricht jetzt ausgegeben werrden soll oder nicht.
+\subsubsection{Debug Ausgabe}
+Um die Ausgabe von debug Nachrichten variabel je nach Debug oder Release zu ermöglichen, gibt es die zwei defines, debug\_msg() und debug\_pause(). Hier wird aufgrund des Defines DEBUG entschieden, ob die Nachricht jetzt ausgegeben werden soll oder nicht.
 \lstinputlisting[caption={cross-compatibility.h}]{../cross-compatibility.h}
 
 \newpage
 \section{Abschlusstest}
-Nach der Fertigstellung des Programms testeten wir es mit verschiedenen Fehlerhaften Dateien um eventuelle Kurzschl"uesse oder Zyklen im Schaltnetz zu finden und die richtige Fehlermeldung ausgeben zu können. Zudem verglichen wir die ausgebenen Ergebnisse und pr"uften sie auf Richtigkeit
+Nach der Fertigstellung des Programms testeten wir es mit verschiedenen fehlerhaften Dateien, um eventuelle Kurzschl"usse oder Zyklen im Schaltnetz zu finden und die richtige Fehlermeldung ausgeben zu können. Zudem verglichen wir die ausgebenen Ergebnisse und pr"uften sie auf Richtigkeit.
 
-Wir testeten folgende Dateien, welche alle zur richtigen Fehlerausgabe f"urten 
+Wir testeten folgende Dateien, welche alle zur richtigen Fehlerausgabe f"uhrten 
 	\begin{itemize}
 	\item test Kurzschluss.txt 
 	\item test UnbenutztesSignal.txt 
